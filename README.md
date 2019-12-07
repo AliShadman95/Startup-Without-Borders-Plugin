@@ -1,3 +1,1 @@
-# basic wordpress plugin
-
-For education purpose 
+# Startup Without Borders Plugin
