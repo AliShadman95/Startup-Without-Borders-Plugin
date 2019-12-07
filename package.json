@@ -1,0 +1,24 @@
+{
+  "name": "basic-wordpress-plugin",
+  "version": "0.0.1",
+  "description": "Very basic plugin to start tinkering with Wordpress and Javascript",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "cp -Rv JS4WP /var/www/html/wp-content/plugins/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/massimocodemotionkids/basic-wordpress-plugin.git"
+  },
+  "keywords": [
+    "wordpress",
+    "javascript"
+  ],
+  "author": "Massimo Avvisati",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://gitlab.com/massimocodemotionkids/basic-wordpress-plugin/issues"
+  },
+  "homepage": "https://gitlab.com/massimocodemotionkids/basic-wordpress-plugin#readme"
+}
