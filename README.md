@@ -1,1 +1,0 @@
-# Startup Without Borders Plugin
