@@ -130,14 +130,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _utils_fetchWP__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/fetchWP */ "./app/utils/fetchWP.js");
-/* harmony import */ var _containers_Navbar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../containers/Navbar */ "./app/containers/Navbar.jsx");
-/* harmony import */ var _containers_Button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../containers/Button */ "./app/containers/Button.jsx");
+/* harmony import */ var _containers_Navbar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../containers/Navbar */ "./app/containers/Navbar.jsx");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
-
+/* import fetchWP from "../utils/fetchWP"; */
 
 
 class Admin extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
@@ -197,17 +195,17 @@ class Admin extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
       exampleSetting: "",
       savedExampleSetting: ""
     };
-    this.fetchWP = new _utils_fetchWP__WEBPACK_IMPORTED_MODULE_2__["default"]({
+    /* this.fetchWP = new fetchWP({
       restURL: this.props.wpObject.api_url,
       restNonce: this.props.wpObject.api_nonce
     });
-    this.getSetting();
+     this.getSetting(); */
   }
 
   render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_Navbar__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_Navbar__WEBPACK_IMPORTED_MODULE_2__["default"], {
       fetchWP: this.fetchWP
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "tesssxst"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_Button__WEBPACK_IMPORTED_MODULE_4__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "test"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "wrap"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "WP Reactivate Settings"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "This is a h2 test"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Example Setting:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
       type: "text",
@@ -228,27 +226,6 @@ class Admin extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
 Admin.propTypes = {
   wpObject: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object
 };
-
-/***/ }),
-
-/***/ "./app/containers/Button.jsx":
-/*!***********************************!*\
-  !*** ./app/containers/Button.jsx ***!
-  \***********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-
-
-const Button = () => {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "test"));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Button);
 
 /***/ }),
 
