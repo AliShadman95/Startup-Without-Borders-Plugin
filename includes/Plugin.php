@@ -1,13 +1,11 @@
 <?php
 /**
- * WP-Reactivate
+ * Startup-Without-Borders-Plugin
  *
  *
- * @package   WP-Reactivate
- * @author    Pangolin
+ * @package   Startup-Without-Borders-Plugin
+ * @author    Ali Shadman,Marco Cuomo,Yousef Saghir
  * @license   GPL-3.0
- * @link      https://gopangolin.com
- * @copyright 2017 Pangolin (Pty) Ltd
  */
 
 namespace Pangolin\WPR;
