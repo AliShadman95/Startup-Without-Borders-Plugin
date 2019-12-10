@@ -9,16 +9,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/massimocodemotionkids/basic-wordpress-plugin.git"
+    "url": "git+https://github.com/AliShadman95/Startup-Without-Borders-Plugin"
   },
   "keywords": [
     "wordpress",
     "javascript"
   ],
-  "author": "Massimo Avvisati",
+  "author": "Ali Shadman",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://gitlab.com/massimocodemotionkids/basic-wordpress-plugin/issues"
+    "url": "https://github.com/AliShadman95/Startup-Without-Borders-Plugin/issues"
   },
-  "homepage": "https://gitlab.com/massimocodemotionkids/basic-wordpress-plugin#readme"
+  "homepage": "https://github.com/AliShadman95/Startup-Without-Borders-Plugin#readme"
 }
