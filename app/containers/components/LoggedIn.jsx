@@ -8,10 +8,11 @@ const LoggedIn = () => {
       nonce: window.wpr_object.api_nonce
     });
 
-    getData();
+    // Questo fa il fetch di tutti i post su wordpress
+    getPosts();
   }, []);
 
-  const getData = async () => {
+  const getPosts = async () => {
     try {
       const data = await wp.posts().get();
       console.log(data);
