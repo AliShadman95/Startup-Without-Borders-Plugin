@@ -1,13 +1,11 @@
 <?php
 /**
- * WP-Reactivate
+ * Startup-Without-Borders-Plugin
  *
  *
- * @package   WP-Reactivate
- * @author    Pangolin
+ * @package   Startup-Without-Borders-Plugin
+ * @author    Ali Shadman,Marco Cuomo,Yousef Saghir
  * @license   GPL-3.0
- * @link      https://gopangolin.com
- * @copyright 2017 Pangolin (Pty) Ltd
  */
 
 namespace Pangolin\WPR;
@@ -93,6 +91,8 @@ class Admin {
 
 		// Add plugin action link point to settings page
 		add_filter( 'plugin_action_links_' . $this->plugin_basename, array( $this, 'add_action_links' ) );
+
+		
 	}
 
 	/**
@@ -129,13 +129,26 @@ class Admin {
 
 			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'assets/js/admin.js', dirname( __FILE__ ) ), array( 'jquery' ), $this->version );
 
+       // JS
+    wp_register_script('prefix_bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js');
+    wp_enqueue_script('prefix_bootstrap');
+
+    // CSS
+    wp_register_style('prefix_bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css');
+    wp_enqueue_style('prefix_bootstrap');
+
 			wp_localize_script( $this->plugin_slug . '-admin-script', 'wpr_object', array(
 				'api_nonce'   => wp_create_nonce( 'wp_rest' ),
-				'api_url'	  => rest_url( $this->plugin_slug . '/v1/' ),
+				'api_url'	  => esc_url_raw( rest_url() ),
 				)
 			);
 		}
 	}
+
+
+
+
+
 
 	/**
 	 * Register the administration menu for this plugin into the WordPress Dashboard menu.
@@ -146,9 +159,9 @@ class Admin {
 		/*
 		 * Add a settings page for this plugin to the Settings menu.
 		 */
-		$this->plugin_screen_hook_suffix = add_options_page(
-			__( 'WP Reactivate', $this->plugin_slug ),
-			__( 'WP Reactivate', $this->plugin_slug ),
+		$this->plugin_screen_hook_suffix = add_menu_page(
+			__( 'Startup-Without-Borders-Plugin', $this->plugin_slug ),
+			__( 'Startup-Without-Borders-Plugin', $this->plugin_slug ),
 			'manage_options',
 			$this->plugin_slug,
 			array( $this, 'display_plugin_admin_page' )

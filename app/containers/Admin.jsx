@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import fetchWP from "../utils/fetchWP";
+/* import fetchWP from "../utils/fetchWP"; */
+import Navbar from "../containers/Navbar";
 
 export default class Admin extends Component {
   constructor(props) {
@@ -12,12 +13,12 @@ export default class Admin extends Component {
       savedExampleSetting: ""
     };
 
-    this.fetchWP = new fetchWP({
+    /* this.fetchWP = new fetchWP({
       restURL: this.props.wpObject.api_url,
       restNonce: this.props.wpObject.api_nonce
     });
 
-    this.getSetting();
+    this.getSetting(); */
   }
 
   getSetting = () => {
@@ -80,36 +81,42 @@ export default class Admin extends Component {
 
   render() {
     return (
-      <div className="wrap">
-        <form>
-          <h1>WP Reacsdcsdcsdcsctivate Settings</h1>
+      <React.Fragment>
+        <Navbar fetchWP={this.fetchWP} />
 
-          <label>
-            Example Setting:
-            <input
-              type="text"
-              value={this.state.exampleSetting}
-              onChange={this.updateInput}
-            />
-          </label>
+        <h4>test</h4>
 
-          <button
-            id="save"
-            className="button button-primary"
-            onClick={this.handleSave}
-          >
-            Save
-          </button>
+        <div className="wrap">
+          <form>
+            <h1>WP Reactivate Settings</h1>
+            <h2>This is a h2 test</h2>
+            <label>
+              Example Setting:
+              <input
+                type="text"
+                value={this.state.exampleSetting}
+                onChange={this.updateInput}
+              />
+            </label>
 
-          <button
-            id="delete"
-            className="button button-primary"
-            onClick={this.handleDelete}
-          >
-            Delete
-          </button>
-        </form>
-      </div>
+            <button
+              id="save"
+              className="button button-primary"
+              onClick={this.handleSave}
+            >
+              Save
+            </button>
+
+            <button
+              id="delete"
+              className="button button-primary"
+              onClick={this.handleDelete}
+            >
+              Delete
+            </button>
+          </form>
+        </div>
+      </React.Fragment>
     );
   }
 }

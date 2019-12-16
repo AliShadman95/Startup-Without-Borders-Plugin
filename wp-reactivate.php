@@ -1,22 +1,18 @@
 <?php
+
 /**
- * WP-Reactivate
+ * Startup-Without-Borders-Plugin
  *
  *
- * @package   WP-Reactivate
- * @author    Pangolin
+ * @package   Startup-Without-Borders-Plugin
+ * @author    Ali Shadman,Marco Cuomo,Yousef Saghir
  * @license   GPL-3.0
- * @link      https://gopangolin.com
- * @copyright 2017 Pangolin (Pty) Ltd
  *
  * @wordpress-plugin
- * Plugin Name:       WP-Reactivate
- * Plugin URI:        https://gopangolin.com
- * Description:       React boilerplate for WordPress plugins
- * Version:           1.0.2
- * Author:            pangolin
- * Author URI:        https://gopangolin.com
- * Text Domain:       wp-reactivate
+ * Plugin Name:       Startup-Without-Borders-Plugin
+ * Description:       React WordPress plugins
+ * Author:            Ali Shadman,Marco Cuomo,Yousef Saghir
+ * Text Domain:       Startup-Without-Borders-Plugin
  * License:           GPL-3.0
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.txt
  * Domain Path:       /languages
@@ -24,6 +20,7 @@
 
 
 namespace Pangolin\WPR;
+
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -94,6 +91,11 @@ function widget_init() {
 	return register_widget( new Widget );
 }
 add_action( 'widgets_init', 'Pangolin\\WPR\\widget_init' );
+
+function add_cors_http_header(){
+    header("Access-Control-Allow-Origin: *");
+}
+add_action('init','add_cors_http_header');
 
 /**
  * Register activation and deactivation hooks
