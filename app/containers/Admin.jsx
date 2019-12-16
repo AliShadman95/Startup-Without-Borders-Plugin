@@ -1,14 +1,18 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-
-import Navbar from "../containers/Navbar";
+import Navbar from "./components/Navbar";
+import LoggedIn from "./components/LoggedIn";
 
 export default class Admin extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = { inputValue: "" };
   }
+
+  onInputChange = event => {
+    this.setState({ inputValue: event.target.value });
+  };
 
   render() {
     return (
@@ -25,24 +29,16 @@ export default class Admin extends Component {
               Example Setting:
               <input
                 type="text"
-                value={this.state.exampleSetting}
-                onChange={this.updateInput}
+                value={this.state.inputValue}
+                onChange={this.onInputChange}
               />
             </label>
 
-            <button
-              id="save"
-              className="button button-primary"
-              onClick={this.handleSave}
-            >
+            <button id="save" className="button button-primary">
               Save
             </button>
 
-            <button
-              id="delete"
-              className="button button-primary"
-              onClick={this.handleDelete}
-            >
+            <button id="delete" className="button button-primary">
               Delete
             </button>
           </form>
