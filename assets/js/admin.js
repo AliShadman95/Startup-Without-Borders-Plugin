@@ -130,44 +130,95 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_Navbar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Navbar */ "./app/containers/components/Navbar.jsx");
-/* harmony import */ var _components_LoggedIn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/LoggedIn */ "./app/containers/components/LoggedIn.jsx");
+/* harmony import */ var _containers_Navbar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../containers/Navbar */ "./app/containers/Navbar.jsx");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
+/* import fetchWP from "../utils/fetchWP"; */
 
 
 class Admin extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
   constructor(props) {
     super(props);
 
-    _defineProperty(this, "onInputChange", event => {
+    _defineProperty(this, "getSetting", () => {
+      this.fetchWP.get("example").then(json => this.setState({
+        exampleSetting: json.value,
+        savedExampleSetting: json.value
+      }), err => console.log("error", err));
+    });
+
+    _defineProperty(this, "updateSetting", () => {
+      this.fetchWP.post("example", {
+        exampleSetting: this.state.exampleSetting
+      }).then(json => this.processOkResponse(json, "saved"), err => console.log("error", err));
+    });
+
+    _defineProperty(this, "deleteSetting", () => {
+      this.fetchWP.delete("example").then(json => this.processOkResponse(json, "deleted"), err => console.log("error", err));
+    });
+
+    _defineProperty(this, "processOkResponse", (json, action) => {
+      if (json.success) {
+        this.setState({
+          exampleSetting: json.value,
+          savedExampleSetting: json.value
+        });
+      } else {
+        console.log("Setting was not ".concat(action, "."), json);
+      }
+    });
+
+    _defineProperty(this, "updateInput", event => {
       this.setState({
-        inputValue: event.target.value
+        exampleSetting: event.target.value
       });
     });
 
+    _defineProperty(this, "handleSave", event => {
+      event.preventDefault();
+
+      if (this.state.exampleSetting === this.state.savedExampleSetting) {
+        console.log("Setting unchanged");
+      } else {
+        this.updateSetting();
+      }
+    });
+
+    _defineProperty(this, "handleDelete", event => {
+      event.preventDefault();
+      this.deleteSetting();
+    });
+
     this.state = {
-      inputValue: ""
+      exampleSetting: "",
+      savedExampleSetting: ""
     };
+    /* this.fetchWP = new fetchWP({
+      restURL: this.props.wpObject.api_url,
+      restNonce: this.props.wpObject.api_nonce
+    });
+     this.getSetting(); */
   }
 
   render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Navbar__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_Navbar__WEBPACK_IMPORTED_MODULE_2__["default"], {
       fetchWP: this.fetchWP
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "test"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "wrap"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "WP Reactivate Settings"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "This is a h2 test"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Example Setting:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
       type: "text",
-      value: this.state.inputValue,
-      onChange: this.onInputChange
+      value: this.state.exampleSetting,
+      onChange: this.updateInput
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       id: "save",
-      className: "button button-primary"
+      className: "button button-primary",
+      onClick: this.handleSave
     }, "Save"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       id: "delete",
-      className: "button button-primary"
+      className: "button button-primary",
+      onClick: this.handleDelete
     }, "Delete"))));
   }
 
@@ -178,10 +229,10 @@ Admin.propTypes = {
 
 /***/ }),
 
-/***/ "./app/containers/components/LoggedIn.jsx":
-/*!************************************************!*\
-  !*** ./app/containers/components/LoggedIn.jsx ***!
-  \************************************************/
+/***/ "./app/containers/Navbar.jsx":
+/*!***********************************!*\
+  !*** ./app/containers/Navbar.jsx ***!
+  \***********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -193,7 +244,10 @@ __webpack_require__.r(__webpack_exports__);
 
 var WPAPI = __webpack_require__(/*! wpapi */ "./node_modules/wpapi/wpapi.js");
 
-const LoggedIn = () => {
+const Navbar = ({
+  wpObject,
+  fetchWP
+}) => {
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     wp = new WPAPI({
       endpoint: window.wpr_object.api_url,
@@ -201,6 +255,12 @@ const LoggedIn = () => {
     });
     getData();
   }, []);
+  const [inputValue, setInputValue] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
+
+  const inputChange = e => {
+    e.preventDefault();
+    setInputValue(e.target.value);
+  };
 
   const getData = async () => {
     try {
@@ -209,37 +269,6 @@ const LoggedIn = () => {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (LoggedIn);
-
-/***/ }),
-
-/***/ "./app/containers/components/Navbar.jsx":
-/*!**********************************************!*\
-  !*** ./app/containers/components/Navbar.jsx ***!
-  \**********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-
-
-const Navbar = ({
-  wpObject,
-  fetchWP
-}) => {
-  const [inputValue, setInputValue] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
-
-  const inputChange = e => {
-    e.preventDefault();
-    setInputValue(e.target.value);
   };
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {

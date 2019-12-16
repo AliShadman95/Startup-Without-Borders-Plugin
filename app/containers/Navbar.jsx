@@ -1,10 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+var WPAPI = require("wpapi");
 
-const Navbar = () => {
+const Navbar = ({ wpObject, fetchWP }) => {
+  useEffect(() => {
+    wp = new WPAPI({
+      endpoint: window.wpr_object.api_url,
+      nonce: window.wpr_object.api_nonce
+    });
+
+    getData();
+  }, []);
+
   const [inputValue, setInputValue] = useState("");
   const inputChange = e => {
     e.preventDefault();
     setInputValue(e.target.value);
+  };
+
+  const getData = async () => {
+    try {
+      const data = await wp.posts().get();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
