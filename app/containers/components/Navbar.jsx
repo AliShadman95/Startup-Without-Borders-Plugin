@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Navbar = ({ wpObject, fetchWP }) => {
+const Navbar = () => {
   const [inputValue, setInputValue] = useState("");
   const inputChange = e => {
     e.preventDefault();
