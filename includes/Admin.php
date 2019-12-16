@@ -160,8 +160,8 @@ class Admin {
 		 * Add a settings page for this plugin to the Settings menu.
 		 */
 		$this->plugin_screen_hook_suffix = add_menu_page(
-			__( 'Startup-Without-Borders-Plugin', $this->plugin_slug ),
-			__( 'Startup-Without-Borders-Plugin', $this->plugin_slug ),
+			__( 'WP Reactivate', $this->plugin_slug ),
+			__( 'WP Reactivate', $this->plugin_slug ),
 			'manage_options',
 			$this->plugin_slug,
 			array( $this, 'display_plugin_admin_page' )

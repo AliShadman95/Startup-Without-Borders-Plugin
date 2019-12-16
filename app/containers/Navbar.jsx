@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import fetchWP from "../utils/fetchWP";
 var WPAPI = require("wpapi");
 
 const Navbar = ({ wpObject, fetchWP }) => {

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-/* import fetchWP from "../utils/fetchWP"; */
+import fetchWP from "../utils/fetchWP";
 import Navbar from "../containers/Navbar";
+import Button from "../containers/Button";
 
 export default class Admin extends Component {
   constructor(props) {
@@ -13,12 +14,12 @@ export default class Admin extends Component {
       savedExampleSetting: ""
     };
 
-    /* this.fetchWP = new fetchWP({
+    this.fetchWP = new fetchWP({
       restURL: this.props.wpObject.api_url,
       restNonce: this.props.wpObject.api_nonce
     });
 
-    this.getSetting(); */
+    this.getSetting();
   }
 
   getSetting = () => {
@@ -84,8 +85,8 @@ export default class Admin extends Component {
       <React.Fragment>
         <Navbar fetchWP={this.fetchWP} />
 
-        <h4>test</h4>
-
+        <h4>tesssxst</h4>
+        <Button />
         <div className="wrap">
           <form>
             <h1>WP Reactivate Settings</h1>
