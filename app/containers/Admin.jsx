@@ -1,18 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-
 import Navbar from "../containers/Navbar";
 
 export default class Admin extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      
-    };
-
-    
+    this.state = {};
+  }
 
   render() {
     return (
