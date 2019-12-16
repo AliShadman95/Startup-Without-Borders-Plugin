@@ -1,17 +1,83 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Navbar from "./components/Navbar";
-import LoggedIn from "./components/LoggedIn";
+
+import fetchWP from "../utils/fetchWP";
+import Navbar from "../containers/Navbar";
+import Button from "../containers/Button";
 
 export default class Admin extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { inputValue: "" };
+    this.state = {
+      exampleSetting: "",
+      savedExampleSetting: ""
+    };
+
+    this.fetchWP = new fetchWP({
+      restURL: this.props.wpObject.api_url,
+      restNonce: this.props.wpObject.api_nonce
+    });
+
+    this.getSetting();
   }
 
-  onInputChange = event => {
-    this.setState({ inputValue: event.target.value });
+  getSetting = () => {
+    this.fetchWP.get("example").then(
+      json =>
+        this.setState({
+          exampleSetting: json.value,
+          savedExampleSetting: json.value
+        }),
+      err => console.log("error", err)
+    );
+  };
+
+  updateSetting = () => {
+    this.fetchWP
+      .post("example", { exampleSetting: this.state.exampleSetting })
+      .then(
+        json => this.processOkResponse(json, "saved"),
+        err => console.log("error", err)
+      );
+  };
+
+  deleteSetting = () => {
+    this.fetchWP.delete("example").then(
+      json => this.processOkResponse(json, "deleted"),
+      err => console.log("error", err)
+    );
+  };
+
+  processOkResponse = (json, action) => {
+    if (json.success) {
+      this.setState({
+        exampleSetting: json.value,
+        savedExampleSetting: json.value
+      });
+    } else {
+      console.log(`Setting was not ${action}.`, json);
+    }
+  };
+
+  updateInput = event => {
+    this.setState({
+      exampleSetting: event.target.value
+    });
+  };
+
+  handleSave = event => {
+    event.preventDefault();
+    if (this.state.exampleSetting === this.state.savedExampleSetting) {
+      console.log("Setting unchanged");
+    } else {
+      this.updateSetting();
+    }
+  };
+
+  handleDelete = event => {
+    event.preventDefault();
+    this.deleteSetting();
   };
 
   render() {
@@ -19,8 +85,8 @@ export default class Admin extends Component {
       <React.Fragment>
         <Navbar fetchWP={this.fetchWP} />
 
-        <h4>test</h4>
-
+        <h4>tesssxst</h4>
+        <Button />
         <div className="wrap">
           <form>
             <h1>WP Reactivate Settings</h1>
@@ -29,16 +95,24 @@ export default class Admin extends Component {
               Example Setting:
               <input
                 type="text"
-                value={this.state.inputValue}
-                onChange={this.onInputChange}
+                value={this.state.exampleSetting}
+                onChange={this.updateInput}
               />
             </label>
 
-            <button id="save" className="button button-primary">
+            <button
+              id="save"
+              className="button button-primary"
+              onClick={this.handleSave}
+            >
               Save
             </button>
 
-            <button id="delete" className="button button-primary">
+            <button
+              id="delete"
+              className="button button-primary"
+              onClick={this.handleDelete}
+            >
               Delete
             </button>
           </form>
