@@ -18,8 +18,12 @@ export default class Admin extends Component {
     return (
       <React.Fragment>
         <Navbar fetchWP={this.fetchWP} />
-
+        <LoggedIn
+          nonce={this.props.wpObject.api_nonce}
+          url={this.props.wpObject.api_url}
+        />
         <h4>test</h4>
+        <h2>hehfeihfewfui</h2>
 
         <div className="wrap">
           <form>

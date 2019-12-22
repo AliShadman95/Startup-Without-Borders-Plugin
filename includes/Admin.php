@@ -129,13 +129,22 @@ class Admin {
 
 			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'assets/js/admin.js', dirname( __FILE__ ) ), array( 'jquery' ), $this->version );
 
-       // JS
-    wp_register_script('prefix_bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js');
-    wp_enqueue_script('prefix_bootstrap');
+			//Bootstrap and material Ui imports
+       
+        wp_register_script('prefix_bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js');
+        wp_enqueue_script('prefix_bootstrap');
 
-    // CSS
-    wp_register_style('prefix_bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css');
-    wp_enqueue_style('prefix_bootstrap');
+   
+       wp_register_style('prefix_bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css');
+	   wp_enqueue_style('prefix_bootstrap');
+
+	   wp_register_style('prefix_robotofont', '//fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
+	   wp_enqueue_style('prefix_robotofont');
+	   
+	   wp_register_style('prefix_font_icons', '//fonts.googleapis.com/icon?family=Material+Icons');
+	   wp_enqueue_style('prefix_font_icons');
+	   
+
 
 			wp_localize_script( $this->plugin_slug . '-admin-script', 'wpr_object', array(
 				'api_nonce'   => wp_create_nonce( 'wp_rest' ),
