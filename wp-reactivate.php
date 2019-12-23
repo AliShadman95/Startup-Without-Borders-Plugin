@@ -92,10 +92,10 @@ function widget_init() {
 }
 add_action( 'widgets_init', 'Pangolin\\WPR\\widget_init' );
 
-function add_cors_http_header(){
-    header("Access-Control-Allow-Origin: *");
-}
-add_action('init','add_cors_http_header');
+// function add_cors_http_header(){
+//     header("Access-Control-Allow-Origin: *");
+// }
+// add_action('init','add_cors_http_header');
 
 /**
  * Register activation and deactivation hooks

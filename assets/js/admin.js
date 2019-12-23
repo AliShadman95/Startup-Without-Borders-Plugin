@@ -131,90 +131,121 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _components_Navbar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Navbar */ "./app/containers/components/Navbar.jsx");
-/* harmony import */ var _components_LoggedIn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/LoggedIn */ "./app/containers/components/LoggedIn.jsx");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
 
 
+var WPAPI = __webpack_require__(/*! wpapi */ "./node_modules/wpapi/wpapi.js");
+
+let site = new WPAPI({
+  endpoint: window.wpr_object.api_url,
+  nonce: window.wpr_object.api_nonce
+});
 class Admin extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
   constructor(props) {
     super(props);
 
+    _defineProperty(this, "createPost", () => {
+      console.log("click");
+      site.posts().create({
+        title: this.state.title,
+        content: this.state.content,
+        place: "Aleppo",
+        status: "publish"
+      }).then(function (post) {
+        return site.media().file(document.getElementById("file-input").files[0]).create({
+          title: "Amazing featured image",
+          post: post.id
+        }).then(function (media) {
+          // Set the new media record as the post's featured media
+          return site.posts().id(post.id).update({
+            featured_media: media.id
+          });
+        });
+      });
+    });
+
     _defineProperty(this, "onInputChange", event => {
+      const name = event.target.name;
+      console.log(name);
       this.setState({
-        inputValue: event.target.value
+        [name]: event.target.value
+      });
+    });
+
+    _defineProperty(this, "onChangeCategory", e => {
+      let categories = this.state.categories;
+      categories.push(e.target.value);
+      this.setState({
+        categories
       });
     });
 
     this.state = {
-      inputValue: ""
+      title: "",
+      place: "",
+      content: ""
     };
+  }
+
+  componentDidMount() {
+    site.posts().get(function (err, data) {
+      if (err) {
+        console.error(err);
+      }
+
+      console.log(data);
+    }); // Promises
+
+    site.posts().then(function (data) {
+      console.log(data[0].acf.place);
+    }).catch(function (err) {
+      console.error(err);
+    });
   }
 
   render() {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Navbar__WEBPACK_IMPORTED_MODULE_2__["default"], {
       fetchWP: this.fetchWP
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "test"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "wrap"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "WP Reactivate Settings"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "This is a h2 test"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Example Setting:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Event Form"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      htmlFor: ""
+    }, "Event Title:", " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      className: "form-control",
       type: "text",
-      value: this.state.inputValue,
-      onChange: this.onInputChange
-    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      id: "save",
-      className: "button button-primary"
-    }, "Save"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      id: "delete",
-      className: "button button-primary"
-    }, "Delete"))));
+      onChange: this.onInputChange,
+      name: "title",
+      placeholder: "Write the title "
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      htmlFor: ""
+    }, "Event Place:", " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      type: "place",
+      className: "form-control",
+      onChange: this.onInputChange,
+      name: "place",
+      placeholder: "Write the place "
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      htmlFor: ""
+    }, "Event content:", " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+      type: "text",
+      name: "content",
+      className: "form-control",
+      onChange: this.onInputChange,
+      placeholder: "Write the content "
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      type: "file",
+      name: "image",
+      id: "file-input"
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      onClick: () => this.createPost()
+    }, "Create Event"));
   }
 
 }
 Admin.propTypes = {
   wpObject: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object
 };
-
-/***/ }),
-
-/***/ "./app/containers/components/LoggedIn.jsx":
-/*!************************************************!*\
-  !*** ./app/containers/components/LoggedIn.jsx ***!
-  \************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-
-
-var WPAPI = __webpack_require__(/*! wpapi */ "./node_modules/wpapi/wpapi.js");
-
-const LoggedIn = () => {
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
-    wp = new WPAPI({
-      endpoint: window.wpr_object.api_url,
-      nonce: window.wpr_object.api_nonce
-    });
-    getData();
-  }, []);
-
-  const getData = async () => {
-    try {
-      const data = await wp.posts().get();
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (LoggedIn);
 
 /***/ }),
 
@@ -231,10 +262,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
 
-const Navbar = ({
-  wpObject,
-  fetchWP
-}) => {
+const Navbar = () => {
   const [inputValue, setInputValue] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
 
   const inputChange = e => {
@@ -243,12 +271,18 @@ const Navbar = ({
   };
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
-    class: "navbar navbar-expand-lg navbar-light bg-light"
+    className: "navbar navbar-expand-lg "
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    class: "navbar-brand",
+    className: "navbar-brand",
     href: "#"
-  }, "Navbar"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    class: "navbar-toggler",
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: "https://startupswb.com/wp-content/uploads/2019/03/swb_white_H.png",
+    width: "auto",
+    height: "75px",
+    className: "d-inline-block align-top ",
+    alt: ""
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "navbar-toggler",
     type: "button",
     "data-toggle": "collapse",
     "data-target": "#navbarSupportedContent",
@@ -256,28 +290,21 @@ const Navbar = ({
     "aria-expanded": "false",
     "aria-label": "Toggle navigation"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    class: "navbar-toggler-icon"
+    className: "navbar-toggler-icon"
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    class: "collapse navbar-collapse",
+    className: "collapse navbar-collapse",
     id: "navbarSupportedContent"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-    class: "navbar-nav mr-auto"
+    className: "navbar-nav mr-auto"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-    class: "nav-item active"
+    className: "nav-item"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    class: "nav-link",
-    href: "#"
-  }, "Home ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    class: "sr-only"
-  }, "(current)"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-    class: "nav-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    class: "nav-link",
+    className: "nav-link",
     href: "#"
   }, "Link")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-    class: "nav-item dropdown"
+    className: "nav-item dropdown"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    class: "nav-link dropdown-toggle",
+    className: "nav-link dropdown-toggle",
     href: "#",
     id: "navbarDropdown",
     role: "button",
@@ -285,30 +312,29 @@ const Navbar = ({
     "aria-haspopup": "true",
     "aria-expanded": "false"
   }, "Dropdown"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    class: "dropdown-menu",
+    className: "dropdown-menu",
     "aria-labelledby": "navbarDropdown"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    class: "dropdown-item",
+    className: "dropdown-item",
     href: "#"
   }, "Action"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    class: "dropdown-item",
+    className: "dropdown-item",
     href: "#"
   }, "Another action"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    class: "dropdown-divider"
+    className: "dropdown-divider"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    class: "dropdown-item",
+    className: "dropdown-item",
     href: "#"
   }, "Something else here"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-    class: "nav-item"
+    className: "nav-item"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    class: "nav-link disabled",
+    className: "nav-link disabled",
     href: "#",
-    tabindex: "-1",
     "aria-disabled": "true"
   }, "Disabled"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-    class: "form-inline my-2 my-lg-0"
+    className: "form-inline my-2 my-lg-0"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-    class: "form-control mr-sm-2",
+    className: "form-control mr-sm-2",
     type: "search",
     placeholder: "Search",
     "aria-label": "Search",
@@ -316,7 +342,7 @@ const Navbar = ({
       inputChange(e);
     }
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    class: "btn btn-outline-success my-2 my-sm-0",
+    className: "btn btn-outline-light my-2 my-sm-0",
     type: "submit"
   }, "Search"))));
 };

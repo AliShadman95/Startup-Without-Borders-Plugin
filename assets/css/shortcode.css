@@ -1,0 +1,40 @@
+hr {
+  border-top: 1px solid rgba(220, 217, 217, 0.1);
+}
+
+.card {
+  color: #fff !important;
+  background: #23282d !important;
+  border: 1px solid rgba(247, 243, 243, 0.28) !important;
+  width: 100% !important;
+}
+
+body {
+  background: #23282d !important;
+  color: #fff !important;
+}
+.info-events {
+  color: #969696 !important;
+}
+#logo {
+  background: none !important;
+}
+
+.events {
+  border-right: 1px solid rgba(220, 217, 217, 0.1);
+}
+.prev,
+.next {
+  cursor: pointer;
+}
+.prev-displed,
+.next-displed {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+span.pagination {
+  padding: 0 4%;
+  background: #fffefe;
+  border-radius: 0.4rem;
+  color: #23282d;
+}
