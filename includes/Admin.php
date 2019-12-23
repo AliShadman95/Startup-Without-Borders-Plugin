@@ -61,6 +61,8 @@ class Admin {
 		return self::$instance;
 	}
 
+	
+
 	/**
 	 * Initialize the plugin by loading admin scripts & styles and adding a
 	 * settings page and menu.
@@ -199,4 +201,6 @@ class Admin {
 			$links
 		);
 	}
+
+	
 }
