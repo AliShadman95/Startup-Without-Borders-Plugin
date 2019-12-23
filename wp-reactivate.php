@@ -97,9 +97,13 @@ function add_cors_http_header(){
 }
 add_action('init','add_cors_http_header');
 
+
 /**
  * Register activation and deactivation hooks
  */
+register_meta( 'post', 'Sponsor', array(
+	'show_in_rest' => true,
+));
 register_activation_hook( __FILE__, array( 'Pangolin\\WPR\\Plugin', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'Pangolin\\WPR\\Plugin', 'deactivate' ) );
 

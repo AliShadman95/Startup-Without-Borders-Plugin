@@ -67,13 +67,20 @@ class Shortcode {
 	}
 
 	/**
-	 * Register frontend-specific javascript
+	 * Register frontend-specific javascriptt
 	 *
 	 * @since     1.0.0
 	 */
 	public function register_frontend_scripts() {
 		wp_register_script( $this->plugin_slug . '-shortcode-script', plugins_url( 'assets/js/shortcode.js', dirname( __FILE__ ) ), array( 'jquery' ), $this->version );
 		wp_register_style( $this->plugin_slug . '-shortcode-style', plugins_url( 'assets/css/shortcode.css', dirname( __FILE__ ) ), $this->version );
+		   // JS
+    wp_register_script('prefix_bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js');
+    wp_enqueue_script('prefix_bootstrap');
+
+    // CSS
+    wp_register_style('prefix_bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css');
+    wp_enqueue_style('prefix_bootstrap');
 	}
 
 	public function shortcode( $atts ) {

@@ -2,47 +2,26 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Navbar from "./components/Navbar";
 import LoggedIn from "./components/LoggedIn";
+var WPAPI = require("wpapi");
 
 export default class Admin extends Component {
   constructor(props) {
     super(props);
-
-    this.state = { inputValue: "" };
+    this.state = {};
   }
 
-  onInputChange = event => {
-    this.setState({ inputValue: event.target.value });
-  };
-
   render() {
+    wp = new WPAPI({
+      endpoint: window.wpr_object.api_url,
+      nonce: window.wpr_object.api_nonce
+    });
     return (
       <React.Fragment>
-        <Navbar fetchWP={this.fetchWP} />
-
-        <h4>test</h4>
-
-        <div className="wrap">
-          <form>
-            <h1>WP Reactivate Settings</h1>
-            <h2>This is a h2 test</h2>
-            <label>
-              Example Setting:
-              <input
-                type="text"
-                value={this.state.inputValue}
-                onChange={this.onInputChange}
-              />
-            </label>
-
-            <button id="save" className="button button-primary">
-              Save
-            </button>
-
-            <button id="delete" className="button button-primary">
-              Delete
-            </button>
-          </form>
-        </div>
+        <LoggedIn
+          nonce={this.props.wpObject.api_nonce}
+          url={this.props.wpObject.api_url}
+          wpapi={wp}
+        />
       </React.Fragment>
     );
   }

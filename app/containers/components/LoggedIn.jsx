@@ -1,21 +1,21 @@
-import React, { useEffect } from "react";
-var WPAPI = require("wpapi");
+import React, { useEffect, useState, useCallback } from "react";
+import axios from "axios";
 
-const LoggedIn = () => {
+const LoggedIn = ({ nonce, url, wpapi }) => {
+  const [events, setEvents] = useState([]);
+
   useEffect(() => {
-    wp = new WPAPI({
-      endpoint: window.wpr_object.api_url,
-      nonce: window.wpr_object.api_nonce
-    });
-
-    // Questo fa il fetch di tutti i post su wordpress
-    getPosts();
+    getEvents();
   }, []);
 
-  const getPosts = async () => {
+  const getEvents = async () => {
     try {
-      const data = await wp.posts().get();
+      var namespace = "wp/v2"; // use the WP API namespace
+      var route = "/event/(?P<id>)"; // route string - allows optional ID parameter
+      wpapi.event = wpapi.registerRoute(namespace, route);
+      const data = await wp.event().get();
       console.log(data);
+      setEvents(data);
     } catch (error) {
       console.log(error);
     }
