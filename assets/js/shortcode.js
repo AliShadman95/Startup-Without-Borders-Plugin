@@ -177,10 +177,12 @@ const LoggedIn = ({
 }) => {
   const [events, setEvents] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
   const [speakers, setSpeakers] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
+  const [sponsors, setSponsors] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
+  const [partners, setPartners] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     getEvents();
     getSpeakers();
-  }, []);
+  }, []); // Getting Events CUSTOM POST TYPE
 
   const getEvents = async () => {
     try {
@@ -195,7 +197,8 @@ const LoggedIn = ({
     } catch (error) {
       console.log(error);
     }
-  };
+  }; // Getting Speakers CUSTOM POST TYPE
+
 
   const getSpeakers = async () => {
     try {
@@ -207,6 +210,38 @@ const LoggedIn = ({
       const data = await wp.speaker().get();
       console.log(data);
       setSpeakers(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }; // Getting Partners CUSTOM POST TYPE
+
+
+  const getPartners = async () => {
+    try {
+      var namespace = "wp/v2"; // use the WP API namespace
+
+      var route = "/partner/(?P<id>)"; // route string - allows optional ID parameter
+
+      wpapi.partner = wpapi.registerRoute(namespace, route);
+      const data = await wp.partner().get();
+      console.log(data);
+      setPartners(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }; // Getting Sponsors CUSTOM POST TYPE
+
+
+  const getSponsors = async () => {
+    try {
+      var namespace = "wp/v2"; // use the WP API namespace
+
+      var route = "/sponsor/(?P<id>)"; // route string - allows optional ID parameter
+
+      wpapi.sponsor = wpapi.registerRoute(namespace, route);
+      const data = await wp.sponsor().get();
+      console.log(data);
+      setSponsors(data);
     } catch (error) {
       console.log(error);
     }
