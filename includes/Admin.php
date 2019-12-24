@@ -143,8 +143,13 @@ class Admin {
 	   wp_register_style('prefix_robotofont', '//fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
 	   wp_enqueue_style('prefix_robotofont');
 	   
+	   wp_register_style('prefix_heebofont', '//fonts.googleapis.com/css?family=Heebo&display=swap');
+	   wp_enqueue_style('prefix_heebofont');
+
 	   wp_register_style('prefix_font_icons', '//fonts.googleapis.com/icon?family=Material+Icons');
 	   wp_enqueue_style('prefix_font_icons');
+
+	   
 	   
 
 
