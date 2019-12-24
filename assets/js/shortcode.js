@@ -180,34 +180,66 @@ const LoggedIn = ({
   const [sponsors, setSponsors] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
   const [partners, setPartners] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    registerRoutes();
     getEvents();
     getSpeakers();
-  }, []); // Getting Events CUSTOM POST TYPE
+    createEvent();
+  }, []); //This register all the routes for the CUSTOM POST TYPES
+
+  const registerRoutes = () => {
+    //Event
+    var namespace = "wp/v2";
+    var route = "/event/(?P<id>)";
+    wpapi.event = wpapi.registerRoute(namespace, route); //Sponsor
+
+    var namespace = "wp/v2"; // use the WP API namespace
+
+    var route = "/sponsor/(?P<id>)"; // route string - allows optional ID parameter
+
+    wpapi.sponsor = wpapi.registerRoute(namespace, route); //Partner
+
+    var namespace = "wp/v2"; // use the WP API namespace
+
+    var route = "/partner/(?P<id>)"; // route string - allows optional ID parameter
+
+    wpapi.partner = wpapi.registerRoute(namespace, route); //Speaker
+
+    var namespace = "wp/v2"; // use the WP API namespace
+
+    var route = "/speaker/(?P<id>)"; // route string - allows optional ID parameter
+
+    wpapi.speaker = wpapi.registerRoute(namespace, route);
+  }; // Getting Events CUSTOM POST TYPE
+
 
   const getEvents = async () => {
     try {
-      var namespace = "wp/v2"; // use the WP API namespace
-
-      var route = "/event/(?P<id>)"; // route string - allows optional ID parameter
-
-      wpapi.event = wpapi.registerRoute(namespace, route);
       const data = await wp.event().get();
       console.log(data);
       setEvents(data);
     } catch (error) {
       console.log(error);
     }
+  }; //Create an event
+
+
+  const createEvent = async () => {
+    const data = await wp.event().create({
+      title: "testigg",
+      content: "Your post content",
+      meta: {
+        Speakers: 3,
+        Sponsors: "2,4,6",
+        Partners: 4
+      },
+      status: "publish"
+    });
   }; // Getting Speakers CUSTOM POST TYPE
 
 
   const getSpeakers = async () => {
     try {
-      var namespace = "wp/v2"; // use the WP API namespace
-
-      var route = "/speaker/(?P<id>)"; // route string - allows optional ID parameter
-
-      wpapi.speaker = wpapi.registerRoute(namespace, route);
-      const data = await wp.speaker().get();
+      const data = await wp.speaker().create();
       console.log(data);
       setSpeakers(data);
     } catch (error) {
@@ -218,11 +250,6 @@ const LoggedIn = ({
 
   const getPartners = async () => {
     try {
-      var namespace = "wp/v2"; // use the WP API namespace
-
-      var route = "/partner/(?P<id>)"; // route string - allows optional ID parameter
-
-      wpapi.partner = wpapi.registerRoute(namespace, route);
       const data = await wp.partner().get();
       console.log(data);
       setPartners(data);
@@ -234,11 +261,6 @@ const LoggedIn = ({
 
   const getSponsors = async () => {
     try {
-      var namespace = "wp/v2"; // use the WP API namespace
-
-      var route = "/sponsor/(?P<id>)"; // route string - allows optional ID parameter
-
-      wpapi.sponsor = wpapi.registerRoute(namespace, route);
       const data = await wp.sponsor().get();
       console.log(data);
       setSponsors(data);
