@@ -186,8 +186,10 @@ const LoggedIn = ({
   wpapi
 }) => {
   const [events, setEvents] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
+  const [speakers, setSpeakers] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     getEvents();
+    getSpeakers();
   }, []);
 
   const getEvents = async () => {
@@ -200,6 +202,21 @@ const LoggedIn = ({
       const data = await wp.event().get();
       console.log(data);
       setEvents(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getSpeakers = async () => {
+    try {
+      var namespace = "wp/v2"; // use the WP API namespace
+
+      var route = "/speaker/(?P<id>)"; // route string - allows optional ID parameter
+
+      wpapi.speaker = wpapi.registerRoute(namespace, route);
+      const data = await wp.speaker().get();
+      console.log(data);
+      setSpeakers(data);
     } catch (error) {
       console.log(error);
     }
