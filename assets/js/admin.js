@@ -195,11 +195,14 @@ const LoggedIn = ({
     getPostType("Sponsor");
     /* deletePostType("Event", 85); */
 
-    updatePostType("Event", 76, "Partyy 3", {
-      Partners: 7,
-      Sponsors: 1,
-      Speakers: 4
-    }, "publish");
+    /*  updatePostType(
+      "Event",
+      76,
+      "Partyy 3",
+      { Partners: 7, Sponsors: 1, Speakers: 4 },
+      "publish"
+    ); */
+
     /*  createPostType("Sponsor", "ttesa", {}, "publish"); */
   }, []); //This register all the routes for the CUSTOM POST TYPES
 

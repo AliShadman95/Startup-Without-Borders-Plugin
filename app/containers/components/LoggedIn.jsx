@@ -12,13 +12,13 @@ const LoggedIn = ({ nonce, url, wpapi }) => {
     getPostType("Event");
     getPostType("Sponsor");
     /* deletePostType("Event", 85); */
-    updatePostType(
+    /*  updatePostType(
       "Event",
       76,
       "Partyy 3",
       { Partners: 7, Sponsors: 1, Speakers: 4 },
       "publish"
-    );
+    ); */
     /*  createPostType("Sponsor", "ttesa", {}, "publish"); */
   }, []);
 
