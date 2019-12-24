@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from "react";
-var WPAPI = require("wpapi");
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 
