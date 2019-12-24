@@ -9,86 +9,101 @@ const LoggedIn = ({ nonce, url, wpapi }) => {
 
   useEffect(() => {
     registerRoutes();
-    getEvents();
-    getSpeakers();
-    /* createEvent(); */
+    getPostType("Event");
+    getPostType("Sponsor");
+    /*  createPostType("Sponsor", "ttesa", {}, "publish"); */
   }, []);
 
   //This register all the routes for the CUSTOM POST TYPES
   const registerRoutes = () => {
-    //Event
     var namespace = "wp/v2";
+    //Event
     var route = "/event/(?P<id>)";
     wpapi.event = wpapi.registerRoute(namespace, route);
     //Sponsor
-    var namespace = "wp/v2"; // use the WP API namespace
-    var route = "/sponsor/(?P<id>)"; // route string - allows optional ID parameter
+    var route = "/sponsor/(?P<id>)";
     wpapi.sponsor = wpapi.registerRoute(namespace, route);
     //Partner
-    var namespace = "wp/v2"; // use the WP API namespace
-    var route = "/partner/(?P<id>)"; // route string - allows optional ID parameter
+    var route = "/partner/(?P<id>)";
     wpapi.partner = wpapi.registerRoute(namespace, route);
     //Speaker
-    var namespace = "wp/v2"; // use the WP API namespace
-    var route = "/speaker/(?P<id>)"; // route string - allows optional ID parameter
+    var route = "/speaker/(?P<id>)";
     wpapi.speaker = wpapi.registerRoute(namespace, route);
   };
 
-  // Getting Events CUSTOM POST TYPE
-  const getEvents = async () => {
-    try {
-      const data = await wp.event().get();
+  // Create Chapter
+  const createChapter = () => {};
 
-      console.log(data);
-      setEvents(data);
-    } catch (error) {
-      console.log(error);
+  //Create a post type based on the "type" param
+  const createPostType = async (type, title, meta, status) => {
+    switch (type) {
+      case "Event":
+        await wp.event().create({
+          title,
+          meta,
+          status
+        });
+        break;
+      case "Speaker":
+        await wp.speaker().create({
+          title,
+          status
+        });
+        break;
+      case "Sponsor":
+        await wp.sponsor().create({
+          title,
+          status
+        });
+        break;
+      case "Partner":
+        await wp.partner().create({
+          title,
+          status
+        });
+        break;
     }
   };
 
-  //Create an event
-  const createEvent = async () => {
-    const data = await wp.event().create({
-      title: "testigg",
-      content: "Your post content",
-      meta: { Speakers: 3, Sponsors: "2,4,6", Partners: 4 },
-      status: "publish"
-    });
-  };
-
-  // Getting Speakers CUSTOM POST TYPE
-  const getSpeakers = async () => {
-    try {
-      const data = await wp.speaker().create();
-
-      console.log(data);
-      setSpeakers(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // Getting Partners CUSTOM POST TYPE
-  const getPartners = async () => {
-    try {
-      const data = await wp.partner().get();
-
-      console.log(data);
-      setPartners(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // Getting Sponsors CUSTOM POST TYPE
-  const getSponsors = async () => {
-    try {
-      const data = await wp.sponsor().get();
-
-      console.log(data);
-      setSponsors(data);
-    } catch (error) {
-      console.log(error);
+  //Get a post type based on the "type" param
+  const getPostType = async type => {
+    switch (type) {
+      case "Event":
+        try {
+          const data = await wp.event().get();
+          console.log(data);
+          setEvents(data);
+        } catch (error) {
+          console.log(error);
+        }
+        break;
+      case "Speaker":
+        try {
+          const data = await wp.speaker().create();
+          console.log(data);
+          setSpeakers(data);
+        } catch (error) {
+          console.log(error);
+        }
+        break;
+      case "Sponsor":
+        try {
+          const data = await wp.sponsor().get();
+          console.log(data);
+          setSponsors(data);
+        } catch (error) {
+          console.log(error);
+        }
+        break;
+      case "Partner":
+        try {
+          const data = await wp.partner().get();
+          console.log(data);
+          setPartners(data);
+        } catch (error) {
+          console.log(error);
+        }
+        break;
     }
   };
 
