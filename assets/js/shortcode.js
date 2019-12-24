@@ -183,6 +183,13 @@ const LoggedIn = ({
     registerRoutes();
     getPostType("Event");
     getPostType("Sponsor");
+    /* deletePostType("Event", 85); */
+
+    updatePostType("Event", 76, "Partyy 3", {
+      Partners: 7,
+      Sponsors: 1,
+      Speakers: 4
+    }, "publish");
     /*  createPostType("Sponsor", "ttesa", {}, "publish"); */
   }, []); //This register all the routes for the CUSTOM POST TYPES
 
@@ -280,6 +287,102 @@ const LoggedIn = ({
           const data = await wp.partner().get();
           console.log(data);
           setPartners(data);
+        } catch (error) {
+          console.log(error);
+        }
+
+        break;
+    }
+  }; //Update a post type based on the "type" param
+
+
+  const updatePostType = async (type, id, title, meta, status) => {
+    switch (type) {
+      case "Event":
+        try {
+          await wp.event().id(id).update({
+            title,
+            slug: title,
+            meta,
+            status
+          });
+        } catch (error) {
+          console.log(error);
+        }
+
+        break;
+
+      case "Speaker":
+        try {
+          await wp.speaker().id(id).update({
+            title,
+            status
+          });
+        } catch (error) {
+          console.log(error);
+        }
+
+        break;
+
+      case "Sponsor":
+        try {
+          await wp.sponsor().id(id).update({
+            title,
+            status
+          });
+        } catch (error) {
+          console.log(error);
+        }
+
+        break;
+
+      case "Partner":
+        try {
+          await wp.partner().id(id).update({
+            title,
+            status
+          });
+        } catch (error) {
+          console.log(error);
+        }
+
+        break;
+    }
+  }; //Delete a post type based on the "type" param
+
+
+  const deletePostType = async (type, id) => {
+    switch (type) {
+      case "Event":
+        try {
+          await wp.event().id(id).delete();
+        } catch (error) {
+          console.log(error);
+        }
+
+        break;
+
+      case "Speaker":
+        try {
+          await wp.speaker().id(id).delete();
+        } catch (error) {
+          console.log(error);
+        }
+
+        break;
+
+      case "Sponsor":
+        try {
+          await wp.sponsor().id(id).delete();
+        } catch (error) {
+          console.log(error);
+        }
+
+        break;
+
+      case "Partner":
+        try {
+          await wp.partner().id(id).delete();
         } catch (error) {
           console.log(error);
         }
