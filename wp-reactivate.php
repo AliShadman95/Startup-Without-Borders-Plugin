@@ -101,7 +101,16 @@ add_action('init','add_cors_http_header');
 /**
  * Register activation and deactivation hooks
  */
-register_meta( 'post', 'Sponsor', array(
+register_meta( 'post', 'Sponsors', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'Speakers', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'Partners', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'Date', array(
 	'show_in_rest' => true,
 ));
 register_activation_hook( __FILE__, array( 'Pangolin\\WPR\\Plugin', 'activate' ) );
