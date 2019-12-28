@@ -164,6 +164,27 @@ Admin.propTypes = {
 
 /***/ }),
 
+/***/ "./app/containers/components/Events.jsx":
+/*!**********************************************!*\
+  !*** ./app/containers/components/Events.jsx ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+const Events = () => {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "EVENT SECTION");
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Events);
+
+/***/ }),
+
 /***/ "./app/containers/components/ListMenu.jsx":
 /*!************************************************!*\
   !*** ./app/containers/components/ListMenu.jsx ***!
@@ -239,6 +260,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _ListMenu__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ListMenu */ "./app/containers/components/ListMenu.jsx");
 /* harmony import */ var _Navbar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Navbar */ "./app/containers/components/Navbar.jsx");
+/* harmony import */ var _Events__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Events */ "./app/containers/components/Events.jsx");
+
 
 
 
@@ -253,10 +276,12 @@ const LoggedIn = ({
   const [speakers, setSpeakers] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
   const [sponsors, setSponsors] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
   const [partners, setPartners] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
+  const [chapters, setChapters] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     registerRoutes();
     getPostType("Event");
     getPostType("Sponsor");
+    getPostType("Chapter");
     /* deletePostType("Event", 85); */
 
     /*  updatePostType(
@@ -267,7 +292,7 @@ const LoggedIn = ({
       "publish"
     ); */
 
-    /*  createPostType("Sponsor", "ttesa", {}, "publish"); */
+    createPostType("Sponsor", "testroma", {}, "publish");
   }, []); //This register all the routes for the CUSTOM POST TYPES
 
   const registerRoutes = () => {
@@ -283,42 +308,74 @@ const LoggedIn = ({
     wpapi.partner = wpapi.registerRoute(namespace, route); //Speaker
 
     var route = "/speaker/(?P<id>)";
-    wpapi.speaker = wpapi.registerRoute(namespace, route);
-  }; // Create Chapter
+    wpapi.speaker = wpapi.registerRoute(namespace, route); //Chapter
 
-
-  const createChapter = () => {}; //Create a post type based on the "type" param
+    var route = "/chapter/(?P<id>)";
+    wpapi.chapter = wpapi.registerRoute(namespace, route);
+  }; //Create a post type based on the "type" param
 
 
   const createPostType = async (type, title, meta, status) => {
     switch (type) {
       case "Event":
-        await wp.event().create({
-          title,
-          meta,
-          status
-        });
+        try {
+          await wp.event().create({
+            title,
+            meta,
+            status
+          });
+        } catch (error) {
+          console.log(error);
+        }
+
         break;
 
       case "Speaker":
-        await wp.speaker().create({
-          title,
-          status
-        });
+        try {
+          await wp.speaker().create({
+            title,
+            status
+          });
+        } catch (error) {
+          console.log(error);
+        }
+
         break;
 
       case "Sponsor":
-        await wp.sponsor().create({
-          title,
-          status
-        });
+        try {
+          await wp.sponsor().create({
+            title,
+            status
+          });
+        } catch (error) {
+          console.log(error);
+        }
+
         break;
 
       case "Partner":
-        await wp.partner().create({
-          title,
-          status
-        });
+        try {
+          await wp.partner().create({
+            title,
+            status
+          });
+        } catch (error) {
+          console.log(error);
+        }
+
+        break;
+
+      case "Chapter":
+        try {
+          await wp.chapter().create({
+            name: title,
+            slug: title
+          });
+        } catch (error) {
+          console.log(error);
+        }
+
         break;
     }
   }; //Get a post type based on the "type" param
@@ -369,6 +426,16 @@ const LoggedIn = ({
         }
 
         break;
+
+      case "Chapter":
+        try {
+          const data = await wp.chapter().get();
+          console.log(data);
+          setChapters(data);
+        } catch (error) {
+          console.log(error);
+        }
+
     }
   }; //Update a post type based on the "type" param
 
@@ -424,6 +491,17 @@ const LoggedIn = ({
         }
 
         break;
+
+      case "Chapter":
+        try {
+          await wp.chapter.id(id).update({
+            title,
+            slug: title
+          });
+        } catch (error) {
+          console.log(error);
+        }
+
     }
   }; //Delete a post type based on the "type" param
 
@@ -465,6 +543,14 @@ const LoggedIn = ({
         }
 
         break;
+
+      case "Chapter":
+        try {
+          await wp.chapter().id(id).delete();
+        } catch (error) {
+          console.log(error);
+        }
+
     }
   };
 
@@ -482,7 +568,7 @@ const LoggedIn = ({
     className: "col-md-3"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ListMenu__WEBPACK_IMPORTED_MODULE_2__["default"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-md-9"
-  })));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Events__WEBPACK_IMPORTED_MODULE_4__["default"], null))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (LoggedIn);
