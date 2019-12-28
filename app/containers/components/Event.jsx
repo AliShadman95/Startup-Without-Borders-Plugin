@@ -20,9 +20,10 @@ const useStyles = makeStyles({
   }
 });
 
-const Event = ({ image }) => {
+const Event = ({ image, title }) => {
   const classes = useStyles();
   const handleClick = () => {};
+
   return (
     <Card className={classes.card}>
       <CardMedia
@@ -34,7 +35,7 @@ const Event = ({ image }) => {
 
       <CardContent>
         <Typography variant="h5" component="h5">
-          Lizard
+          {title}
         </Typography>
       </CardContent>
 

@@ -23,16 +23,14 @@ const Events = ({
   useEffect(() => {
     getMedia();
     // the trick
-    setTimeout(() => {
-      forceUpdate();
-    }, 50);
+    setTimeout(() => {}, 50);
   }, []);
 
   const getMedia = async () => {
     const data = await wp.media().get();
     setImages(
-      data.map(media => {
-        return media.source_url;
+      data.map(img => {
+        return { url: img.source_url, id: img.id };
       })
     );
     console.log(data);
@@ -59,7 +57,15 @@ const Events = ({
                   key={event.id}
                   className={`col-md-4 ${index >= 3 ? "mt-4" : ""}`}
                 >
-                  <Event image={images[0]} />
+                  <Event
+                    image={
+                      images.length >= 1
+                        ? images.find(img => img.id === event.featured_media)
+                            .url
+                        : ""
+                    }
+                    title={event.title.rendered}
+                  />
                 </div>
               );
             })}

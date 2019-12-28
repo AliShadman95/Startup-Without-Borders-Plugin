@@ -200,7 +200,8 @@ const useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__["
 });
 
 const Event = ({
-  image
+  image,
+  title
 }) => {
   const classes = useStyles();
 
@@ -216,7 +217,7 @@ const Event = ({
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_CardContent__WEBPACK_IMPORTED_MODULE_5__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_8__["default"], {
     variant: "h5",
     component: "h5"
-  }, "Lizard")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_CardActions__WEBPACK_IMPORTED_MODULE_4__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }, title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_CardActions__WEBPACK_IMPORTED_MODULE_4__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_11__["default"], {
     onClick: handleClick
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Edit__WEBPACK_IMPORTED_MODULE_9___default.a, {
     color: "primary"
@@ -270,15 +271,16 @@ const Events = ({
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     getMedia(); // the trick
 
-    setTimeout(() => {
-      forceUpdate();
-    }, 50);
+    setTimeout(() => {}, 50);
   }, []);
 
   const getMedia = async () => {
     const data = await wp.media().get();
-    setImages(data.map(media => {
-      return media.source_url;
+    setImages(data.map(img => {
+      return {
+        url: img.source_url,
+        id: img.id
+      };
     }));
     console.log(data);
   };
@@ -304,7 +306,8 @@ const Events = ({
           key: event.id,
           className: "col-md-4 ".concat(index >= 3 ? "mt-4" : "")
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Event__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          image: images[0]
+          image: images.length >= 1 ? images.find(img => img.id === event.featured_media).url : "",
+          title: event.title.rendered
         }));
       })));
     });
