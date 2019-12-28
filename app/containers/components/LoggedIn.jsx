@@ -24,7 +24,6 @@ const LoggedIn = ({ nonce, url, wpapi }) => {
       { Partners: 7, Sponsors: 1, Speakers: 4 },
       "publish"
     ); */
-    createPostType("Sponsor", "testroma", {}, "publish");
   }, []);
 
   //This register all the routes for the CUSTOM POST TYPES
@@ -269,7 +268,13 @@ const LoggedIn = ({ nonce, url, wpapi }) => {
           <ListMenu />
         </div>
         <div className="col-md-9">
-          <Events wp={wp} />
+          <Events
+            wp={wp}
+            events={events}
+            createPostType={createPostType}
+            updatePostType={updatePostType}
+            deletePostType={deletePostType}
+          />
         </div>
       </div>
     </div>

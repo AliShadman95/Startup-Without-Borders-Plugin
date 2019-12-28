@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import Event from "./Event";
+import Button from "@material-ui/core/Button";
 
-const Events = ({ wp }) => {
+const Events = ({
+  wp,
+  events,
+  createPostType,
+  updatePostType,
+  deletePostType
+}) => {
   const [images, setImages] = useState([]);
   var settings = {
     dots: true,
@@ -15,6 +22,10 @@ const Events = ({ wp }) => {
 
   useEffect(() => {
     getMedia();
+    // the trick
+    setTimeout(() => {
+      forceUpdate();
+    }, 50);
   }, []);
 
   const getMedia = async () => {
@@ -27,39 +38,54 @@ const Events = ({ wp }) => {
     console.log(data);
   };
 
+  const sliderBehaviour = () => {
+    let dividedEvents = Array(Math.ceil(events.length / 6)).fill(0);
+    console.log(dividedEvents);
+    let startIndex = 0;
+    let endIndex = 6;
+
+    return dividedEvents.map((e, index) => {
+      if (index !== 0) {
+        startIndex += 6;
+        endIndex += 6;
+      }
+
+      return (
+        <div key={index} className="container">
+          <div className="row">
+            {events.slice(startIndex, endIndex).map((event, index) => {
+              return (
+                <div
+                  key={event.id}
+                  className={`col-md-4 ${index >= 3 ? "mt-4" : ""}`}
+                >
+                  <Event image={images[0]} />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    });
+  };
+
   return (
     <div>
-      <h1>Events</h1>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-8">
+            <h1>Events</h1>
+          </div>
+          <div className="col-md-4 d-flex justify-content-center align-items-center">
+            <Button variant="contained" color="primary">
+              Create event
+            </Button>
+          </div>
+        </div>
+      </div>
+
       <p>Create and manage events.</p>
-      <Slider {...settings}>
-        <div className="container">
-          <div className="row">
-            <div className="col-md-4">
-              <Event image={images[0]} />
-            </div>
-            <div className="col-md-4">
-              <Event image={images[0]} />
-            </div>
-            <div className="col-md-4">
-              <Event image={images[0]} />
-            </div>
-          </div>
-          <div className="row mt-4">
-            <div className="col-md-4">
-              <Event image={images[0]} />
-            </div>
-            <div className="col-md-4">
-              <Event image={images[0]} />
-            </div>
-            <div className="col-md-4">
-              <Event image={images[0]} />
-            </div>
-          </div>
-        </div>
-        <div>
-          <Event image={images[0]} />
-        </div>
-      </Slider>
+      <Slider {...settings}>{sliderBehaviour()}</Slider>
     </div>
   );
 };

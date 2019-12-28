@@ -205,7 +205,7 @@ const useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__["
     maxWidth: 345
   },
   media: {
-    height: 120
+    height: 100
   }
 });
 
@@ -255,12 +255,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_slick__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-slick */ "./node_modules/react-slick/lib/index.js");
 /* harmony import */ var react_slick__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_slick__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _Event__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Event */ "./app/containers/components/Event.jsx");
+/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/Button */ "./node_modules/@material-ui/core/esm/Button/index.js");
+
 
 
 
 
 const Events = ({
-  wp
+  wp,
+  events,
+  createPostType,
+  updatePostType,
+  deletePostType
 }) => {
   const [images, setImages] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
   var settings = {
@@ -272,7 +278,11 @@ const Events = ({
     arrows: true
   };
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
-    getMedia();
+    getMedia(); // the trick
+
+    setTimeout(() => {
+      forceUpdate();
+    }, 50);
   }, []);
 
   const getMedia = async () => {
@@ -283,39 +293,45 @@ const Events = ({
     console.log(data);
   };
 
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Events"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Create and manage events."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_slick__WEBPACK_IMPORTED_MODULE_1___default.a, settings, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  const sliderBehaviour = () => {
+    let dividedEvents = Array(Math.ceil(events.length / 6)).fill(0);
+    console.log(dividedEvents);
+    let startIndex = 0;
+    let endIndex = 6;
+    return dividedEvents.map((e, index) => {
+      if (index !== 0) {
+        startIndex += 6;
+        endIndex += 6;
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        key: index,
+        className: "container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, events.slice(startIndex, endIndex).map((event, index) => {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: event.id,
+          className: "col-md-4 ".concat(index >= 3 ? "mt-4" : "")
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Event__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          image: images[0]
+        }));
+      })));
+    });
+  };
+
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "container"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col-md-4"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Event__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    image: images[0]
-  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col-md-4"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Event__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    image: images[0]
-  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col-md-4"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Event__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    image: images[0]
-  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "row mt-4"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col-md-4"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Event__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    image: images[0]
-  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col-md-4"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Event__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    image: images[0]
-  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col-md-4"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Event__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    image: images[0]
-  })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Event__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    image: images[0]
-  }))));
+    className: "col-md-8"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Events")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-4 d-flex justify-content-center align-items-center"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    variant: "contained",
+    color: "primary"
+  }, "Create event")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Create and manage events."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_slick__WEBPACK_IMPORTED_MODULE_1___default.a, settings, sliderBehaviour()));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Events);
@@ -428,8 +444,6 @@ const LoggedIn = ({
       { Partners: 7, Sponsors: 1, Speakers: 4 },
       "publish"
     ); */
-
-    createPostType("Sponsor", "testroma", {}, "publish");
   }, []); //This register all the routes for the CUSTOM POST TYPES
 
   const registerRoutes = () => {
@@ -706,7 +720,11 @@ const LoggedIn = ({
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ListMenu__WEBPACK_IMPORTED_MODULE_2__["default"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-md-9"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Events__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    wp: wp
+    wp: wp,
+    events: events,
+    createPostType: createPostType,
+    updatePostType: updatePostType,
+    deletePostType: deletePostType
   }))));
 };
 
