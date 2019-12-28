@@ -148,9 +148,12 @@ class Admin {
 
 	   wp_register_style('prefix_font_icons', '//fonts.googleapis.com/icon?family=Material+Icons');
 	   wp_enqueue_style('prefix_font_icons');
-
 	   
+       wp_register_style('prefix_slider', '//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css');
+	   wp_enqueue_style('prefix_slider');
 	   
+	   wp_register_style('prefix_slider_theme', '//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css');
+	   wp_enqueue_style('prefix_slider_theme');
 
 
 			wp_localize_script( $this->plugin_slug . '-admin-script', 'wpr_object', array(

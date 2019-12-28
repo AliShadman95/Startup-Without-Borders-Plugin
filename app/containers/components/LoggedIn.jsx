@@ -269,7 +269,7 @@ const LoggedIn = ({ nonce, url, wpapi }) => {
           <ListMenu />
         </div>
         <div className="col-md-9">
-          <Events />
+          <Events wp={wp} />
         </div>
       </div>
     </div>
