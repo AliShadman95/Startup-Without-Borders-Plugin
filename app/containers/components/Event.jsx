@@ -29,7 +29,7 @@ const Event = ({ image, title }) => {
       <CardMedia
         component="img"
         className={classes.media}
-        src={image}
+        image={image}
         title="Contemplative Reptile"
       />
 

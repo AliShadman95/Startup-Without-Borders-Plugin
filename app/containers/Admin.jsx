@@ -3,11 +3,13 @@ import PropTypes from "prop-types";
 import Navbar from "./components/Navbar";
 import LoggedIn from "./components/LoggedIn";
 var WPAPI = require("wpapi");
+import { registerRoutes } from "./helpers/Crud";
 
 export default class Admin extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    registerRoutes();
   }
 
   render() {

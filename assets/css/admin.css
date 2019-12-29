@@ -4,3 +4,12 @@
   padding: 0px;
   font-family: "Heebo", sans-serif !important;
 }
+
+input[type="text"] {
+  border: none;
+}
+
+input[type="text"]:focus {
+  border: none;
+  box-shadow: none;
+}

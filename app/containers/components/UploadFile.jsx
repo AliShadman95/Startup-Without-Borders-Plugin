@@ -1,27 +1,23 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-import axios from "axios";
+
+var WPAPI = require("wpapi");
 
 const UploadFile = () => {
-  const [posts, setPosts] = useState([]);
-  const [upload, setUpload] = useState("null");
-
   const onDrop = useCallback(async acceptedFiles => {
+    wp = new WPAPI({
+      endpoint: window.wpr_object.api_url,
+      nonce: window.wpr_object.api_nonce
+    });
     try {
-      // Do something with the files
-
-      const response = axios.post(
-        "http://localhost/localsite/wp-json/wp/v2/media/",
-        acceptedFiles[0],
-        {
-          headers: {
-            "X-WP-Nonce": nonce,
-            ContentType: false,
-            processData: false,
-            "Content-Disposition": "attachment; filename=example.png"
-          }
-        }
-      );
+      console.log(acceptedFiles);
+      const response = wp
+        .media()
+        .file(acceptedFiles[0])
+        .create({
+          title: acceptedFiles[0].name,
+          alt_text: acceptedFiles[0].name
+        });
 
       console.log(response);
     } catch (error) {
