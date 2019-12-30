@@ -1,9 +1,10 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 var WPAPI = require("wpapi");
 
 const UploadFile = () => {
+  const [uploadedFile, setUploadedFile] = useState([]);
   const onDrop = useCallback(async acceptedFiles => {
     wp = new WPAPI({
       endpoint: window.wpr_object.api_url,
@@ -20,6 +21,7 @@ const UploadFile = () => {
         });
 
       console.log(response);
+      setUploadedFile(response);
     } catch (error) {
       console.log(error);
     }

@@ -9,14 +9,24 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import UploadFile from "../components/UploadFile";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
+import Input from "@material-ui/core/Input";
+import Checkbox from "@material-ui/core/Checkbox";
+import ListItemText from "@material-ui/core/ListItemText";
 import { getPostType } from "../helpers/Crud";
 
 const Events = ({ wp }) => {
   const [images, setImages] = useState([]);
   const [open, setOpen] = React.useState(false);
-  const [selectedSponsors, setSelectedSponsors] = useState("");
   const [events, setEvents] = useState([]);
   const [sponsors, setSponsors] = useState([]);
+  const [partners, setPartners] = useState([]);
+  const [speakers, setSpeakers] = useState([]);
+  const [selectedSponsors, setSelectedSponsor] = useState([]);
+  const [selectedPartners, setSelectedPartners] = useState([]);
+  const [selectedSpeakers, setSelectedSpeakers] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -26,6 +36,15 @@ const Events = ({ wp }) => {
     setOpen(false);
   };
 
+  const handleSponsorChange = event => {
+    setSelectedSponsor(event.target.value);
+  };
+  const handlePartnerChange = event => {
+    setSelectedPartners(event.target.value);
+  };
+  const handleSpeakerChange = event => {
+    setSelectedSpeakers(event.target.value);
+  };
   useEffect(() => {
     getMedia();
     getPostType("Event").then(res => {
@@ -33,6 +52,12 @@ const Events = ({ wp }) => {
     });
     getPostType("Sponsor").then(res => {
       setSponsors(res);
+    });
+    getPostType("Speaker").then(res => {
+      setSpeakers(res);
+    });
+    getPostType("Partner").then(res => {
+      setPartners(res);
     });
   }, []);
 
@@ -119,18 +144,110 @@ const Events = ({ wp }) => {
                   To subscribe to this website, please enter your email address
                   here. We will send updates occasionally.
                 </DialogContentText>
+
+                <InputLabel id="demo-mutiple-name-label">Title</InputLabel>
                 <TextField
                   id="standard-basic"
-                  label="Title"
                   fullWidth
                   style={{ border: "0px !important" }}
                 />
-                <div className="mt-3">
-                  <UploadFile />
+                <div className="row mt-3">
+                  <div className="col-md-6">
+                    <InputLabel id="demo-mutiple-name-label">
+                      Speakers
+                    </InputLabel>
+                    <Select
+                      labelId="demo-mutiple-name-label"
+                      id="demo-mutiple-name"
+                      multiple
+                      value={selectedSpeakers}
+                      onChange={handleSpeakerChange}
+                      input={<Input />}
+                      renderValue={selected => selected.join(", ")}
+                      fullWidth
+                    >
+                      {speakers.map(speaker => (
+                        <MenuItem
+                          key={speaker.id}
+                          value={speaker.title.rendered}
+                        >
+                          <Checkbox
+                            checked={
+                              selectedSpeakers.indexOf(speaker.title.rendered) >
+                              -1
+                            }
+                          />
+                          <ListItemText primary={speaker.title.rendered} />
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </div>
+                  <div className="col-md-6">
+                    <UploadFile />
+                  </div>
                 </div>
-                <div className="row">
-                  <div className="col-md-6"></div>
-                  <div className="col-md-6"></div>
+
+                <div className="row mt-3">
+                  <div className="col-md-6">
+                    <InputLabel id="demo-mutiple-name-label">
+                      Sponsors
+                    </InputLabel>
+                    <Select
+                      labelId="demo-mutiple-name-label"
+                      id="demo-mutiple-name"
+                      multiple
+                      value={selectedSponsors}
+                      onChange={handleSponsorChange}
+                      input={<Input />}
+                      renderValue={selected => selected.join(", ")}
+                      fullWidth
+                    >
+                      {sponsors.map(sponsor => (
+                        <MenuItem
+                          key={sponsor.id}
+                          value={sponsor.title.rendered}
+                        >
+                          <Checkbox
+                            checked={
+                              selectedSponsors.indexOf(sponsor.title.rendered) >
+                              -1
+                            }
+                          />
+                          <ListItemText primary={sponsor.title.rendered} />
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </div>
+                  <div className="col-md-6">
+                    <InputLabel id="demo-mutiple-name-label">
+                      Partners
+                    </InputLabel>
+                    <Select
+                      labelId="demo-mutiple-name-label"
+                      id="demo-mutiple-name"
+                      multiple
+                      value={selectedPartners}
+                      onChange={handlePartnerChange}
+                      input={<Input />}
+                      renderValue={selected => selected.join(", ")}
+                      fullWidth
+                    >
+                      {partners.map(partner => (
+                        <MenuItem
+                          key={partner.id}
+                          value={partner.title.rendered}
+                        >
+                          <Checkbox
+                            checked={
+                              selectedPartners.indexOf(partner.title.rendered) >
+                              -1
+                            }
+                          />
+                          <ListItemText primary={partner.title.rendered} />
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </div>
                 </div>
               </DialogContent>
               <DialogActions>
@@ -138,7 +255,7 @@ const Events = ({ wp }) => {
                   Cancel
                 </Button>
                 <Button onClick={handleClose} color="primary">
-                  Subscribe
+                  Create
                 </Button>
               </DialogActions>
             </Dialog>

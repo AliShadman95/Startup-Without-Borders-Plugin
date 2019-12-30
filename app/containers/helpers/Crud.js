@@ -99,7 +99,7 @@ export const getPostType = async type => {
       }
     case "Speaker":
       try {
-        const data = await wp.speaker().create();
+        const data = await wp.speaker().get();
         console.log(data);
         return data;
       } catch (error) {
