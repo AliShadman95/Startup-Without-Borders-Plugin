@@ -26,16 +26,25 @@ export const registerRoutes = () => {
 };
 
 //Create a post type based on the "type" param
-export const createPostType = async (type, title, image, meta, status) => {
+export const createPostType = async (
+  type,
+  chapter,
+  title,
+  image,
+  meta,
+  status
+) => {
   switch (type) {
     case "Event":
       try {
-        await wp.event().create({
+        const data = await wp.event().create({
           title,
+          chapter,
           featured_media: image,
           meta,
           status
         });
+        return data;
       } catch (error) {
         console.log(error);
       }
@@ -92,6 +101,7 @@ export const getPostType = async type => {
     case "Event":
       try {
         const data = await wp.event().get();
+        console.log(data);
         return data;
       } catch (error) {
         console.log(error);

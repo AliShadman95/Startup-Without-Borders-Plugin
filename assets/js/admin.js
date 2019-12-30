@@ -302,9 +302,11 @@ const Events = ({
   const [sponsors, setSponsors] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
   const [partners, setPartners] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
   const [speakers, setSpeakers] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
+  const [title, setTitle] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
   const [selectedSponsors, setSelectedSponsor] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
   const [selectedPartners, setSelectedPartners] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
   const [selectedSpeakers, setSelectedSpeakers] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
+  const [imageId, setImageId] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -323,7 +325,32 @@ const Events = ({
   };
 
   const handleSpeakerChange = event => {
+    console.log(event);
     setSelectedSpeakers(event.target.value);
+  };
+
+  const onCreateClick = () => {
+    Object(_helpers_Crud__WEBPACK_IMPORTED_MODULE_17__["createPostType"])("Event", 5, title, imageId.toString(), {
+      Sponsors: selectedSponsors.map(selSpo => {
+        return sponsors.find(sponsor => sponsor.title.rendered === selSpo).id.toString();
+      }),
+      Speakers: selectedSpeakers.map(selSpe => {
+        return speakers.find(speaker => speaker.title.rendered === selSpe).id.toString();
+      }),
+      Partners: selectedPartners.map(selPar => {
+        return partners.find(partner => partner.title.rendered === selPar).id.toString();
+      })
+    }, "publish").then(res => {
+      getMedia();
+      let copyEvents = events;
+      copyEvents.unshift(res);
+      setEvents(copyEvents);
+      handleClose();
+    });
+  };
+
+  const onFileUpload = id => {
+    setImageId(id);
   };
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
@@ -353,38 +380,13 @@ const Events = ({
     console.log(data);
   };
 
-  const sliderBehaviour = () => {
-    let dividedEvents = Array(Math.ceil(events.length / 6)).fill(0);
-    let startIndex = 0;
-    let endIndex = 6;
-    return dividedEvents.map((e, index) => {
-      if (index !== 0) {
-        startIndex += 6;
-        endIndex += 6;
-      }
-
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        key: index,
-        className: "container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row"
-      }, events.slice(startIndex, endIndex).map((event, index) => {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          key: event.id,
-          className: "col-md-4 ".concat(index >= 3 ? "mt-4" : "")
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Event__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          image: images.length >= 1 ? images.find(img => img.id === event.featured_media).url : "",
-          title: event.title.rendered
-        }));
-      })));
-    });
-  };
-
   var settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
+    slidesPerRow: 3,
+    rows: 2,
     slidesToScroll: 1,
     arrows: true
   };
@@ -413,6 +415,9 @@ const Events = ({
     fullWidth: true,
     style: {
       border: "0px !important"
+    },
+    onChange: e => {
+      setTitle(e.target.value);
     }
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row mt-3"
@@ -438,7 +443,9 @@ const Events = ({
     primary: speaker.title.rendered
   }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-md-6"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_UploadFile__WEBPACK_IMPORTED_MODULE_10__["default"], null))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_UploadFile__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    onFileUpload: onFileUpload
+  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row mt-3"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-md-6"
@@ -484,9 +491,17 @@ const Events = ({
     onClick: handleClose,
     color: "primary"
   }, "Cancel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    onClick: handleClose,
+    onClick: onCreateClick,
     color: "primary"
-  }, "Create")))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Create and manage events."), images.length >= 1 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_slick__WEBPACK_IMPORTED_MODULE_1___default.a, settings, sliderBehaviour()));
+  }, "Create")))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Create and manage events."), images.length >= 1 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_slick__WEBPACK_IMPORTED_MODULE_1___default.a, settings, events.map((event, index) => {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      key: event.id,
+      className: "col-md-4 ".concat(index % 3 === 0 || index % 4 === 0 || index % 5 === 0 ? "mt-4" : "")
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Event__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      image: images.find(img => img.id === event.featured_media) && images.find(img => img.id === event.featured_media).url,
+      title: event.title.rendered
+    }));
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Events);
@@ -672,8 +687,9 @@ __webpack_require__.r(__webpack_exports__);
 
 var WPAPI = __webpack_require__(/*! wpapi */ "./node_modules/wpapi/wpapi.js");
 
-const UploadFile = () => {
-  const [uploadedFile, setUploadedFile] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
+const UploadFile = ({
+  onFileUpload
+}) => {
   const onDrop = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(async acceptedFiles => {
     wp = new WPAPI({
       endpoint: window.wpr_object.api_url,
@@ -682,24 +698,31 @@ const UploadFile = () => {
 
     try {
       console.log(acceptedFiles);
-      const response = wp.media().file(acceptedFiles[0]).create({
+      const response = await wp.media().file(acceptedFiles[0]).create({
         title: acceptedFiles[0].name,
         alt_text: acceptedFiles[0].name
       });
       console.log(response);
-      setUploadedFile(response);
+      onFileUpload(response.id);
     } catch (error) {
       console.log(error);
     }
   }, []);
   const {
+    acceptedFiles,
     getRootProps,
-    getInputProps,
-    isDragActive
+    getInputProps
   } = Object(react_dropzone__WEBPACK_IMPORTED_MODULE_1__["useDropzone"])({
     onDrop
   });
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", getRootProps(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", getInputProps()), isDragActive ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Drop the files here ...") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Drag 'n' drop some files here, or click to select files")));
+  const files = acceptedFiles.map(file => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    key: file.path
+  }, file.path, " - ", file.size, " bytes"));
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+    className: "container"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", getRootProps({
+    className: "dropzone"
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", getInputProps()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Click to select image")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("aside", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, files)));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (UploadFile);
@@ -745,16 +768,18 @@ const registerRoutes = () => {
   wp.chapter = wp.registerRoute(namespace, route);
 }; //Create a post type based on the "type" param
 
-const createPostType = async (type, title, image, meta, status) => {
+const createPostType = async (type, chapter, title, image, meta, status) => {
   switch (type) {
     case "Event":
       try {
-        await wp.event().create({
+        const data = await wp.event().create({
           title,
+          chapter,
           featured_media: image,
           meta,
           status
         });
+        return data;
       } catch (error) {
         console.log(error);
       }
@@ -819,6 +844,7 @@ const getPostType = async type => {
     case "Event":
       try {
         const data = await wp.event().get();
+        console.log(data);
         return data;
       } catch (error) {
         console.log(error);

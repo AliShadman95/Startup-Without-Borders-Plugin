@@ -35,6 +35,10 @@ module.exports = (env, argv) => {
           test: /\.jsx?$/,
           exclude: /node_modules/,
           loader: "babel-loader"
+        },
+        {
+          test: /\.css$/i,
+          use: ["style-loader", "'css-loader?modules=true&camelCase=true'"]
         }
       ]
     }

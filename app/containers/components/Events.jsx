@@ -15,7 +15,7 @@ import Select from "@material-ui/core/Select";
 import Input from "@material-ui/core/Input";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemText from "@material-ui/core/ListItemText";
-import { getPostType } from "../helpers/Crud";
+import { getPostType, createPostType } from "../helpers/Crud";
 
 const Events = ({ wp }) => {
   const [images, setImages] = useState([]);
@@ -24,9 +24,11 @@ const Events = ({ wp }) => {
   const [sponsors, setSponsors] = useState([]);
   const [partners, setPartners] = useState([]);
   const [speakers, setSpeakers] = useState([]);
+  const [title, setTitle] = useState("");
   const [selectedSponsors, setSelectedSponsor] = useState([]);
   const [selectedPartners, setSelectedPartners] = useState([]);
   const [selectedSpeakers, setSelectedSpeakers] = useState([]);
+  const [imageId, setImageId] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -43,8 +45,47 @@ const Events = ({ wp }) => {
     setSelectedPartners(event.target.value);
   };
   const handleSpeakerChange = event => {
+    console.log(event);
     setSelectedSpeakers(event.target.value);
   };
+
+  const onCreateClick = () => {
+    createPostType(
+      "Event",
+      5,
+      title,
+      imageId.toString(),
+      {
+        Sponsors: selectedSponsors.map(selSpo => {
+          return sponsors
+            .find(sponsor => sponsor.title.rendered === selSpo)
+            .id.toString();
+        }),
+        Speakers: selectedSpeakers.map(selSpe => {
+          return speakers
+            .find(speaker => speaker.title.rendered === selSpe)
+            .id.toString();
+        }),
+        Partners: selectedPartners.map(selPar => {
+          return partners
+            .find(partner => partner.title.rendered === selPar)
+            .id.toString();
+        })
+      },
+      "publish"
+    ).then(res => {
+      getMedia();
+      let copyEvents = events;
+      copyEvents.unshift(res);
+      setEvents(copyEvents);
+      handleClose();
+    });
+  };
+
+  const onFileUpload = id => {
+    setImageId(id);
+  };
+
   useEffect(() => {
     getMedia();
     getPostType("Event").then(res => {
@@ -71,49 +112,13 @@ const Events = ({ wp }) => {
     console.log(data);
   };
 
-  const sliderBehaviour = () => {
-    let dividedEvents = Array(Math.ceil(events.length / 6)).fill(0);
-    let startIndex = 0;
-    let endIndex = 6;
-
-    return dividedEvents.map((e, index) => {
-      if (index !== 0) {
-        startIndex += 6;
-        endIndex += 6;
-      }
-
-      return (
-        <div key={index} className="container">
-          <div className="row">
-            {events.slice(startIndex, endIndex).map((event, index) => {
-              return (
-                <div
-                  key={event.id}
-                  className={`col-md-4 ${index >= 3 ? "mt-4" : ""}`}
-                >
-                  <Event
-                    image={
-                      images.length >= 1
-                        ? images.find(img => img.id === event.featured_media)
-                            .url
-                        : ""
-                    }
-                    title={event.title.rendered}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      );
-    });
-  };
-
   var settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
+    slidesPerRow: 3,
+    rows: 2,
     slidesToScroll: 1,
     arrows: true
   };
@@ -150,6 +155,9 @@ const Events = ({ wp }) => {
                   id="standard-basic"
                   fullWidth
                   style={{ border: "0px !important" }}
+                  onChange={e => {
+                    setTitle(e.target.value);
+                  }}
                 />
                 <div className="row mt-3">
                   <div className="col-md-6">
@@ -183,7 +191,7 @@ const Events = ({ wp }) => {
                     </Select>
                   </div>
                   <div className="col-md-6">
-                    <UploadFile />
+                    <UploadFile onFileUpload={onFileUpload} />
                   </div>
                 </div>
 
@@ -254,7 +262,7 @@ const Events = ({ wp }) => {
                 <Button onClick={handleClose} color="primary">
                   Cancel
                 </Button>
-                <Button onClick={handleClose} color="primary">
+                <Button onClick={onCreateClick} color="primary">
                   Create
                 </Button>
               </DialogActions>
@@ -264,7 +272,30 @@ const Events = ({ wp }) => {
       </div>
 
       <p>Create and manage events.</p>
-      {images.length >= 1 && <Slider {...settings}>{sliderBehaviour()}</Slider>}
+      {images.length >= 1 && (
+        <Slider {...settings}>
+          {events.map((event, index) => {
+            return (
+              <div
+                key={event.id}
+                className={`col-md-4 ${
+                  index % 3 === 0 || index % 4 === 0 || index % 5 === 0
+                    ? "mt-4"
+                    : ""
+                }`}
+              >
+                <Event
+                  image={
+                    images.find(img => img.id === event.featured_media) &&
+                    images.find(img => img.id === event.featured_media).url
+                  }
+                  title={event.title.rendered}
+                />
+              </div>
+            );
+          })}
+        </Slider>
+      )}
     </div>
   );
 };
