@@ -13,7 +13,7 @@ import Select from "@material-ui/core/Select";
 import Input from "@material-ui/core/Input";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemText from "@material-ui/core/ListItemText";
-import { createPostType } from "../helpers/Crud";
+import { createPostType, createEvent } from "../helpers/Crud";
 
 const CreateEvent = ({
   sponsors,
@@ -51,10 +51,10 @@ const CreateEvent = ({
   };
 
   const onCreateClick = () => {
-    createPostType(
-      "Event",
+    createEvent(
       5,
       title,
+      "testing",
       imageId.toString(),
       {
         Sponsors: selectedSponsors.map(selSpo => {

@@ -248,7 +248,7 @@ const CreateEvent = ({
   };
 
   const onCreateClick = () => {
-    Object(_helpers_Crud__WEBPACK_IMPORTED_MODULE_15__["createPostType"])("Event", 5, title, imageId.toString(), {
+    Object(_helpers_Crud__WEBPACK_IMPORTED_MODULE_15__["createEvent"])(5, title, "testing", imageId.toString(), {
       Sponsors: selectedSponsors.map(selSpo => {
         return sponsors.find(sponsor => sponsor.title.rendered === selSpo).id.toString();
       }),
@@ -785,12 +785,13 @@ const UploadFile = ({
 /*!****************************************!*\
   !*** ./app/containers/helpers/Crud.js ***!
   \****************************************/
-/*! exports provided: registerRoutes, createPostType, getPostType, updatePostType */
+/*! exports provided: registerRoutes, createEvent, createPostType, getPostType, updatePostType */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "registerRoutes", function() { return registerRoutes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createEvent", function() { return createEvent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPostType", function() { return createPostType; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPostType", function() { return getPostType; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updatePostType", function() { return updatePostType; });
@@ -820,26 +821,26 @@ const registerRoutes = () => {
 
   var route = "/chapter/(?P<id>)";
   wp.chapter = wp.registerRoute(namespace, route);
+}; //Create an event
+
+const createEvent = async (chapter, title, description, image, meta, status) => {
+  try {
+    const data = await wp.event().create({
+      title,
+      chapter,
+      excerpt: description,
+      featured_media: image,
+      meta,
+      status
+    });
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
 }; //Create a post type based on the "type" param
 
-const createPostType = async (type, chapter, title, image, meta, status) => {
+const createPostType = async (type, title, image, status) => {
   switch (type) {
-    case "Event":
-      try {
-        const data = await wp.event().create({
-          title,
-          chapter,
-          featured_media: image,
-          meta,
-          status
-        });
-        return data;
-      } catch (error) {
-        console.log(error);
-      }
-
-      break;
-
     case "Speaker":
       try {
         await wp.speaker().create({

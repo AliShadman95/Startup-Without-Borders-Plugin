@@ -27,30 +27,33 @@ export const registerRoutes = () => {
   wp.chapter = wp.registerRoute(namespace, route);
 };
 
-//Create a post type based on the "type" param
-export const createPostType = async (
-  type,
+//Create an event
+export const createEvent = async (
   chapter,
   title,
+  description,
   image,
   meta,
   status
 ) => {
+  try {
+    const data = await wp.event().create({
+      title,
+      chapter,
+      excerpt: description,
+      featured_media: image,
+      meta,
+      status
+    });
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//Create a post type based on the "type" param
+export const createPostType = async (type, title, image, status) => {
   switch (type) {
-    case "Event":
-      try {
-        const data = await wp.event().create({
-          title,
-          chapter,
-          featured_media: image,
-          meta,
-          status
-        });
-        return data;
-      } catch (error) {
-        console.log(error);
-      }
-      break;
     case "Speaker":
       try {
         await wp.speaker().create({
