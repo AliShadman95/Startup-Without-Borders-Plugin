@@ -485,22 +485,6 @@ const Events = ({
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     getMedia();
     Object(_helpers_Crud__WEBPACK_IMPORTED_MODULE_4__["getPostType"])("Event").then(eve => {
-      /*  res.forEach(event => {
-        try {
-          wp.media()
-            .id(event.featured_media)
-            .then(res => {
-              console.log(res);
-              setImages(images => [
-                ...images,
-                { url: res.source_url, id: res.id }
-              ]);
-            });
-        } catch (error) {
-          console.log(error);
-        }
-      });
-       setEvents(res); */
       setEvents(eve);
     });
     Object(_helpers_Crud__WEBPACK_IMPORTED_MODULE_4__["getPostType"])("Sponsor").then(res => {
