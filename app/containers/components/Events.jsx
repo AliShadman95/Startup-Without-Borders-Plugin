@@ -54,7 +54,7 @@ const Events = ({ wp }) => {
 
   var settings = {
     dots: true,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 1,
     slidesPerRow: 3,
@@ -101,6 +101,9 @@ const Events = ({ wp }) => {
                   images.find(img => img.id === event.featured_media).url
                 }
                 title={event.title.rendered}
+                description={event.meta.Description}
+                date={event.meta.Date}
+                place={event.meta.Place}
               />
             </div>
           );

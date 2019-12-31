@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
+import moment from "moment";
 
 const useStyles = makeStyles({
   card: {
@@ -20,7 +21,7 @@ const useStyles = makeStyles({
   }
 });
 
-const Event = ({ image, title }) => {
+const Event = ({ image, title, description, date, place }) => {
   const classes = useStyles();
   const handleClick = () => {};
 
@@ -36,6 +37,15 @@ const Event = ({ image, title }) => {
       <CardContent>
         <Typography variant="h5" component="h5">
           {title}
+        </Typography>
+        <Typography variant="subtitle1" component="p">
+          {description.join(" ")}
+        </Typography>
+        <Typography variant="subtitle2" component="p">
+          {moment(date).format("MM/DD/YYYY")}
+        </Typography>
+        <Typography variant="subtitle2" component="p">
+          {place.join(" ")}
         </Typography>
       </CardContent>
 

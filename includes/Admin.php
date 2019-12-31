@@ -134,8 +134,10 @@ class Admin {
 			//Bootstrap and material Ui imports
        
         wp_register_script('prefix_bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js');
-        wp_enqueue_script('prefix_bootstrap');
-
+		wp_enqueue_script('prefix_bootstrap');
+		
+		
+      
    
        wp_register_style('prefix_bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css');
 	   wp_enqueue_style('prefix_bootstrap');

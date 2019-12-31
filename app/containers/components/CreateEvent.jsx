@@ -1,3 +1,4 @@
+import "date-fns";
 import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -14,6 +15,19 @@ import Input from "@material-ui/core/Input";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemText from "@material-ui/core/ListItemText";
 import { createPostType, createEvent } from "../helpers/Crud";
+import Grid from "@material-ui/core/Grid";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDateTimePicker
+} from "@material-ui/pickers";
+
+import DateFnsUtils from "@date-io/date-fns";
+import Slide from "@material-ui/core/Slide";
+import moment from "moment";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="left" ref={ref} {...props} />;
+});
 
 const CreateEvent = ({
   sponsors,
@@ -25,11 +39,18 @@ const CreateEvent = ({
   events
 }) => {
   const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [address, setAddress] = useState("");
   const [selectedSponsors, setSelectedSponsor] = useState([]);
   const [selectedPartners, setSelectedPartners] = useState([]);
   const [selectedSpeakers, setSelectedSpeakers] = useState([]);
-  const [imageId, setImageId] = useState([]);
+  const [imageId, setImageId] = useState("0");
   const [open, setOpen] = React.useState(false);
+  const [selectedDate, setSelectedDate] = React.useState(moment().format());
+
+  const handleDateChange = date => {
+    setSelectedDate(date);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -54,7 +75,6 @@ const CreateEvent = ({
     createEvent(
       5,
       title,
-      "testing",
       imageId.toString(),
       {
         Sponsors: selectedSponsors.map(selSpo => {
@@ -71,7 +91,10 @@ const CreateEvent = ({
           return partners
             .find(partner => partner.title.rendered === selPar)
             .id.toString();
-        })
+        }),
+        Date: selectedDate,
+        Place: address,
+        Description: description
       },
       "publish"
     ).then(res => {
@@ -83,7 +106,7 @@ const CreateEvent = ({
 
   const onFileUpload = res => {
     updateImages(res);
-    setImageId(res.id);
+    setImageId(res.id.toString());
   };
 
   return (
@@ -95,6 +118,10 @@ const CreateEvent = ({
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
+        fullWidth
+        maxWidth={"md"}
+        TransitionComponent={Transition}
+        keepMounted
       >
         <DialogTitle id="form-dialog-title">Create an event</DialogTitle>
         <DialogContent>
@@ -102,16 +129,63 @@ const CreateEvent = ({
             To subscribe to this website, please enter your email address here.
             We will send updates occasionally.
           </DialogContentText>
+          <div className="row">
+            <div className="col-md-6">
+              <InputLabel id="demo-mutiple-name-label">Title</InputLabel>
+              <TextField
+                id="standard-basic"
+                fullWidth
+                style={{ border: "0px !important" }}
+                onChange={e => {
+                  setTitle(e.target.value);
+                }}
+              />
+            </div>
+            <div className="col-md-6">
+              <UploadFile onFileUpload={onFileUpload} />
+            </div>
+          </div>
+          <div className="mt-3">
+            <TextField
+              id="outlined-multiline-static"
+              label="Description"
+              multiline
+              rows="4"
+              defaultValue="Add a description"
+              variant="outlined"
+              fullWidth
+              onChange={e => {
+                setDescription(e.target.value);
+              }}
+            />
+          </div>
+          <div className="row mt-3">
+            <div className="col-md-8">
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <Grid container>
+                  <KeyboardDateTimePicker
+                    value={selectedDate}
+                    onChange={handleDateChange}
+                    label="Select date"
+                    disablePast
+                    format="yyyy/MM/dd hh:mm a"
+                  />
+                </Grid>
+              </MuiPickersUtilsProvider>
+            </div>
 
-          <InputLabel id="demo-mutiple-name-label">Title</InputLabel>
-          <TextField
-            id="standard-basic"
-            fullWidth
-            style={{ border: "0px !important" }}
-            onChange={e => {
-              setTitle(e.target.value);
-            }}
-          />
+            <div className="col-md-4">
+              <InputLabel id="demo-mutiple-name-label">Address</InputLabel>
+              <TextField
+                id="standard-basic-2"
+                fullWidth
+                style={{ border: "0px !important" }}
+                onChange={e => {
+                  setAddress(e.target.value);
+                }}
+              />
+            </div>
+          </div>
           <div className="row mt-3">
             <div className="col-md-6">
               <InputLabel id="demo-mutiple-name-label">Speakers</InputLabel>
@@ -133,36 +207,6 @@ const CreateEvent = ({
                       }
                     />
                     <ListItemText primary={speaker.title.rendered} />
-                  </MenuItem>
-                ))}
-              </Select>
-            </div>
-            <div className="col-md-6">
-              <UploadFile onFileUpload={onFileUpload} />
-            </div>
-          </div>
-
-          <div className="row mt-3">
-            <div className="col-md-6">
-              <InputLabel id="demo-mutiple-name-label">Sponsors</InputLabel>
-              <Select
-                labelId="demo-mutiple-name-label"
-                id="demo-mutiple-name"
-                multiple
-                value={selectedSponsors}
-                onChange={handleSponsorChange}
-                input={<Input />}
-                renderValue={selected => selected.join(", ")}
-                fullWidth
-              >
-                {sponsors.map(sponsor => (
-                  <MenuItem key={sponsor.id} value={sponsor.title.rendered}>
-                    <Checkbox
-                      checked={
-                        selectedSponsors.indexOf(sponsor.title.rendered) > -1
-                      }
-                    />
-                    <ListItemText primary={sponsor.title.rendered} />
                   </MenuItem>
                 ))}
               </Select>
@@ -192,9 +236,37 @@ const CreateEvent = ({
               </Select>
             </div>
           </div>
+
+          <div className="row mt-3">
+            <div className="col-md-6">
+              <InputLabel id="demo-mutiple-name-label">Sponsors</InputLabel>
+              <Select
+                labelId="demo-mutiple-name-label"
+                id="demo-mutiple-name"
+                multiple
+                value={selectedSponsors}
+                onChange={handleSponsorChange}
+                input={<Input />}
+                renderValue={selected => selected.join(", ")}
+                fullWidth
+              >
+                {sponsors.map(sponsor => (
+                  <MenuItem key={sponsor.id} value={sponsor.title.rendered}>
+                    <Checkbox
+                      checked={
+                        selectedSponsors.indexOf(sponsor.title.rendered) > -1
+                      }
+                    />
+                    <ListItemText primary={sponsor.title.rendered} />
+                  </MenuItem>
+                ))}
+              </Select>
+            </div>
+            <div className="col-md-6"></div>
+          </div>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleClose} color="secondary">
             Cancel
           </Button>
           <Button onClick={onCreateClick} color="primary">
