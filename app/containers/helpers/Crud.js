@@ -10,7 +10,9 @@ export const registerRoutes = () => {
   var namespace = "wp/v2";
   //Event
   var route = "/event/(?P<id>)";
-  wp.event = wp.registerRoute(namespace, route);
+  wp.event = wp.registerRoute(namespace, route, {
+    params: ["author"]
+  });
   //Sponsor
   var route = "/sponsor/(?P<id>)";
   wp.sponsor = wp.registerRoute(namespace, route);

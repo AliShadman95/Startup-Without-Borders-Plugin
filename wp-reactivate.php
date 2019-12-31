@@ -381,6 +381,7 @@ register_meta( 'post', 'Partners', array(
 register_meta( 'post', 'Date', array(
 	'show_in_rest' => true,
 ));
+
 register_activation_hook( __FILE__, array( 'Pangolin\\WPR\\Plugin', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'Pangolin\\WPR\\Plugin', 'deactivate' ) );
 

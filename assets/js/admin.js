@@ -167,6 +167,213 @@ Admin.propTypes = {
 
 /***/ }),
 
+/***/ "./app/containers/components/CreateEvent.jsx":
+/*!***************************************************!*\
+  !*** ./app/containers/components/CreateEvent.jsx ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material-ui/core/Button */ "./node_modules/@material-ui/core/esm/Button/index.js");
+/* harmony import */ var _material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/core/TextField */ "./node_modules/@material-ui/core/esm/TextField/index.js");
+/* harmony import */ var _material_ui_core_Dialog__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/Dialog */ "./node_modules/@material-ui/core/esm/Dialog/index.js");
+/* harmony import */ var _material_ui_core_DialogActions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/DialogActions */ "./node_modules/@material-ui/core/esm/DialogActions/index.js");
+/* harmony import */ var _material_ui_core_DialogContent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/DialogContent */ "./node_modules/@material-ui/core/esm/DialogContent/index.js");
+/* harmony import */ var _material_ui_core_DialogContentText__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/core/DialogContentText */ "./node_modules/@material-ui/core/esm/DialogContentText/index.js");
+/* harmony import */ var _material_ui_core_DialogTitle__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material-ui/core/DialogTitle */ "./node_modules/@material-ui/core/esm/DialogTitle/index.js");
+/* harmony import */ var _components_UploadFile__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/UploadFile */ "./app/containers/components/UploadFile.jsx");
+/* harmony import */ var _material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @material-ui/core/InputLabel */ "./node_modules/@material-ui/core/esm/InputLabel/index.js");
+/* harmony import */ var _material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @material-ui/core/MenuItem */ "./node_modules/@material-ui/core/esm/MenuItem/index.js");
+/* harmony import */ var _material_ui_core_Select__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @material-ui/core/Select */ "./node_modules/@material-ui/core/esm/Select/index.js");
+/* harmony import */ var _material_ui_core_Input__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @material-ui/core/Input */ "./node_modules/@material-ui/core/esm/Input/index.js");
+/* harmony import */ var _material_ui_core_Checkbox__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @material-ui/core/Checkbox */ "./node_modules/@material-ui/core/esm/Checkbox/index.js");
+/* harmony import */ var _material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @material-ui/core/ListItemText */ "./node_modules/@material-ui/core/esm/ListItemText/index.js");
+/* harmony import */ var _helpers_Crud__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../helpers/Crud */ "./app/containers/helpers/Crud.js");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const CreateEvent = ({
+  sponsors,
+  partners,
+  speakers,
+  updateEvents,
+  updateImages,
+  images,
+  events
+}) => {
+  const [title, setTitle] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
+  const [selectedSponsors, setSelectedSponsor] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
+  const [selectedPartners, setSelectedPartners] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
+  const [selectedSpeakers, setSelectedSpeakers] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
+  const [imageId, setImageId] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
+  const [open, setOpen] = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleSponsorChange = event => {
+    setSelectedSponsor(event.target.value);
+  };
+
+  const handlePartnerChange = event => {
+    setSelectedPartners(event.target.value);
+  };
+
+  const handleSpeakerChange = event => {
+    console.log(event);
+    setSelectedSpeakers(event.target.value);
+  };
+
+  const onCreateClick = () => {
+    Object(_helpers_Crud__WEBPACK_IMPORTED_MODULE_15__["createPostType"])("Event", 5, title, imageId.toString(), {
+      Sponsors: selectedSponsors.map(selSpo => {
+        return sponsors.find(sponsor => sponsor.title.rendered === selSpo).id.toString();
+      }),
+      Speakers: selectedSpeakers.map(selSpe => {
+        return speakers.find(speaker => speaker.title.rendered === selSpe).id.toString();
+      }),
+      Partners: selectedPartners.map(selPar => {
+        return partners.find(partner => partner.title.rendered === selPar).id.toString();
+      })
+    }, "publish").then(res => {
+      console.log(res);
+      updateEvents(res);
+      handleClose();
+    });
+  };
+
+  const onFileUpload = res => {
+    updateImages(res);
+    setImageId(res.id);
+  };
+
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-4 d-flex justify-content-center align-items-center"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    variant: "contained",
+    color: "primary",
+    onClick: handleClickOpen
+  }, "Create event"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Dialog__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    open: open,
+    onClose: handleClose,
+    "aria-labelledby": "form-dialog-title"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogTitle__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    id: "form-dialog-title"
+  }, "Create an event"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogContent__WEBPACK_IMPORTED_MODULE_5__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogContentText__WEBPACK_IMPORTED_MODULE_6__["default"], null, "To subscribe to this website, please enter your email address here. We will send updates occasionally."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    id: "demo-mutiple-name-label"
+  }, "Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    id: "standard-basic",
+    fullWidth: true,
+    style: {
+      border: "0px !important"
+    },
+    onChange: e => {
+      setTitle(e.target.value);
+    }
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row mt-3"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-6"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    id: "demo-mutiple-name-label"
+  }, "Speakers"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Select__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    labelId: "demo-mutiple-name-label",
+    id: "demo-mutiple-name",
+    multiple: true,
+    value: selectedSpeakers,
+    onChange: handleSpeakerChange,
+    input: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Input__WEBPACK_IMPORTED_MODULE_12__["default"], null),
+    renderValue: selected => selected.join(", "),
+    fullWidth: true
+  }, speakers.map(speaker => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    key: speaker.id,
+    value: speaker.title.rendered
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Checkbox__WEBPACK_IMPORTED_MODULE_13__["default"], {
+    checked: selectedSpeakers.indexOf(speaker.title.rendered) > -1
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    primary: speaker.title.rendered
+  }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-6"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_UploadFile__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    onFileUpload: onFileUpload
+  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row mt-3"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-6"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    id: "demo-mutiple-name-label"
+  }, "Sponsors"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Select__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    labelId: "demo-mutiple-name-label",
+    id: "demo-mutiple-name",
+    multiple: true,
+    value: selectedSponsors,
+    onChange: handleSponsorChange,
+    input: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Input__WEBPACK_IMPORTED_MODULE_12__["default"], null),
+    renderValue: selected => selected.join(", "),
+    fullWidth: true
+  }, sponsors.map(sponsor => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    key: sponsor.id,
+    value: sponsor.title.rendered
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Checkbox__WEBPACK_IMPORTED_MODULE_13__["default"], {
+    checked: selectedSponsors.indexOf(sponsor.title.rendered) > -1
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    primary: sponsor.title.rendered
+  }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-6"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    id: "demo-mutiple-name-label"
+  }, "Partners"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Select__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    labelId: "demo-mutiple-name-label",
+    id: "demo-mutiple-name",
+    multiple: true,
+    value: selectedPartners,
+    onChange: handlePartnerChange,
+    input: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Input__WEBPACK_IMPORTED_MODULE_12__["default"], null),
+    renderValue: selected => selected.join(", "),
+    fullWidth: true
+  }, partners.map(partner => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    key: partner.id,
+    value: partner.title.rendered
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Checkbox__WEBPACK_IMPORTED_MODULE_13__["default"], {
+    checked: selectedPartners.indexOf(partner.title.rendered) > -1
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    primary: partner.title.rendered
+  }))))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogActions__WEBPACK_IMPORTED_MODULE_4__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    onClick: handleClose,
+    color: "primary"
+  }, "Cancel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    onClick: onCreateClick,
+    color: "primary"
+  }, "Create"))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (CreateEvent);
+
+/***/ }),
+
 /***/ "./app/containers/components/Event.jsx":
 /*!*********************************************!*\
   !*** ./app/containers/components/Event.jsx ***!
@@ -259,34 +466,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_slick__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-slick */ "./node_modules/react-slick/lib/index.js");
 /* harmony import */ var react_slick__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_slick__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _Event__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Event */ "./app/containers/components/Event.jsx");
-/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/Button */ "./node_modules/@material-ui/core/esm/Button/index.js");
-/* harmony import */ var _material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/TextField */ "./node_modules/@material-ui/core/esm/TextField/index.js");
-/* harmony import */ var _material_ui_core_Dialog__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/Dialog */ "./node_modules/@material-ui/core/esm/Dialog/index.js");
-/* harmony import */ var _material_ui_core_DialogActions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/core/DialogActions */ "./node_modules/@material-ui/core/esm/DialogActions/index.js");
-/* harmony import */ var _material_ui_core_DialogContent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material-ui/core/DialogContent */ "./node_modules/@material-ui/core/esm/DialogContent/index.js");
-/* harmony import */ var _material_ui_core_DialogContentText__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material-ui/core/DialogContentText */ "./node_modules/@material-ui/core/esm/DialogContentText/index.js");
-/* harmony import */ var _material_ui_core_DialogTitle__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @material-ui/core/DialogTitle */ "./node_modules/@material-ui/core/esm/DialogTitle/index.js");
-/* harmony import */ var _components_UploadFile__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/UploadFile */ "./app/containers/components/UploadFile.jsx");
-/* harmony import */ var _material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @material-ui/core/InputLabel */ "./node_modules/@material-ui/core/esm/InputLabel/index.js");
-/* harmony import */ var _material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @material-ui/core/MenuItem */ "./node_modules/@material-ui/core/esm/MenuItem/index.js");
-/* harmony import */ var _material_ui_core_Select__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @material-ui/core/Select */ "./node_modules/@material-ui/core/esm/Select/index.js");
-/* harmony import */ var _material_ui_core_Input__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @material-ui/core/Input */ "./node_modules/@material-ui/core/esm/Input/index.js");
-/* harmony import */ var _material_ui_core_Checkbox__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @material-ui/core/Checkbox */ "./node_modules/@material-ui/core/esm/Checkbox/index.js");
-/* harmony import */ var _material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @material-ui/core/ListItemText */ "./node_modules/@material-ui/core/esm/ListItemText/index.js");
-/* harmony import */ var _helpers_Crud__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../helpers/Crud */ "./app/containers/helpers/Crud.js");
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* harmony import */ var _CreateEvent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CreateEvent */ "./app/containers/components/CreateEvent.jsx");
+/* harmony import */ var _helpers_Crud__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../helpers/Crud */ "./app/containers/helpers/Crud.js");
 
 
 
@@ -297,87 +478,63 @@ const Events = ({
   wp
 }) => {
   const [images, setImages] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
-  const [open, setOpen] = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(false);
   const [events, setEvents] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
   const [sponsors, setSponsors] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
   const [partners, setPartners] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
   const [speakers, setSpeakers] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
-  const [title, setTitle] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
-  const [selectedSponsors, setSelectedSponsor] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
-  const [selectedPartners, setSelectedPartners] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
-  const [selectedSpeakers, setSelectedSpeakers] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
-  const [imageId, setImageId] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleSponsorChange = event => {
-    setSelectedSponsor(event.target.value);
-  };
-
-  const handlePartnerChange = event => {
-    setSelectedPartners(event.target.value);
-  };
-
-  const handleSpeakerChange = event => {
-    console.log(event);
-    setSelectedSpeakers(event.target.value);
-  };
-
-  const onCreateClick = () => {
-    Object(_helpers_Crud__WEBPACK_IMPORTED_MODULE_17__["createPostType"])("Event", 5, title, imageId.toString(), {
-      Sponsors: selectedSponsors.map(selSpo => {
-        return sponsors.find(sponsor => sponsor.title.rendered === selSpo).id.toString();
-      }),
-      Speakers: selectedSpeakers.map(selSpe => {
-        return speakers.find(speaker => speaker.title.rendered === selSpe).id.toString();
-      }),
-      Partners: selectedPartners.map(selPar => {
-        return partners.find(partner => partner.title.rendered === selPar).id.toString();
-      })
-    }, "publish").then(res => {
-      getMedia();
-      let copyEvents = events;
-      copyEvents.unshift(res);
-      setEvents(copyEvents);
-      handleClose();
-    });
-  };
-
-  const onFileUpload = id => {
-    setImageId(id);
-  };
-
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     getMedia();
-    Object(_helpers_Crud__WEBPACK_IMPORTED_MODULE_17__["getPostType"])("Event").then(res => {
-      setEvents(res);
+    Object(_helpers_Crud__WEBPACK_IMPORTED_MODULE_4__["getPostType"])("Event").then(eve => {
+      /*  res.forEach(event => {
+        try {
+          wp.media()
+            .id(event.featured_media)
+            .then(res => {
+              console.log(res);
+              setImages(images => [
+                ...images,
+                { url: res.source_url, id: res.id }
+              ]);
+            });
+        } catch (error) {
+          console.log(error);
+        }
+      });
+       setEvents(res); */
+      setEvents(eve);
     });
-    Object(_helpers_Crud__WEBPACK_IMPORTED_MODULE_17__["getPostType"])("Sponsor").then(res => {
+    Object(_helpers_Crud__WEBPACK_IMPORTED_MODULE_4__["getPostType"])("Sponsor").then(res => {
       setSponsors(res);
     });
-    Object(_helpers_Crud__WEBPACK_IMPORTED_MODULE_17__["getPostType"])("Speaker").then(res => {
+    Object(_helpers_Crud__WEBPACK_IMPORTED_MODULE_4__["getPostType"])("Speaker").then(res => {
       setSpeakers(res);
     });
-    Object(_helpers_Crud__WEBPACK_IMPORTED_MODULE_17__["getPostType"])("Partner").then(res => {
+    Object(_helpers_Crud__WEBPACK_IMPORTED_MODULE_4__["getPostType"])("Partner").then(res => {
       setPartners(res);
     });
   }, []);
 
-  const getMedia = async () => {
-    const data = await wp.media().get();
-    setImages(data.map(img => {
-      return {
-        url: img.source_url,
-        id: img.id
-      };
-    }));
-    console.log(data);
+  const getMedia = () => {
+    wp.media().author(1).then(res => {
+      setImages(res.map(img => {
+        return {
+          url: img.source_url,
+          id: img.id
+        };
+      }));
+    });
+  };
+
+  const updateEvents = newEvent => {
+    setEvents(events => [newEvent, ...events]);
+  };
+
+  const updateImages = newImage => {
+    console.log("inside update im", newImage);
+    setImages(images => [...images, {
+      url: newImage.source_url,
+      id: newImage.id
+    }]);
   };
 
   var settings = {
@@ -396,104 +553,15 @@ const Events = ({
     className: "row"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-md-8"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Events")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col-md-4 d-flex justify-content-center align-items-center"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    variant: "contained",
-    color: "primary",
-    onClick: handleClickOpen
-  }, "Create event"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Dialog__WEBPACK_IMPORTED_MODULE_5__["default"], {
-    open: open,
-    onClose: handleClose,
-    "aria-labelledby": "form-dialog-title"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogTitle__WEBPACK_IMPORTED_MODULE_9__["default"], {
-    id: "form-dialog-title"
-  }, "Create an event"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogContent__WEBPACK_IMPORTED_MODULE_7__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogContentText__WEBPACK_IMPORTED_MODULE_8__["default"], null, "To subscribe to this website, please enter your email address here. We will send updates occasionally."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    id: "demo-mutiple-name-label"
-  }, "Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    id: "standard-basic",
-    fullWidth: true,
-    style: {
-      border: "0px !important"
-    },
-    onChange: e => {
-      setTitle(e.target.value);
-    }
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "row mt-3"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col-md-6"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    id: "demo-mutiple-name-label"
-  }, "Speakers"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Select__WEBPACK_IMPORTED_MODULE_13__["default"], {
-    labelId: "demo-mutiple-name-label",
-    id: "demo-mutiple-name",
-    multiple: true,
-    value: selectedSpeakers,
-    onChange: handleSpeakerChange,
-    input: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Input__WEBPACK_IMPORTED_MODULE_14__["default"], null),
-    renderValue: selected => selected.join(", "),
-    fullWidth: true
-  }, speakers.map(speaker => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_12__["default"], {
-    key: speaker.id,
-    value: speaker.title.rendered
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Checkbox__WEBPACK_IMPORTED_MODULE_15__["default"], {
-    checked: selectedSpeakers.indexOf(speaker.title.rendered) > -1
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_16__["default"], {
-    primary: speaker.title.rendered
-  }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col-md-6"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_UploadFile__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    onFileUpload: onFileUpload
-  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "row mt-3"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col-md-6"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    id: "demo-mutiple-name-label"
-  }, "Sponsors"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Select__WEBPACK_IMPORTED_MODULE_13__["default"], {
-    labelId: "demo-mutiple-name-label",
-    id: "demo-mutiple-name",
-    multiple: true,
-    value: selectedSponsors,
-    onChange: handleSponsorChange,
-    input: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Input__WEBPACK_IMPORTED_MODULE_14__["default"], null),
-    renderValue: selected => selected.join(", "),
-    fullWidth: true
-  }, sponsors.map(sponsor => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_12__["default"], {
-    key: sponsor.id,
-    value: sponsor.title.rendered
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Checkbox__WEBPACK_IMPORTED_MODULE_15__["default"], {
-    checked: selectedSponsors.indexOf(sponsor.title.rendered) > -1
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_16__["default"], {
-    primary: sponsor.title.rendered
-  }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col-md-6"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_InputLabel__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    id: "demo-mutiple-name-label"
-  }, "Partners"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Select__WEBPACK_IMPORTED_MODULE_13__["default"], {
-    labelId: "demo-mutiple-name-label",
-    id: "demo-mutiple-name",
-    multiple: true,
-    value: selectedPartners,
-    onChange: handlePartnerChange,
-    input: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Input__WEBPACK_IMPORTED_MODULE_14__["default"], null),
-    renderValue: selected => selected.join(", "),
-    fullWidth: true
-  }, partners.map(partner => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_12__["default"], {
-    key: partner.id,
-    value: partner.title.rendered
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Checkbox__WEBPACK_IMPORTED_MODULE_15__["default"], {
-    checked: selectedPartners.indexOf(partner.title.rendered) > -1
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_16__["default"], {
-    primary: partner.title.rendered
-  }))))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogActions__WEBPACK_IMPORTED_MODULE_6__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    onClick: handleClose,
-    color: "primary"
-  }, "Cancel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    onClick: onCreateClick,
-    color: "primary"
-  }, "Create")))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Create and manage events."), images.length >= 1 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_slick__WEBPACK_IMPORTED_MODULE_1___default.a, settings, events.map((event, index) => {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Events")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CreateEvent__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    speakers: speakers,
+    partners: partners,
+    sponsors: sponsors,
+    updateEvents: updateEvents,
+    updateImages: updateImages,
+    images: images,
+    events: events
+  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Create and manage events."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_slick__WEBPACK_IMPORTED_MODULE_1___default.a, settings, events.map((event, index) => {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       key: event.id,
       className: "col-md-4 ".concat(index % 3 === 0 || index % 4 === 0 || index % 5 === 0 ? "mt-4" : "")
@@ -703,7 +771,7 @@ const UploadFile = ({
         alt_text: acceptedFiles[0].name
       });
       console.log(response);
-      onFileUpload(response.id);
+      onFileUpload(response);
     } catch (error) {
       console.log(error);
     }
@@ -753,7 +821,9 @@ const registerRoutes = () => {
   var namespace = "wp/v2"; //Event
 
   var route = "/event/(?P<id>)";
-  wp.event = wp.registerRoute(namespace, route); //Sponsor
+  wp.event = wp.registerRoute(namespace, route, {
+    params: ["author"]
+  }); //Sponsor
 
   var route = "/sponsor/(?P<id>)";
   wp.sponsor = wp.registerRoute(namespace, route); //Partner

@@ -19,7 +19,7 @@ const UploadFile = ({ onFileUpload }) => {
           alt_text: acceptedFiles[0].name
         });
       console.log(response);
-      onFileUpload(response.id);
+      onFileUpload(response);
     } catch (error) {
       console.log(error);
     }
