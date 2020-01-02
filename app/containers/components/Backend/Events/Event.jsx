@@ -65,7 +65,7 @@ const Event = ({
         </Typography>
       </CardContent>
 
-      <CardActions>
+      <CardActions className="justify-content-end">
         <UpdateEvent
           id={id}
           prevTitle={title}

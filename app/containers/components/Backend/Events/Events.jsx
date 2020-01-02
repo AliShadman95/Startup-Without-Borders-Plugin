@@ -71,6 +71,27 @@ const Events = ({ wp }) => {
       { url: newImage.source_url, id: newImage.id }
     ]);
   };
+  const SampleNextArrow = props => {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, display: "block", background: "dimgrey" }}
+        onClick={onClick}
+      />
+    );
+  };
+
+  const SamplePrevArrow = props => {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, display: "block", background: "dimgrey" }}
+        onClick={onClick}
+      />
+    );
+  };
 
   var settings = {
     dots: true,
@@ -80,11 +101,13 @@ const Events = ({ wp }) => {
     slidesPerRow: 3,
     rows: 2,
     slidesToScroll: 1,
-    arrows: true
+    arrows: true,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />
   };
 
   return (
-    <div>
+    <div className="container pl-2 pr-2">
       <div className="container">
         <div className="row">
           <div className="col-md-8">
@@ -103,43 +126,44 @@ const Events = ({ wp }) => {
       </div>
 
       <p>Create and manage events.</p>
-
-      <Slider {...settings}>
-        {events.map((event, index) => {
-          return (
-            <div
-              key={event.id}
-              className={`col-md-4 ${
-                index % 3 === 0 || index % 4 === 0 || index % 5 === 0
-                  ? "mt-4"
-                  : ""
-              }`}
-            >
-              <Event
-                imageUrl={
-                  images.find(img => img.id === event.featured_media) &&
-                  images.find(img => img.id === event.featured_media).url
-                }
-                imageId={event.featured_media}
-                id={event.id}
-                title={event.title.rendered}
-                description={event.meta.Description}
-                date={event.meta.Date}
-                place={event.meta.Place}
-                selectedSponsors={event.meta.Sponsors}
-                selectedPartners={event.meta.Partners}
-                selectedSpeakers={event.meta.Speakers}
-                addImage={addImage}
-                updateEvent={updateEvent}
-                deleteEvent={deleteEvent}
-                speakers={speakers}
-                partners={partners}
-                sponsors={sponsors}
-              />
-            </div>
-          );
-        })}
-      </Slider>
+      <div className="container">
+        <Slider {...settings}>
+          {events.map((event, index) => {
+            return (
+              <div
+                key={event.id}
+                className={`col-md-4 ${
+                  index % 3 === 0 || index % 4 === 0 || index % 5 === 0
+                    ? "mt-4"
+                    : ""
+                }`}
+              >
+                <Event
+                  imageUrl={
+                    images.find(img => img.id === event.featured_media) &&
+                    images.find(img => img.id === event.featured_media).url
+                  }
+                  imageId={event.featured_media}
+                  id={event.id}
+                  title={event.title.rendered}
+                  description={event.meta.Description}
+                  date={event.meta.Date}
+                  place={event.meta.Place}
+                  selectedSponsors={event.meta.Sponsors}
+                  selectedPartners={event.meta.Partners}
+                  selectedSpeakers={event.meta.Speakers}
+                  addImage={addImage}
+                  updateEvent={updateEvent}
+                  deleteEvent={deleteEvent}
+                  speakers={speakers}
+                  partners={partners}
+                  sponsors={sponsors}
+                />
+              </div>
+            );
+          })}
+        </Slider>
+      </div>
     </div>
   );
 };

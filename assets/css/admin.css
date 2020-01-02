@@ -1,8 +1,19 @@
 #wpcontent {
-  background-color: #d7cec7;
+  background-color: white;
   color: #565656;
   padding: 0px;
   font-family: "Heebo", sans-serif !important;
+}
+button:focus {
+  outline: none !important;
+}
+#wpbody-content {
+  padding-bottom: 0;
+  margin-bottom: 65px;
+}
+
+#wpfooter {
+  background-color: white;
 }
 
 input[type="text"] {

@@ -55,7 +55,8 @@ const UpdateEvent = ({
   const [selectedSpeakers, setSelectedSpeakers] = useState([]);
   const [imageId, setImageId] = useState("0");
   const [open, setOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(moment().format());
+  const [selectedDate, setSelectedDate] = useState("mm/dd/yyyy");
+
   useEffect(() => {
     setTitle(prevTitle);
     setDescription(prevDescription);
@@ -162,7 +163,7 @@ const UpdateEvent = ({
     setImageId(res.id.toString());
   };
   return (
-    <div className="col-md-4 d-flex justify-content-center align-items-center">
+    <div>
       <IconButton onClick={handleClickOpen}>
         <EditIcon color="primary" />
       </IconButton>

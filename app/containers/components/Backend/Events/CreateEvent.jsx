@@ -1,5 +1,5 @@
 import "date-fns";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -46,7 +46,11 @@ const CreateEvent = ({
   const [selectedSpeakers, setSelectedSpeakers] = useState([]);
   const [imageId, setImageId] = useState("0");
   const [open, setOpen] = React.useState(false);
-  const [selectedDate, setSelectedDate] = React.useState(moment().format());
+  const [selectedDate, setSelectedDate] = React.useState("mm/dd/yyyy");
+
+  useEffect(() => {
+    setSelectedDate(moment().format());
+  }, []);
 
   const handleDateChange = date => {
     setSelectedDate(date);
@@ -126,8 +130,8 @@ const CreateEvent = ({
         <DialogTitle id="form-dialog-title">Create an event</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry.
           </DialogContentText>
           <div className="row">
             <div className="col-md-6">
@@ -151,7 +155,6 @@ const CreateEvent = ({
               label="Description"
               multiline
               rows="4"
-              defaultValue="Add a description"
               variant="outlined"
               fullWidth
               onChange={e => {
