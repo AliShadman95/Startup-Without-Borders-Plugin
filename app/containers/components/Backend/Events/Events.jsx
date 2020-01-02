@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import Event from "./Event";
 import CreateEvent from "./CreateEvent";
 
-import { getPostType } from "../helpers/Crud";
+import { getPostType } from "../../../helpers/Crud";
 
 const Events = ({ wp }) => {
   const [images, setImages] = useState([]);

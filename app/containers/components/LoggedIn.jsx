@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import ListMenu from "./ListMenu";
 import Navbar from "./Navbar";
-import Events from "./Events";
+import Events from "./Backend/Events/Events";
 import { registerRoutes } from "../helpers/Crud";
 const LoggedIn = ({ nonce, url, wpapi }) => {
   const [events, setEvents] = useState([]);

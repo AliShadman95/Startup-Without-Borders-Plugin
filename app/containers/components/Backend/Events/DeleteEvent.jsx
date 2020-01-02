@@ -8,7 +8,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 import Slide from "@material-ui/core/Slide";
 import Button from "@material-ui/core/Button";
-import { deletePostType } from "../helpers/Crud";
+import { deletePostType } from "../../../helpers/Crud";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
