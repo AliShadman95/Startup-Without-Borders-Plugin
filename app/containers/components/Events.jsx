@@ -40,11 +40,29 @@ const Events = ({ wp }) => {
       });
   };
 
-  const updateEvents = newEvent => {
+  const addEvent = newEvent => {
     setEvents(events => [newEvent, ...events]);
   };
 
-  const updateImages = newImage => {
+  const updateEvent = updatedEvent => {
+    console.log("events", events);
+    console.log("updatedeve", updatedEvent);
+    const index = events.findIndex(event => event.id === updatedEvent.id);
+    console.log(index);
+    if (index !== -1) {
+      setEvents(
+        events.map((event, i) => {
+          if (i === index) {
+            return updatedEvent;
+          } else {
+            return event;
+          }
+        })
+      );
+    }
+  };
+
+  const addImage = newImage => {
     console.log("inside update im", newImage);
     setImages(images => [
       ...images,
@@ -74,8 +92,8 @@ const Events = ({ wp }) => {
             speakers={speakers}
             partners={partners}
             sponsors={sponsors}
-            updateEvents={updateEvents}
-            updateImages={updateImages}
+            addEvent={addEvent}
+            addImage={addImage}
             images={images}
             events={events}
           />
@@ -96,14 +114,24 @@ const Events = ({ wp }) => {
               }`}
             >
               <Event
-                image={
+                imageUrl={
                   images.find(img => img.id === event.featured_media) &&
                   images.find(img => img.id === event.featured_media).url
                 }
+                imageId={event.featured_media}
+                id={event.id}
                 title={event.title.rendered}
                 description={event.meta.Description}
                 date={event.meta.Date}
                 place={event.meta.Place}
+                selectedSponsors={event.meta.Sponsors}
+                selectedPartners={event.meta.Partners}
+                selectedSpeakers={event.meta.Speakers}
+                addImage={addImage}
+                updateEvent={updateEvent}
+                speakers={speakers}
+                partners={partners}
+                sponsors={sponsors}
               />
             </div>
           );

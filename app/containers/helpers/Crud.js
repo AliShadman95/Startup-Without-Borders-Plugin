@@ -43,6 +43,26 @@ export const createEvent = async (chapter, title, image, meta, status) => {
   }
 };
 
+//Update an event
+export const editEvent = async (id, chapter, title, image, meta, status) => {
+  try {
+    const data = await wp
+      .event()
+      .id(id)
+      .update({
+        title,
+        slug: title,
+        chapter,
+        featured_media: image,
+        meta,
+        status
+      });
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 //Create a post type based on the "type" param
 export const createPostType = async (type, title, image, status) => {
   switch (type) {

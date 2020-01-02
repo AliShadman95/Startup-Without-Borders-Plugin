@@ -1,5 +1,5 @@
 import "date-fns";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -11,10 +11,12 @@ import UploadFile from "../components/UploadFile";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
+import EditIcon from "@material-ui/icons/Edit";
+import IconButton from "@material-ui/core/IconButton";
 import Input from "@material-ui/core/Input";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemText from "@material-ui/core/ListItemText";
-import { createPostType, createEvent } from "../helpers/Crud";
+import { editEvent } from "../helpers/Crud";
 import Grid from "@material-ui/core/Grid";
 import {
   MuiPickersUtilsProvider,
@@ -29,14 +31,21 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="left" ref={ref} {...props} />;
 });
 
-const CreateEvent = ({
-  sponsors,
-  partners,
-  speakers,
-  addEvent,
+const UpdateEvent = ({
+  prevTitle,
+  id,
+  prevDescription,
+  prevDate,
+  prevPlace,
+  prevSelSponsors,
+  prevSelPartners,
+  prevSelSpeakers,
+  prevImageId,
   addImage,
-  images,
-  events
+  updateEvent,
+  speakers,
+  partners,
+  sponsors
 }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -47,6 +56,49 @@ const CreateEvent = ({
   const [imageId, setImageId] = useState("0");
   const [open, setOpen] = React.useState(false);
   const [selectedDate, setSelectedDate] = React.useState(moment().format());
+  useEffect(() => {
+    setTitle(prevTitle);
+    setDescription(prevDescription);
+    setAddress(prevPlace);
+    sponsors.length >= 1 &&
+      setSelectedSponsors(
+        prevSelSponsors.map(prevSSpo => {
+          return sponsors.find(
+            sponsor => sponsor.id.toString() === prevSSpo.toString()
+          ).title.rendered;
+        })
+      );
+    partners.length >= 1 &&
+      setSelectedPartners(
+        prevSelPartners.map(prevSPar => {
+          return partners.find(
+            partner => partner.id.toString() === prevSPar.toString()
+          ).title.rendered;
+        })
+      );
+    speakers.length >= 1 &&
+      setSelectedSpeakers(
+        prevSelSpeakers.map(prevSSpe => {
+          return speakers.find(
+            speaker => speaker.id.toString() === prevSSpe.toString()
+          ).title.rendered;
+        })
+      );
+    setSelectedDate(prevDate);
+    setImageId(prevImageId);
+  }, [
+    prevTitle,
+    prevDescription,
+    prevPlace,
+    prevSelSponsors,
+    prevSelPartners,
+    prevSelSpeakers,
+    prevImageId,
+    prevDate,
+    sponsors,
+    partners,
+    speakers
+  ]);
 
   const handleDateChange = date => {
     setSelectedDate(date);
@@ -71,8 +123,10 @@ const CreateEvent = ({
     setSelectedSpeakers(event.target.value);
   };
 
-  const onCreateClick = () => {
-    createEvent(
+  const onEditClick = async () => {
+    console.log("ON EDIT");
+    editEvent(
+      id,
       5,
       title,
       imageId.toString(),
@@ -99,21 +153,19 @@ const CreateEvent = ({
       "publish"
     ).then(res => {
       console.log(res);
-      addEvent(res);
+      updateEvent(res);
       handleClose();
     });
   };
-
   const onFileUpload = res => {
     addImage(res);
     setImageId(res.id.toString());
   };
-
   return (
     <div className="col-md-4 d-flex justify-content-center align-items-center">
-      <Button variant="contained" color="primary" onClick={handleClickOpen}>
-        Create event
-      </Button>
+      <IconButton onClick={handleClickOpen}>
+        <EditIcon color="primary" />
+      </IconButton>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -123,7 +175,7 @@ const CreateEvent = ({
         TransitionComponent={Transition}
         keepMounted
       >
-        <DialogTitle id="form-dialog-title">Create an event</DialogTitle>
+        <DialogTitle id="form-dialog-title">Edit an event</DialogTitle>
         <DialogContent>
           <DialogContentText>
             To subscribe to this website, please enter your email address here.
@@ -133,7 +185,7 @@ const CreateEvent = ({
             <div className="col-md-6">
               <InputLabel id="demo-mutiple-name-label">Title</InputLabel>
               <TextField
-                id="standard-basic"
+                defaultValue={title}
                 fullWidth
                 style={{ border: "0px !important" }}
                 onChange={e => {
@@ -151,7 +203,7 @@ const CreateEvent = ({
               label="Description"
               multiline
               rows="4"
-              defaultValue="Add a description"
+              defaultValue={description}
               variant="outlined"
               fullWidth
               onChange={e => {
@@ -178,7 +230,7 @@ const CreateEvent = ({
             <div className="col-md-6">
               <InputLabel id="demo-mutiple-name-label">Address</InputLabel>
               <TextField
-                id="standard-basic-2"
+                defaultValue={address}
                 fullWidth
                 style={{ border: "0px !important" }}
                 onChange={e => {
@@ -270,8 +322,8 @@ const CreateEvent = ({
           <Button onClick={handleClose} color="secondary">
             Cancel
           </Button>
-          <Button onClick={onCreateClick} color="primary">
-            Create
+          <Button onClick={onEditClick} color="primary">
+            Edit
           </Button>
         </DialogActions>
       </Dialog>
@@ -279,4 +331,4 @@ const CreateEvent = ({
   );
 };
 
-export default CreateEvent;
+export default UpdateEvent;

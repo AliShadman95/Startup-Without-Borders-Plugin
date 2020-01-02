@@ -11,6 +11,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 import moment from "moment";
+import UpdateEvent from "./UpdateEvent";
 
 const useStyles = makeStyles({
   card: {
@@ -21,7 +22,23 @@ const useStyles = makeStyles({
   }
 });
 
-const Event = ({ image, title, description, date, place }) => {
+const Event = ({
+  imageUrl,
+  imageId,
+  id,
+  title,
+  description,
+  date,
+  place,
+  selectedSponsors,
+  selectedPartners,
+  selectedSpeakers,
+  addImage,
+  updateEvent,
+  sponsors,
+  speakers,
+  partners
+}) => {
   const classes = useStyles();
   const handleClick = () => {};
 
@@ -30,7 +47,7 @@ const Event = ({ image, title, description, date, place }) => {
       <CardMedia
         component="img"
         className={classes.media}
-        image={image}
+        image={imageUrl}
         title="Contemplative Reptile"
       />
 
@@ -50,9 +67,22 @@ const Event = ({ image, title, description, date, place }) => {
       </CardContent>
 
       <CardActions>
-        <IconButton onClick={handleClick}>
-          <EditIcon color="primary" />
-        </IconButton>
+        <UpdateEvent
+          id={id}
+          prevTitle={title}
+          prevDescription={description.join(" ")}
+          prevDate={date}
+          prevPlace={place.join(" ")}
+          prevSelSponsors={selectedSponsors}
+          prevSelPartners={selectedPartners}
+          prevSelSpeakers={selectedSpeakers}
+          addImage={addImage}
+          updateEvent={updateEvent}
+          sponsors={sponsors}
+          partners={partners}
+          speakers={speakers}
+          prevImageId={imageId}
+        />
         <IconButton onClick={handleClick}>
           <DeleteIcon color="secondary" />
         </IconButton>
