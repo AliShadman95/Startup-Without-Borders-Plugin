@@ -72,12 +72,12 @@ const VerticalTab = ({ wp }) => {
         className={classes.tabs}
       >
         <Tab label="Events" {...a11yProps(0)} />
-        <Tab label="Item Two" {...a11yProps(1)} />
-        <Tab label="Item Three" {...a11yProps(2)} />
-        <Tab label="Item Four" {...a11yProps(3)} />
-        <Tab label="Item Five" {...a11yProps(4)} />
-        <Tab label="Item Six" {...a11yProps(5)} />
-        <Tab label="Item Seven" {...a11yProps(6)} />
+        <Tab label="Members" {...a11yProps(1)} />
+        <Tab label="Sponsors" {...a11yProps(2)} />
+        <Tab label="Partners" {...a11yProps(3)} />
+        <Tab label="Speakers" {...a11yProps(4)} />
+        <Tab label="Analytics" {...a11yProps(5)} />
+        <Tab label="Settings" {...a11yProps(6)} />
       </Tabs>
       <TabPanel value={value} index={0} className={classes.tabPanel}>
         <Events wp={wp} />
