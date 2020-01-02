@@ -1,17 +1,15 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
+
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
+
 import Typography from "@material-ui/core/Typography";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
-import IconButton from "@material-ui/core/IconButton";
 import moment from "moment";
 import UpdateEvent from "./UpdateEvent";
+import DeleteEvent from "./DeleteEvent";
 
 const useStyles = makeStyles({
   card: {
@@ -37,7 +35,8 @@ const Event = ({
   updateEvent,
   sponsors,
   speakers,
-  partners
+  partners,
+  deleteEvent
 }) => {
   const classes = useStyles();
   const handleClick = () => {};
@@ -83,9 +82,7 @@ const Event = ({
           speakers={speakers}
           prevImageId={imageId}
         />
-        <IconButton onClick={handleClick}>
-          <DeleteIcon color="secondary" />
-        </IconButton>
+        <DeleteEvent deleteEvent={deleteEvent} id={id} />
       </CardActions>
     </Card>
   );

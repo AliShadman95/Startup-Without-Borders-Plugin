@@ -54,8 +54,8 @@ const UpdateEvent = ({
   const [selectedPartners, setSelectedPartners] = useState([]);
   const [selectedSpeakers, setSelectedSpeakers] = useState([]);
   const [imageId, setImageId] = useState("0");
-  const [open, setOpen] = React.useState(false);
-  const [selectedDate, setSelectedDate] = React.useState(moment().format());
+  const [open, setOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(moment().format());
   useEffect(() => {
     setTitle(prevTitle);
     setDescription(prevDescription);

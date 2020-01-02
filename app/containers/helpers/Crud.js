@@ -219,7 +219,7 @@ export const updatePostType = async (type, id, title, image, meta, status) => {
 };
 
 //Delete a post type based on the "type" param
-const deletePostType = async (type, id) => {
+export const deletePostType = async (type, id) => {
   switch (type) {
     case "Event":
       try {

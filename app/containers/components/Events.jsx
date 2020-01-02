@@ -45,8 +45,6 @@ const Events = ({ wp }) => {
   };
 
   const updateEvent = updatedEvent => {
-    console.log("events", events);
-    console.log("updatedeve", updatedEvent);
     const index = events.findIndex(event => event.id === updatedEvent.id);
     console.log(index);
     if (index !== -1) {
@@ -60,6 +58,10 @@ const Events = ({ wp }) => {
         })
       );
     }
+  };
+
+  const deleteEvent = id => {
+    setEvents(events.filter(event => event.id !== id));
   };
 
   const addImage = newImage => {
@@ -129,6 +131,7 @@ const Events = ({ wp }) => {
                 selectedSpeakers={event.meta.Speakers}
                 addImage={addImage}
                 updateEvent={updateEvent}
+                deleteEvent={deleteEvent}
                 speakers={speakers}
                 partners={partners}
                 sponsors={sponsors}
