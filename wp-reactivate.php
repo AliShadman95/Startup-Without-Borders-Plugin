@@ -96,7 +96,7 @@ add_action( 'widgets_init', 'Pangolin\\WPR\\widget_init' );
 function add_cors_http_header(){
     header("Access-Control-Allow-Origin: *");
 }
-add_action('init','add_cors_http_header');
+add_action('init','Pangolin\\WPR\\add_cors_http_header');
 
 //CUSTOM POST TYPE IMPORT
 function cptui_register_my_cpts() {
@@ -363,7 +363,7 @@ function cptui_register_my_cpts() {
 	register_post_type( "partner", $args );
 }
 
-add_action( 'init', 'cptui_register_my_cpts' );
+add_action( 'init', 'Pangolin\\WPR\\cptui_register_my_cpts' );
 
 
 //TAXONOMY IMPORT
@@ -416,7 +416,7 @@ function cptui_register_my_taxes() {
 		];
 	register_taxonomy( "chapter", [ "page" ], $args );
 }
-add_action( 'init', 'cptui_register_my_taxes' );
+add_action( 'init', 'Pangolin\\WPR\\cptui_register_my_taxes' );
 
 
 
