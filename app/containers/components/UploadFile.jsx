@@ -1,48 +1,50 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import axios from "axios";
 
-const UploadFile = () => {
-  const [posts, setPosts] = useState([]);
-  const [upload, setUpload] = useState("null");
+var WPAPI = require("wpapi");
 
+const UploadFile = ({ onFileUpload }) => {
   const onDrop = useCallback(async acceptedFiles => {
+    wp = new WPAPI({
+      endpoint: window.wpr_object.api_url,
+      nonce: window.wpr_object.api_nonce
+    });
     try {
-      // Do something with the files
-
-      const response = axios.post(
-        "http://localhost/localsite/wp-json/wp/v2/media/",
-        acceptedFiles[0],
-        {
-          headers: {
-            "X-WP-Nonce": nonce,
-            ContentType: false,
-            processData: false,
-            "Content-Disposition": "attachment; filename=example.png"
-          }
-        }
-      );
-
+      console.log(acceptedFiles);
+      const response = await wp
+        .media()
+        .file(acceptedFiles[0])
+        .create({
+          title: acceptedFiles[0].name,
+          alt_text: acceptedFiles[0].name
+        });
       console.log(response);
+      onFileUpload(response);
     } catch (error) {
       console.log(error);
     }
   }, []);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+
+  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     onDrop
   });
 
+  const files = acceptedFiles.map(file => (
+    <li key={file.path}>
+      {file.path} - {file.size} bytes
+    </li>
+  ));
+
   return (
-    <div>
-      <div {...getRootProps()}>
+    <section className="container">
+      <div {...getRootProps({ className: "dropzone" })}>
         <input {...getInputProps()} />
-        {isDragActive ? (
-          <p>Drop the files here ...</p>
-        ) : (
-          <p>Drag 'n' drop some files here, or click to select files</p>
-        )}
+        <p>Click to select image</p>
       </div>
-    </div>
+      <aside>
+        <ul>{files}</ul>
+      </aside>
+    </section>
   );
 };
 

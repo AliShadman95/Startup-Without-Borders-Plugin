@@ -1,0 +1,30 @@
+#wpcontent {
+  background-color: white;
+  color: #565656;
+  padding: 0px;
+  font-family: "Heebo", sans-serif !important;
+}
+button:focus {
+  outline: none !important;
+}
+#wpbody-content {
+  padding-bottom: 0;
+  margin-bottom: 65px;
+}
+
+#wpfooter {
+  background-color: white;
+}
+
+input[type="text"] {
+  border: none;
+}
+
+input[type="text"]:focus {
+  border: none;
+  box-shadow: none;
+}
+
+textarea:focus {
+  box-shadow: none;
+}

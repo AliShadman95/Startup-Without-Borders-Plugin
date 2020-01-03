@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Navbar from "./components/Navbar";
 import LoggedIn from "./components/LoggedIn";
+import VerticalTab from "./components/Backend/VerticalTab";
 var WPAPI = require("wpapi");
+import { registerRoutes } from "./helpers/Crud";
 
 export default class Admin extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    registerRoutes();
   }
 
   render() {
@@ -17,11 +20,12 @@ export default class Admin extends Component {
     });
     return (
       <React.Fragment>
-        <LoggedIn
+        {/*  <LoggedIn
           nonce={this.props.wpObject.api_nonce}
           url={this.props.wpObject.api_url}
-          wpapi={wp}
-        />
+          wp={wp}
+        /> */}
+        <VerticalTab wp={wp} />
       </React.Fragment>
     );
   }
