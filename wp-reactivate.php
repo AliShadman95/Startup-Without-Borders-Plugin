@@ -365,6 +365,7 @@ function cptui_register_my_cpts() {
 
 add_action( 'init', 'cptui_register_my_cpts' );
 
+
 //TAXONOMY IMPORT
 
 function cptui_register_my_taxes() {
@@ -416,6 +417,7 @@ function cptui_register_my_taxes() {
 	register_taxonomy( "chapter", [ "page" ], $args );
 }
 add_action( 'init', 'cptui_register_my_taxes' );
+
 
 
 
