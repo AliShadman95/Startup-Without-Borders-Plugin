@@ -68,43 +68,47 @@ export const createPostType = async (type, title, image, status) => {
   switch (type) {
     case "Speaker":
       try {
-        await wp.speaker().create({
+        const data = await wp.speaker().create({
           title,
           featured_media: image,
           status
         });
+        return data;
       } catch (error) {
         console.log(error);
       }
       break;
     case "Sponsor":
       try {
-        await wp.sponsor().create({
+        const data = await wp.sponsor().create({
           title,
           featured_media: image,
           status
         });
+        return data;
       } catch (error) {
         console.log(error);
       }
       break;
     case "Partner":
       try {
-        await wp.partner().create({
+        const data = await wp.partner().create({
           title,
           featured_media: image,
           status
         });
+        return data;
       } catch (error) {
         console.log(error);
       }
       break;
     case "Chapter":
       try {
-        await wp.chapter().create({
+        const data = await wp.chapter().create({
           name: title,
           slug: title
         });
+        return data;
       } catch (error) {
         console.log(error);
       }
@@ -133,7 +137,7 @@ export const getPostType = async type => {
         console.log(error);
         return error;
       }
-      break;
+
     case "Sponsor":
       try {
         const data = await wp.sponsor().get();
@@ -143,7 +147,7 @@ export const getPostType = async type => {
         console.log(error);
         return error;
       }
-      break;
+
     case "Partner":
       try {
         const data = await wp.partner().get();
@@ -153,7 +157,7 @@ export const getPostType = async type => {
         console.log(error);
         return error;
       }
-      break;
+
     case "Chapter":
       try {
         const data = await wp.chapter().get();
@@ -171,47 +175,52 @@ export const updatePostType = async (type, id, title, image, meta, status) => {
   switch (type) {
     case "Event":
       try {
-        await wp
+        const data = await wp
           .event()
           .id(id)
           .update({ title, slug: title, featured_media: image, meta, status });
+        return data;
       } catch (error) {
         console.log(error);
       }
       break;
     case "Speaker":
       try {
-        await wp
+        const data = await wp
           .speaker()
           .id(id)
           .update({ title, featured_media: image, status });
+        return data;
       } catch (error) {
         console.log(error);
       }
       break;
     case "Sponsor":
       try {
-        await wp
+        const data = await wp
           .sponsor()
           .id(id)
           .update({ title, featured_media: image, status });
+        return data;
       } catch (error) {
         console.log(error);
       }
       break;
     case "Partner":
       try {
-        await wp
+        const data = await wp
           .partner()
           .id(id)
           .update({ title, featured_media: image, status });
+        return data;
       } catch (error) {
         console.log(error);
       }
       break;
     case "Chapter":
       try {
-        await wp.chapter.id(id).update({ title, slug: title });
+        const data = await wp.chapter.id(id).update({ title, slug: title });
+        return data;
       } catch (error) {
         console.log(error);
       }
