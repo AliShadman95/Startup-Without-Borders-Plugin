@@ -98,6 +98,58 @@ function add_cors_http_header(){
 }
 add_action('init','Pangolin\\WPR\\add_cors_http_header');
 
+//TAXONOMY IMPORT
+
+function cptui_register_my_taxes() {
+
+	/**
+	 * Taxonomy: Chapters.
+	 */
+
+	$labels = [
+		"name" => __( "Chapters", "twentyseventeen" ),
+		"singular_name" => __( "Chapter", "twentyseventeen" ),
+		"menu_name" => __( "Chapters", "twentyseventeen" ),
+		"all_items" => __( "All Chapters", "twentyseventeen" ),
+		"edit_item" => __( "Edit Chapter", "twentyseventeen" ),
+		"view_item" => __( "View Chapter", "twentyseventeen" ),
+		"update_item" => __( "Update Chapter name", "twentyseventeen" ),
+		"add_new_item" => __( "Add new Chapter", "twentyseventeen" ),
+		"new_item_name" => __( "New Chapter name", "twentyseventeen" ),
+		"parent_item" => __( "Parent Chapter", "twentyseventeen" ),
+		"parent_item_colon" => __( "Parent Chapter:", "twentyseventeen" ),
+		"search_items" => __( "Search Chapters", "twentyseventeen" ),
+		"popular_items" => __( "Popular Chapters", "twentyseventeen" ),
+		"separate_items_with_commas" => __( "Separate Chapters with commas", "twentyseventeen" ),
+		"add_or_remove_items" => __( "Add or remove Chapters", "twentyseventeen" ),
+		"choose_from_most_used" => __( "Choose from the most used Chapters", "twentyseventeen" ),
+		"not_found" => __( "No Chapters found", "twentyseventeen" ),
+		"no_terms" => __( "No Chapters", "twentyseventeen" ),
+		"items_list_navigation" => __( "Chapters list navigation", "twentyseventeen" ),
+		"items_list" => __( "Chapters list", "twentyseventeen" ),
+	];
+
+	$args = [
+		"label" => __( "Chapters", "twentyseventeen" ),
+		"labels" => $labels,
+		"public" => true,
+		"publicly_queryable" => true,
+		"hierarchical" => true,
+		"show_ui" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"query_var" => true,
+		"rewrite" => [ 'slug' => 'chapter', 'with_front' => true, ],
+		"show_admin_column" => false,
+		"show_in_rest" => true,
+		"rest_base" => "chapter",
+		"rest_controller_class" => "WP_REST_Terms_Controller",
+		"show_in_quick_edit" => false,
+		];
+	register_taxonomy( "chapter", [ "page" ], $args );
+}
+add_action( 'init', 'Pangolin\\WPR\\cptui_register_my_taxes' );
+
 //CUSTOM POST TYPE IMPORT
 function cptui_register_my_cpts() {
 
@@ -366,57 +418,8 @@ function cptui_register_my_cpts() {
 add_action( 'init', 'Pangolin\\WPR\\cptui_register_my_cpts' );
 
 
-//TAXONOMY IMPORT
 
-function cptui_register_my_taxes() {
 
-	/**
-	 * Taxonomy: Chapters.
-	 */
-
-	$labels = [
-		"name" => __( "Chapters", "twentyseventeen" ),
-		"singular_name" => __( "Chapter", "twentyseventeen" ),
-		"menu_name" => __( "Chapters", "twentyseventeen" ),
-		"all_items" => __( "All Chapters", "twentyseventeen" ),
-		"edit_item" => __( "Edit Chapter", "twentyseventeen" ),
-		"view_item" => __( "View Chapter", "twentyseventeen" ),
-		"update_item" => __( "Update Chapter name", "twentyseventeen" ),
-		"add_new_item" => __( "Add new Chapter", "twentyseventeen" ),
-		"new_item_name" => __( "New Chapter name", "twentyseventeen" ),
-		"parent_item" => __( "Parent Chapter", "twentyseventeen" ),
-		"parent_item_colon" => __( "Parent Chapter:", "twentyseventeen" ),
-		"search_items" => __( "Search Chapters", "twentyseventeen" ),
-		"popular_items" => __( "Popular Chapters", "twentyseventeen" ),
-		"separate_items_with_commas" => __( "Separate Chapters with commas", "twentyseventeen" ),
-		"add_or_remove_items" => __( "Add or remove Chapters", "twentyseventeen" ),
-		"choose_from_most_used" => __( "Choose from the most used Chapters", "twentyseventeen" ),
-		"not_found" => __( "No Chapters found", "twentyseventeen" ),
-		"no_terms" => __( "No Chapters", "twentyseventeen" ),
-		"items_list_navigation" => __( "Chapters list navigation", "twentyseventeen" ),
-		"items_list" => __( "Chapters list", "twentyseventeen" ),
-	];
-
-	$args = [
-		"label" => __( "Chapters", "twentyseventeen" ),
-		"labels" => $labels,
-		"public" => true,
-		"publicly_queryable" => true,
-		"hierarchical" => true,
-		"show_ui" => true,
-		"show_in_menu" => true,
-		"show_in_nav_menus" => true,
-		"query_var" => true,
-		"rewrite" => [ 'slug' => 'chapter', 'with_front' => true, ],
-		"show_admin_column" => false,
-		"show_in_rest" => true,
-		"rest_base" => "chapter",
-		"rest_controller_class" => "WP_REST_Terms_Controller",
-		"show_in_quick_edit" => false,
-		];
-	register_taxonomy( "chapter", [ "page" ], $args );
-}
-add_action( 'init', 'Pangolin\\WPR\\cptui_register_my_taxes' );
 
 
 
