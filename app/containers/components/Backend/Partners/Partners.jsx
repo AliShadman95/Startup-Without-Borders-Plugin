@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 
-import CardPartner from "./CardPartner";
-import FormPartner from "./FormPartner";
+import Partner from "./Partner";
+import CreatePartner from "./CreatePartner";
 import {
   getPostType,
   deletePostType,
@@ -10,7 +10,7 @@ import {
   updatePostType
 } from "../../../helpers/Crud";
 
-function Partner() {
+const Partners = () => {
   const [listPartner, setListPartner] = useState([]); // Partner's array
   const [images, setImages] = useState([]); // Partner's Image array
 
@@ -20,7 +20,11 @@ function Partner() {
     });
 
     getPostType("Media").then(resp => {
-      setImages(resp);
+      setImages(
+        resp.map(img => {
+          return { url: img.source_url, id: img.id };
+        })
+      );
     });
   }, []);
 
@@ -51,8 +55,6 @@ function Partner() {
   };
 
   const handleEditPartnerName = (newNameEdit, partnerId, imageId) => {
-    console.log("partner aggiornato - newNameEdit", newNameEdit);
-    console.log("partner aggiornato - partnerId", partnerId);
     updatePostType(
       "Partner",
       partnerId,
@@ -61,65 +63,98 @@ function Partner() {
       {},
       "publish"
     ).then(data => {
-      // console.log("obj restituito dall'update", data);
       const index = listPartner.findIndex(i => i.id === partnerId);
-      // console.log("index", index);
       const listPartnerUpdate = [...listPartner];
       listPartnerUpdate[index] = data;
       setListPartner([...listPartnerUpdate]);
     });
   };
+  const SampleNextArrow = props => {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, display: "block", background: "dimgrey" }}
+        onClick={onClick}
+      />
+    );
+  };
+
+  const SamplePrevArrow = props => {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, display: "block", background: "dimgrey" }}
+        onClick={onClick}
+      />
+    );
+  };
 
   const settings = {
-    className: "center",
-    centerMode: false,
-    infinite: true,
-    centerPadding: "60px",
-    slidesToShow: 1,
+    dots: true,
+    infinite: false,
     speed: 500,
-    rows: 3,
-    slidesPerRow: 2
+    slidesToShow: 1,
+    slidesPerRow: 3,
+    rows: 2,
+    slidesToScroll: 1,
+    arrows: true,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />
   };
 
   // listPartner.length > 0 && console.log("Obj listPartner", listPartner);
   // image.length > 0 && console.log("Obj image", image);
 
   return (
-    <div style={{ marginBottom: 30 }}>
-      <FormPartner
-        handleAddNewPartner={handleAddNewPartner}
-        setImage={setImages}
-        image={images}
-      />
-      {listPartner.length > 0 && (
-        <div style={{ width: "60vw", margin: 30 }}>
-          <Slider {...settings}>
-            {listPartner.map((partner, index) => (
-              <span key={index}>
-                <CardPartner
-                  handleEditPartnerName={handleEditPartnerName}
-                  handleDeletePartner={handleDeletePartner}
-                  title={partner.title.rendered}
-                  linkImagePartner={
-                    images.find(img => img.id === partner.featured_media) &&
-                    images.find(img => img.id === partner.featured_media)
-                      .source_url
-                  }
-                  partnerId={partner.id}
-                  imageId={partner.featured_media}
-                  altText={
-                    images.find(img => img.id === partner.featured_media) &&
-                    images.find(img => img.id === partner.featured_media)
-                      .alt_text
-                  }
-                />
-              </span>
-            ))}
-          </Slider>
+    <div className="container pl-2 pr-2">
+      <div className="container">
+        <div className="row">
+          <div className="col-md-8">
+            <h1>Partners</h1>
+          </div>
+          <CreatePartner
+            handleAddNewPartner={handleAddNewPartner}
+            setImage={setImages}
+            image={images}
+          />
         </div>
-      )}
+      </div>
+
+      <p>Create and manage partners.</p>
+      <div className="container">
+        <Slider {...settings}>
+          {listPartner.map((partner, index) => (
+            <div
+              key={partner.id}
+              className={`col-md-4 ${
+                index % 3 === 0 || index % 4 === 0 || index % 5 === 0
+                  ? "mt-4"
+                  : ""
+              }`}
+            >
+              <Partner
+                handleEditPartnerName={handleEditPartnerName}
+                handleDeletePartner={handleDeletePartner}
+                title={partner.title.rendered}
+                linkImagePartner={
+                  images.find(img => img.id === partner.featured_media) &&
+                  images.find(img => img.id === partner.featured_media).url
+                }
+                partnerId={partner.id}
+                imageId={partner.featured_media}
+                altText={
+                  images.find(img => img.id === partner.featured_media) &&
+                  images.find(img => img.id === partner.featured_media).alt_text
+                }
+              />
+            </div>
+          ))}
+        </Slider>
+      </div>
     </div>
   );
-}
+};
 
-export default Partner;
+export default Partners;

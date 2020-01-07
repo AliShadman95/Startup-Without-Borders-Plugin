@@ -25,7 +25,13 @@ const UploadFile = ({
         .then(response => {
           console.log("Id media uploaded", response.id);
           setfeaturedMediaIdImage(response.id);
-          setImage([response, ...image]);
+          setImage([
+            {
+              url: response.source_url,
+              id: response.id
+            },
+            ...image
+          ]);
           setWaitUploadMediaBool(true);
         })
         .catch(error => console.log(error));

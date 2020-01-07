@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 
-import CardSponsor from "./CardSponsor";
-import FormSponsor from "./FormSponsor";
+import Sponsor from "./Sponsor";
+import CreateSponsor from "./CreateSponsor";
 import {
   getPostType,
   deletePostType,
@@ -70,54 +70,91 @@ function Sponsors() {
     });
   };
 
+  const SampleNextArrow = props => {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, display: "block", background: "dimgrey" }}
+        onClick={onClick}
+      />
+    );
+  };
+
+  const SamplePrevArrow = props => {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, display: "block", background: "dimgrey" }}
+        onClick={onClick}
+      />
+    );
+  };
+
   const settings = {
-    className: "center",
-    centerMode: false,
-    infinite: true,
-    centerPadding: "60px",
-    slidesToShow: 1,
+    dots: true,
+    infinite: false,
     speed: 500,
-    rows: 3,
-    slidesPerRow: 2
+    slidesToShow: 1,
+    slidesPerRow: 3,
+    rows: 2,
+    slidesToScroll: 1,
+    arrows: true,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />
   };
 
   // listSponsors.length > 0 && console.log("Obj listSponsors", listSponsors);
   // image.length > 0 && console.log("Obj image", image);
 
   return (
-    <div style={{ marginBottom: 30 }}>
-      <FormSponsor
-        handleAddNewSponsor={handleAddNewSponsor}
-        setImage={setImages}
-        image={images}
-      />
-      {listSponsors.length > 0 && (
-        <div style={{ width: "60vw", margin: 30 }}>
-          <Slider {...settings}>
-            {listSponsors.map((sponsor, index) => (
-              <span key={index}>
-                <CardSponsor
-                  handleEditSponsorName={handleEditSponsorName}
-                  handleDeleteSponsor={handleDeleteSponsor}
-                  title={sponsor.title.rendered}
-                  linkImageSponsor={
-                    images.find(img => img.id === sponsor.featured_media) &&
-                    images.find(img => img.id === sponsor.featured_media)
-                      .source_url
-                  }
-                  sponsorId={sponsor.id}
-                  imageId={sponsor.featured_media}
-                  altText={
-                    images.find(img => img.id === sponsor.featured_media) &&
-                    images.find(img => img.id === sponsor.featured_media)
-                      .alt_text
-                  }
-                />
-              </span>
-            ))}
-          </Slider>
+    <div className="container pl-2 pr-2">
+      <div className="container">
+        <div className="row">
+          <div className="col-md-8">
+            <h1>Sponsors</h1>
+          </div>
+          <CreateSponsor
+            handleAddNewSponsor={handleAddNewSponsor}
+            setImage={setImages}
+            image={images}
+          />
         </div>
-      )}
+      </div>
+
+      <p>Create and manage sponsors.</p>
+      <div className="container">
+        <Slider {...settings}>
+          {listSponsors.map((sponsor, index) => (
+            <div
+              key={sponsor.id}
+              className={`col-md-4 ${
+                index % 3 === 0 || index % 4 === 0 || index % 5 === 0
+                  ? "mt-4"
+                  : ""
+              }`}
+            >
+              <Sponsor
+                handleEditSponsorName={handleEditSponsorName}
+                handleDeleteSponsor={handleDeleteSponsor}
+                title={sponsor.title.rendered}
+                linkImageSponsor={
+                  images.find(img => img.id === sponsor.featured_media) &&
+                  images.find(img => img.id === sponsor.featured_media)
+                    .source_url
+                }
+                sponsorId={sponsor.id}
+                imageId={sponsor.featured_media}
+                altText={
+                  images.find(img => img.id === sponsor.featured_media) &&
+                  images.find(img => img.id === sponsor.featured_media).alt_text
+                }
+              />
+            </div>
+          ))}
+        </Slider>
+      </div>
     </div>
   );
 }

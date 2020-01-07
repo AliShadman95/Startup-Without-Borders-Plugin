@@ -8,7 +8,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import UploadFile from "../../UploadFile";
 
-export default function FormDialog({ handleAddNewPartner, setImage, image }) {
+const CreatePartner = ({ handleAddNewPartner, setImage, image }) => {
   const [open, setOpen] = React.useState(false);
   const [partnerName, setPartnerName] = React.useState("");
   const [featuredMediaIdImage, setfeaturedMediaIdImage] = React.useState(
@@ -28,8 +28,8 @@ export default function FormDialog({ handleAddNewPartner, setImage, image }) {
   };
 
   return (
-    <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+    <div className="col-md-4 d-flex justify-content-center align-items-center">
+      <Button variant="contained" color="primary" onClick={handleClickOpen}>
         Add new Partner
       </Button>
       <Dialog
@@ -79,4 +79,6 @@ export default function FormDialog({ handleAddNewPartner, setImage, image }) {
       </Dialog>
     </div>
   );
-}
+};
+
+export default CreatePartner;

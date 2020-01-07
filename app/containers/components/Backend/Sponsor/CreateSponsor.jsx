@@ -8,7 +8,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import UploadFile from "../../UploadFile";
 
-export default function FormDialog({ handleAddNewSponsor, setImage, image }) {
+const CreateSponsor = ({ handleAddNewSponsor, setImage, image }) => {
   const [open, setOpen] = React.useState(false);
   const [sponsorName, setSponsorName] = React.useState("");
   const [featuredMediaIdImage, setfeaturedMediaIdImage] = React.useState(
@@ -28,8 +28,8 @@ export default function FormDialog({ handleAddNewSponsor, setImage, image }) {
   };
 
   return (
-    <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+    <div className="col-md-4 d-flex justify-content-center align-items-center">
+      <Button variant="contained" color="primary" onClick={handleClickOpen}>
         Add new Sponsor
       </Button>
       <Dialog
@@ -79,4 +79,6 @@ export default function FormDialog({ handleAddNewSponsor, setImage, image }) {
       </Dialog>
     </div>
   );
-}
+};
+
+export default CreateSponsor;

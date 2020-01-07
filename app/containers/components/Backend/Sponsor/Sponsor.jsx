@@ -7,26 +7,26 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import EditPartner from "./EditPartner";
+import EditSponsor from "./EditSponsor";
 
 const useStyles = makeStyles({
   card: {
     maxWidth: 345
   },
   media: {
-    height: 140
+    height: 100
   }
 });
 
-export default function ImgMediaCard({
+const Sponsor = ({
   title,
-  linkImagePartner,
+  linkImageSponsor,
   altText,
-  partnerId,
+  sponsorId,
   imageId,
-  handleDeletePartner,
-  handleEditPartnerName
-}) {
+  handleDeleteSponsor,
+  handleEditSponsorName
+}) => {
   const classes = useStyles();
 
   return (
@@ -38,34 +38,35 @@ export default function ImgMediaCard({
           alt={altText}
           height="140"
           // image="http://localhost:8888/sitolocale/wp-content/uploads/2019/12/london.jpg"
-          image={linkImagePartner}
+          image={linkImageSponsor}
           title={altText}
         />
-        <hr />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2" height="140">
-            {title}
-          </Typography>
-          {/* <Typography variant="body2" color="textSecondary" component="p">
+      </CardActionArea>
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="h2" height="140">
+          {title}
+        </Typography>
+        {/* <Typography variant="body2" color="textSecondary" component="p">
             This is {title} !!
           </Typography> */}
-        </CardContent>
-      </CardActionArea>
+      </CardContent>
       <CardActions>
-        <EditPartner
+        <EditSponsor
           imageId={imageId}
-          partnerId={partnerId}
+          sponsorId={sponsorId}
           title={title}
-          handleEditPartnerName={handleEditPartnerName}
+          handleEditSponsorName={handleEditSponsorName}
         />
         <Button
           size="small"
           color="primary"
-          onClick={() => handleDeletePartner(partnerId, imageId)}
+          onClick={() => handleDeleteSponsor(sponsorId, imageId)}
         >
           Delete
         </Button>
       </CardActions>
     </Card>
   );
-}
+};
+
+export default Sponsor;
