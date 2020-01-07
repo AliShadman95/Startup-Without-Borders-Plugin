@@ -8,6 +8,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import EditSponsor from "./EditSponsor";
+import DeleteSponsor from "./DeleteSponsor";
 
 const useStyles = makeStyles({
   card: {
@@ -50,20 +51,18 @@ const Sponsor = ({
             This is {title} !!
           </Typography> */}
       </CardContent>
-      <CardActions>
+      <CardActions className="justify-content-end">
         <EditSponsor
           imageId={imageId}
           sponsorId={sponsorId}
           title={title}
           handleEditSponsorName={handleEditSponsorName}
         />
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => handleDeleteSponsor(sponsorId, imageId)}
-        >
-          Delete
-        </Button>
+        <DeleteSponsor
+          deleteSponsor={handleDeleteSponsor}
+          imageId={imageId}
+          id={sponsorId}
+        />
       </CardActions>
     </Card>
   );

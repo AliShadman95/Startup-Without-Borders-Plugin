@@ -28,17 +28,9 @@ const Partners = () => {
     });
   }, []);
 
-  const handleDeletePartner = (partnerId, imageId) => {
-    deletePostType("Partner", partnerId).then(resp =>
-      console.log("Partner delete - id: ", partnerId)
-    );
-
-    deletePostType("Media", imageId).then(resp =>
-      console.log("img delete - id: ", imageId)
-    );
-
+  const handleDeletePartner = (id) => {
     const newlistPartner = listPartner.filter(
-      elemento => elemento.id !== partnerId
+      elemento => elemento.id !== id
     );
     setListPartner(newlistPartner);
   };

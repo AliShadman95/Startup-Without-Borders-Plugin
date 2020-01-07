@@ -6,6 +6,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import EditIcon from "@material-ui/icons/Edit";
+import IconButton from "@material-ui/core/IconButton";
 
 export default function EditSponsor({
   title,
@@ -27,9 +29,9 @@ export default function EditSponsor({
 
   return (
     <div>
-      <Button variant="text" color="primary" onClick={handleClickOpen}>
-        Edit
-      </Button>
+      <IconButton onClick={handleClickOpen}>
+        <EditIcon color="primary" />
+      </IconButton>
       <Dialog
         open={open}
         onClose={handleClose}

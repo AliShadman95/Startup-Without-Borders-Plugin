@@ -8,6 +8,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import EditPartner from "./EditPartner";
+import DeletePartner from "./DeletePartner";
 
 const useStyles = makeStyles({
   card: {
@@ -45,20 +46,18 @@ const Partner = ({
           {title}
         </Typography>
       </CardContent>
-      <CardActions>
+      <CardActions className="justify-content-end">
         <EditPartner
           imageId={imageId}
           partnerId={partnerId}
           title={title}
           handleEditPartnerName={handleEditPartnerName}
         />
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => handleDeletePartner(partnerId, imageId)}
-        >
-          Delete
-        </Button>
+        <DeletePartner
+          id={partnerId}
+          imageId={imageId}
+          deletePartner={handleDeletePartner}
+        />
       </CardActions>
     </Card>
   );

@@ -28,18 +28,8 @@ function Sponsors() {
     });
   }, []);
 
-  const handleDeleteSponsor = (sponsorId, imageId) => {
-    deletePostType("Sponsor", sponsorId).then(resp =>
-      console.log("sponsor delete - id: ", sponsorId)
-    );
-
-    deletePostType("Media", imageId).then(resp =>
-      console.log("img delete - id: ", imageId)
-    );
-
-    const newlistSponsors = listSponsors.filter(
-      elemento => elemento.id !== sponsorId
-    );
+  const handleDeleteSponsor = id => {
+    const newlistSponsors = listSponsors.filter(elemento => elemento.id !== id);
     setListSponsors(newlistSponsors);
   };
 
