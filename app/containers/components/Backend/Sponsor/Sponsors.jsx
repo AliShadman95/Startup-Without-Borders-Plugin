@@ -20,7 +20,11 @@ function Sponsors() {
     });
 
     getPostType("Media").then(resp => {
-      setImages(resp);
+      setImages(
+        resp.map(img => {
+          return { url: img.source_url, id: img.id };
+        })
+      );
     });
   }, []);
 
@@ -141,8 +145,7 @@ function Sponsors() {
                 title={sponsor.title.rendered}
                 linkImageSponsor={
                   images.find(img => img.id === sponsor.featured_media) &&
-                  images.find(img => img.id === sponsor.featured_media)
-                    .source_url
+                  images.find(img => img.id === sponsor.featured_media).url
                 }
                 sponsorId={sponsor.id}
                 imageId={sponsor.featured_media}
