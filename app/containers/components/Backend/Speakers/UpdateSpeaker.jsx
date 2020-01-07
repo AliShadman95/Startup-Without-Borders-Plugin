@@ -6,7 +6,6 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import UploadFile from "../../UploadFile";
 import InputLabel from "@material-ui/core/InputLabel";
 import EditIcon from "@material-ui/icons/Edit";
 import IconButton from "@material-ui/core/IconButton";
@@ -62,7 +61,6 @@ const UpdateSpeaker = ({ prevTitle, id, imageId, addImage, updateSpeaker }) => {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
         fullWidth
-        maxWidth={"md"}
         TransitionComponent={Transition}
         keepMounted
       >

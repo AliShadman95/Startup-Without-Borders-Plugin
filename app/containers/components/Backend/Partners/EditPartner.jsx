@@ -8,6 +8,11 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import EditIcon from "@material-ui/icons/Edit";
 import IconButton from "@material-ui/core/IconButton";
+import Slide from "@material-ui/core/Slide";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="left" ref={ref} {...props} />;
+});
 
 export default function EditPartner({
   title,
@@ -36,6 +41,7 @@ export default function EditPartner({
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
+        TransitionComponent={Transition}
       >
         <DialogTitle id="form-dialog-title">
           <b>Edit Partner's name</b>
