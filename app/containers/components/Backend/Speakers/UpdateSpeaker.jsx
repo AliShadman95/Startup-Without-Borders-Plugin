@@ -17,21 +17,13 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="left" ref={ref} {...props} />;
 });
 
-const UpdateSpeaker = ({
-  prevTitle,
-  id,
-  prevImageId,
-  addImage,
-  updateSpeaker
-}) => {
+const UpdateSpeaker = ({ prevTitle, id, imageId, addImage, updateSpeaker }) => {
   const [title, setTitle] = useState("");
-  const [imageId, setImageId] = useState("0");
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     setTitle(prevTitle);
-    setImageId(prevImageId);
-  }, [prevTitle, prevImageId]);
+  }, [prevTitle, imageId]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -81,7 +73,7 @@ const UpdateSpeaker = ({
             industry.
           </DialogContentText>
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-12">
               <InputLabel id="demo-mutiple-name-label">Title</InputLabel>
               <TextField
                 defaultValue={title}
@@ -91,9 +83,6 @@ const UpdateSpeaker = ({
                   setTitle(e.target.value);
                 }}
               />
-            </div>
-            <div className="col-md-6">
-              <UploadFile onFileUpload={onFileUpload} />
             </div>
           </div>
         </DialogContent>

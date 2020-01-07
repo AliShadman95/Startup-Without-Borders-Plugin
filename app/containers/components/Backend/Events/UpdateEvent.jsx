@@ -40,7 +40,7 @@ const UpdateEvent = ({
   prevSelSponsors,
   prevSelPartners,
   prevSelSpeakers,
-  prevImageId,
+  imageId,
   addImage,
   updateEvent,
   speakers,
@@ -53,7 +53,6 @@ const UpdateEvent = ({
   const [selectedSponsors, setSelectedSponsors] = useState([]);
   const [selectedPartners, setSelectedPartners] = useState([]);
   const [selectedSpeakers, setSelectedSpeakers] = useState([]);
-  const [imageId, setImageId] = useState("0");
   const [open, setOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState("mm/dd/yyyy");
 
@@ -86,7 +85,6 @@ const UpdateEvent = ({
         })
       );
     setSelectedDate(prevDate);
-    setImageId(prevImageId);
   }, [
     prevTitle,
     prevDescription,
@@ -94,7 +92,7 @@ const UpdateEvent = ({
     prevSelSponsors,
     prevSelPartners,
     prevSelSpeakers,
-    prevImageId,
+    imageId,
     prevDate,
     sponsors,
     partners,
@@ -183,7 +181,7 @@ const UpdateEvent = ({
             We will send updates occasionally.
           </DialogContentText>
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-12">
               <InputLabel id="demo-mutiple-name-label">Title</InputLabel>
               <TextField
                 defaultValue={title}
@@ -193,9 +191,6 @@ const UpdateEvent = ({
                   setTitle(e.target.value);
                 }}
               />
-            </div>
-            <div className="col-md-6">
-              <UploadFile onFileUpload={onFileUpload} />
             </div>
           </div>
           <div className="mt-3">

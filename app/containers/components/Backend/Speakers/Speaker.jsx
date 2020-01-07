@@ -47,7 +47,7 @@ const Speaker = ({
           prevTitle={title}
           addImage={addImage}
           updateSpeaker={updateSpeaker}
-          prevImageId={imageId}
+          imageId={imageId}
         />
         <DeleteSpeaker deleteSpeaker={deleteSpeaker} id={id} />
       </CardActions>

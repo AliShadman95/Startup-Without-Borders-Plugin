@@ -80,7 +80,7 @@ const Event = ({
           sponsors={sponsors}
           partners={partners}
           speakers={speakers}
-          prevImageId={imageId}
+          imageId={imageId}
         />
         <DeleteEvent deleteEvent={deleteEvent} id={id} />
       </CardActions>
