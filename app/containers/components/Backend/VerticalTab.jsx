@@ -8,6 +8,8 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Events from "./Events/Events";
 import Speakers from "./Speakers/Speakers";
+import Partners from "./Partners/Partners";
+import Sponsors from "./Sponsor/Sponsors";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -87,10 +89,10 @@ const VerticalTab = ({ wp }) => {
         Item Two
       </TabPanel>
       <TabPanel value={value} index={2} className={classes.tabPanel}>
-        Item Three
+        <Sponsors wp={wp} />
       </TabPanel>
       <TabPanel value={value} index={3} className={classes.tabPanel}>
-        Item Four
+        <Partners wp={wp} />
       </TabPanel>
       <TabPanel value={value} index={4} className={classes.tabPanel}>
         <Speakers wp={wp} />

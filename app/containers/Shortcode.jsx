@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Navbar from "./components/Navbar";
-import LoggedIn from "./components/LoggedIn";
 
 export default class Shortcode extends Component {
   constructor(props) {
@@ -19,10 +18,6 @@ export default class Shortcode extends Component {
       <div>
         <Navbar />
         <h1>TEST SHORTCODE</h1>
-        <LoggedIn
-          nonce={this.props.wpObject.api_nonce}
-          url={this.props.wpObject.api_url}
-        />
       </div>
     );
   }
