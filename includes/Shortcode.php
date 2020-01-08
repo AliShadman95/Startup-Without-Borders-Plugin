@@ -67,13 +67,30 @@ class Shortcode {
 	}
 
 	/**
-	 * Register frontend-specific javascript
+	 * Register frontend-specific javascriptt
 	 *
 	 * @since     1.0.0
 	 */
 	public function register_frontend_scripts() {
 		wp_register_script( $this->plugin_slug . '-shortcode-script', plugins_url( 'assets/js/shortcode.js', dirname( __FILE__ ) ), array( 'jquery' ), $this->version );
 		wp_register_style( $this->plugin_slug . '-shortcode-style', plugins_url( 'assets/css/shortcode.css', dirname( __FILE__ ) ), $this->version );
+		   // JS
+    wp_register_script('prefix_bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js');
+    wp_enqueue_script('prefix_bootstrap');
+
+    // CSS
+    wp_register_style('prefix_bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css');
+	wp_enqueue_style('prefix_bootstrap');
+	 wp_register_style('prefix_font_icons', '//fonts.googleapis.com/icon?family=Material+Icons');
+	   wp_enqueue_style('prefix_font_icons');
+	   wp_register_style('font_google', '//fonts.googleapis.com/css?family=Ibarra+Real+Nova&display=swap');
+	   wp_enqueue_style('font_google');
+
+	  wp_register_style('prefix_slider', '//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css');
+	   wp_enqueue_style('prefix_slider');
+	   
+	   wp_register_style('prefix_slider_theme', '//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css');
+	   wp_enqueue_style('prefix_slider_theme');
 	}
 
 	public function shortcode( $atts ) {
@@ -85,7 +102,8 @@ class Shortcode {
 		$object = shortcode_atts( array(
 			'title'       => 'Hello world',
 			'api_nonce'   => wp_create_nonce( 'wp_rest' ),
-			'api_url'	  => rest_url( $this->plugin_slug . '/v1/' ),
+			'api_url'	  => esc_url_raw( rest_url() ),
+			'plugin_url'  => plugins_url( 'Startup-Without-Borders-Plugin/', '' ),
 		), $atts, 'wp-reactivate' );
 
 		wp_localize_script( $this->plugin_slug . '-shortcode-script', $object_name, $object );

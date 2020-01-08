@@ -1,21 +1,30 @@
-import React, { useState } from "react";
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 
-const Navbar = () => {
-  const [inputValue, setInputValue] = useState("");
-  const inputChange = e => {
-    e.preventDefault();
-    setInputValue(e.target.value);
-  };
-
+import Button from "@material-ui/core/Button";
+const useStyles = makeStyles(theme => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(1)
+    }
+  },
+  styleBtn: {
+    width: "48%",
+    background: "#626365",
+    color: "#f3f3f3",
+    marginRight: "1%"
+  }
+}));
+const Navbar = props => {
+  const classes = useStyles();
+  const { url, handleSignUp } = props;
   return (
-    <nav className="navbar navbar-expand-lg ">
-      <a className="navbar-brand" href="#">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a className="navbar-brand" style={{ width: "10%" }} href="#">
         <img
-          src="https://startupswb.com/wp-content/uploads/2019/03/swb_white_H.png"
-          width="auto"
-          height="75px"
-          className="d-inline-block align-top "
-          alt=""
+          src={url + "images/logo.svg"}
+          alt="logo"
+          style={{ width: "100%" }}
         />
       </a>
       <button
@@ -32,6 +41,11 @@ const Navbar = () => {
 
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
+          <li className="nav-item active">
+            <a className="nav-link" href="#">
+              Home <span className="sr-only">(current)</span>
+            </a>
+          </li>
           <li className="nav-item">
             <a className="nav-link" href="#">
               Link
@@ -49,15 +63,18 @@ const Navbar = () => {
             >
               Dropdown
             </a>
-            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a className="dropdown-item" href="#">
+            <div
+              className="dropdown-menu bg-dark"
+              aria-labelledby="navbarDropdown"
+            >
+              <a className="dropdown-item text-light" href="#">
                 Action
               </a>
-              <a className="dropdown-item" href="#">
+              <a className="dropdown-item text-light" href="#">
                 Another action
               </a>
               <div className="dropdown-divider"></div>
-              <a className="dropdown-item" href="#">
+              <a className="dropdown-item text-light" href="#">
                 Something else here
               </a>
             </div>
@@ -68,19 +85,18 @@ const Navbar = () => {
             </a>
           </li>
         </ul>
-        <form className="form-inline my-2 my-lg-0">
-          <input
-            className="form-control mr-sm-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-            onChange={e => {
-              inputChange(e);
-            }}
-          />
-          <button className="btn btn-outline-light my-2 my-sm-0" type="submit">
-            Search
-          </button>
+        <form className="form-inline col-md-3 my-2 my-lg-0">
+          <Button variant="contained" className={classes.styleBtn}>
+            Log In
+          </Button>
+
+          <Button
+            className={classes.styleBtn}
+            variant="contained"
+            onClick={() => handleSignUp()}
+          >
+            Sign Up
+          </Button>
         </form>
       </div>
     </nav>
