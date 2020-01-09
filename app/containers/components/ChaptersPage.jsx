@@ -15,7 +15,8 @@ const theme = createMuiTheme({
 });
 export default class ChaptersPage extends Component {
   state = {
-    search: ""
+    search: "",
+    chapters: []
   };
   componentDidMount() {
     const { wpUrl } = this.props;
@@ -27,14 +28,21 @@ export default class ChaptersPage extends Component {
     var route = "/chapter/(?P<id>)"; // route string - allows optional ID parameter
     wp.chapter = wp.registerRoute(namespace, route);
 
-    wp.chapter().get(function(err, data) {
-      if (err) {
-        console.error(err);
-      }
-      console.log(data);
-    });
+    wp.chapter()
+      .get(function(err, data) {
+        if (err) {
+          console.error(err);
+        }
+        console.log(data);
+      })
+      .then(res => {
+        this.setState({
+          chapters: res
+        });
+      });
 
     // Promises
+
     wp.chapter()
       .then(function(data) {
         console.log(data);
@@ -59,6 +67,12 @@ export default class ChaptersPage extends Component {
     let value = e.target.value;
     this.setState({
       search: value
+    });
+  };
+  handleClickChapters = e => {
+    console.log(e.target.textContent);
+    this.setState({
+      search: e.target.textContent
     });
   };
   render() {
@@ -119,21 +133,17 @@ export default class ChaptersPage extends Component {
                 Chapters
               </span>
               <div className="list-group">
-                <a href="#" className="list-group-item list-group-item-action">
-                  Rome
-                </a>
-                <a href="#" className="list-group-item list-group-item-action">
-                  Cairo
-                </a>
-                <a href="#" className="list-group-item list-group-item-action">
-                  Canada
-                </a>
-                <a href="#" className="list-group-item list-group-item-action">
-                  Aleppo
-                </a>
-                <a href="#" className="list-group-item list-group-item-action">
-                  Los Angelos
-                </a>
+                {this.state.chapters.map(chapter => {
+                  return (
+                    <span
+                      onClick={e => this.handleClickChapters(e)}
+                      className="list-group-item list-group-item-action text-uppercase chapter-list "
+                      key={chapter.id}
+                    >
+                      {chapter.name}
+                    </span>
+                  );
+                })}
               </div>
             </div>
           </div>

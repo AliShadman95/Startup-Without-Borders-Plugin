@@ -253,6 +253,12 @@ export default function SignUp(props) {
             Register
           </Button>
         </form>
+        <span
+          className="cancel-btn text-primary"
+          onClick={() => props.handleChangeCheck()}
+        >
+          Cancel
+        </span>
       </div>
     </div>
   );

@@ -83,7 +83,7 @@ class Shortcode {
 	wp_enqueue_style('prefix_bootstrap');
 	 wp_register_style('prefix_font_icons', '//fonts.googleapis.com/icon?family=Material+Icons');
 	   wp_enqueue_style('prefix_font_icons');
-	   wp_register_style('font_google', '//fonts.googleapis.com/css?family=Ibarra+Real+Nova&display=swap');
+	   wp_register_style('font_google', '//fonts.googleapis.com/css?family=Raleway&display=swap');
 	   wp_enqueue_style('font_google');
 
 	  wp_register_style('prefix_slider', '//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css');
