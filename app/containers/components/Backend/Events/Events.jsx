@@ -118,7 +118,7 @@ const Events = ({ wp }) => {
             partners={partners}
             sponsors={sponsors}
             addEvent={addEvent}
-            addImage={addImage}
+            setImages={setImages}
             images={images}
             events={events}
           />

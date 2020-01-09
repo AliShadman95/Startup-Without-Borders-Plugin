@@ -34,7 +34,7 @@ const CreateEvent = ({
   partners,
   speakers,
   addEvent,
-  addImage,
+  setImages,
   images,
   events
 }) => {
@@ -47,6 +47,7 @@ const CreateEvent = ({
   const [imageId, setImageId] = useState("0");
   const [open, setOpen] = React.useState(false);
   const [selectedDate, setSelectedDate] = React.useState("mm/dd/yyyy");
+  const [waitUploadMediaBool, setWaitUploadMediaBool] = React.useState(false);
 
   useEffect(() => {
     setSelectedDate(moment().format());
@@ -104,6 +105,7 @@ const CreateEvent = ({
     ).then(res => {
       console.log(res);
       addEvent(res);
+      setWaitUploadMediaBool(false);
       handleClose();
     });
   };
@@ -146,7 +148,12 @@ const CreateEvent = ({
               />
             </div>
             <div className="col-md-6">
-              <UploadFile onFileUpload={onFileUpload} />
+              <UploadFile
+                setfeaturedMediaIdImage={setImageId}
+                setWaitUploadMediaBool={setWaitUploadMediaBool}
+                setImage={setImages}
+                image={images}
+              />
             </div>
           </div>
           <div className="mt-3">
@@ -273,9 +280,13 @@ const CreateEvent = ({
           <Button onClick={handleClose} color="secondary">
             Cancel
           </Button>
-          <Button onClick={onCreateClick} color="primary">
-            Create
-          </Button>
+          {waitUploadMediaBool === false ? (
+            <p>Wait Upload Media</p>
+          ) : (
+            <Button onClick={onCreateClick} color="primary">
+              Create
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
     </div>

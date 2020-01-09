@@ -101,9 +101,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _components_Navbar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Navbar */ "./app/containers/components/Navbar.jsx");
-/* harmony import */ var _components_LoggedIn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/LoggedIn */ "./app/containers/components/LoggedIn.jsx");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
@@ -124,10 +122,7 @@ class Shortcode extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
   }
 
   render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Navbar__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "TEST SHORTCODE"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_LoggedIn__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      nonce: this.props.wpObject.api_nonce,
-      url: this.props.wpObject.api_url
-    }));
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Navbar__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "TEST SHORTCODE"));
   }
 
 }
@@ -151,45 +146,6 @@ export default class Shortcode extends Component {
 Shortcode.propTypes = {
   wpObject: PropTypes.object
 }; */
-
-/***/ }),
-
-/***/ "./app/containers/components/LoggedIn.jsx":
-/*!************************************************!*\
-  !*** ./app/containers/components/LoggedIn.jsx ***!
-  \************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Navbar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Navbar */ "./app/containers/components/Navbar.jsx");
-
-
-
-const LoggedIn = ({
-  nonce,
-  url,
-  wpapi
-}) => {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "container",
-    style: {
-      padding: "0px"
-    }
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Navbar__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "row",
-    style: {
-      padding: "0px"
-    }
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col-md-12"
-  })));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (LoggedIn);
 
 /***/ }),
 

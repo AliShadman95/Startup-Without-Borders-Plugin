@@ -119,6 +119,14 @@ export const createPostType = async (type, title, image, status) => {
 //Get a post type based on the "type" param
 export const getPostType = async type => {
   switch (type) {
+    case "Media":
+      try {
+        const data = await wp.media().get();
+        return data;
+      } catch (error) {
+        console.log(error);
+        return error;
+      }
     case "Event":
       try {
         const data = await wp.event().get();
@@ -230,6 +238,16 @@ export const updatePostType = async (type, id, title, image, meta, status) => {
 //Delete a post type based on the "type" param
 export const deletePostType = async (type, id) => {
   switch (type) {
+    case "Media":
+      try {
+        await wp
+          .media()
+          .id(id)
+          .delete({ force: true });
+      } catch (error) {
+        console.log(error);
+      }
+      break;
     case "Event":
       try {
         await wp
