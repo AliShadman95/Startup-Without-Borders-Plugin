@@ -161,7 +161,7 @@ class Admin {
 			wp_localize_script( $this->plugin_slug . '-admin-script', 'wpr_object', array(
 				'api_nonce'   => wp_create_nonce( 'wp_rest' ),
 				'api_url'	  => esc_url_raw( rest_url() ),
-				'plugin_url'  => plugins_url( 'Startup-Without-Borders-Plugin/', '' ),
+			'plugin_url'  => plugins_url( 'Startup-Without-Borders-Plugin/', '' ),
 				)
 			);
 		}

@@ -107,6 +107,7 @@ const Speakers = () => {
             addSpeaker={addSpeaker}
             addImage={addImage}
             images={images}
+            setImages={setImages}
           />
         </div>
       </div>

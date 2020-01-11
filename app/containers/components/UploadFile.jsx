@@ -1,9 +1,13 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 
 var WPAPI = require("wpapi");
-
-const UploadFile = ({ onFileUpload }) => {
+const UploadFile = ({
+  setfeaturedMediaIdImage,
+  setImage,
+  image,
+  setWaitUploadMediaBool
+}) => {
   const onDrop = useCallback(async acceptedFiles => {
     wp = new WPAPI({
       endpoint: window.wpr_object.api_url,
@@ -11,41 +15,44 @@ const UploadFile = ({ onFileUpload }) => {
     });
     try {
       console.log(acceptedFiles);
-      const response = await wp
+      const response = wp
         .media()
         .file(acceptedFiles[0])
         .create({
           title: acceptedFiles[0].name,
           alt_text: acceptedFiles[0].name
-        });
-      console.log(response);
-      onFileUpload(response);
+        })
+        .then(response => {
+          console.log("Id media uploaded", response.id);
+          setfeaturedMediaIdImage(response.id);
+          setImage([
+            {
+              url: response.source_url,
+              id: response.id
+            },
+            ...image
+          ]);
+          setWaitUploadMediaBool(true);
+        })
+        .catch(error => console.log(error));
     } catch (error) {
       console.log(error);
     }
   }, []);
-
-  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop
   });
-
-  const files = acceptedFiles.map(file => (
-    <li key={file.path}>
-      {file.path} - {file.size} bytes
-    </li>
-  ));
-
   return (
-    <section className="container">
-      <div {...getRootProps({ className: "dropzone" })}>
+    <div>
+      <div {...getRootProps()}>
         <input {...getInputProps()} />
-        <p>Click to select image</p>
+        {isDragActive ? (
+          <p>Drop the files here ...</p>
+        ) : (
+          <p>Drag 'n' drop some files here, or click to select files</p>
+        )}
       </div>
-      <aside>
-        <ul>{files}</ul>
-      </aside>
-    </section>
+    </div>
   );
 };
-
 export default UploadFile;

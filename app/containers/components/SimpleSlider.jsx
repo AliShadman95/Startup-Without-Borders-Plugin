@@ -12,6 +12,19 @@ const theme = createMuiTheme({
 });
 
 export default class SimpleSlider extends React.Component {
+  state = {
+    events: []
+  };
+  componentDidMount() {
+    const { events } = this.props;
+    if (events.lenght > 0) {
+      console.log(events);
+      this.setState({
+        events
+      });
+    }
+  }
+
   render() {
     var settings = {
       dots: true,
@@ -71,33 +84,41 @@ export default class SimpleSlider extends React.Component {
         </div>
       )
     };
+    const { events, media } = this.props;
     return (
       <Slider {...settings}>
-        {this.props.events.map((event, index) => {
+        {events.map((event, index) => {
           return (
             <div className="col-12 mt-2" key={index}>
               <div className="card">
-                <h5 className="card-title ml-3 mt-2">{event.title}</h5>
+                <h5 className="card-title ml-3 mt-2">{event.title.rendered}</h5>
                 <div className="container-img">
                   <img
-                    src="http://source.unsplash.com/random/600x400"
+                    src={media
+                      .filter(img => img.id === event.featured_media)
+                      .map(url => url.source_url)}
                     className="card-img-top"
-                    alt={event.title}
+                    alt={event.title.rendered}
                   />
                 </div>
                 <div className="card-body">
                   <span className="info-events">
                     {" "}
-                    <Event /> {event.date}{" "}
+                    <Event /> {event.meta.Date[0]}{" "}
                   </span>
                   <span className="info-events float-right">
                     {" "}
-                    <LocationOn /> {event.place}{" "}
+                    <LocationOn /> {event.meta.place}{" "}
                   </span>
                   <span className="d-block my-2">
-                    <Class /> {event.category}
+                    <Class /> {"event.category"}
                   </span>
-                  <p className="card-text">{event.par}</p>
+                  <p className="card-text">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Quibusdam impedit aperiam iste provident dignissimos modi,
+                    cum non fuga eum blanditiis.
+                    {"event.par"}
+                  </p>
                   <MuiThemeProvider theme={theme}>
                     <Button variant="contained" color="primary">
                       View Details

@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import Events from "./Events";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
+import Chapters from "./Chapters";
 var WPAPI = require("wpapi");
 
 const theme = createMuiTheme({
@@ -24,8 +25,9 @@ export default class ChaptersPage extends Component {
       endpoint: wpUrl.api_url,
       nonce: wpUrl.api_nonce
     });
-    var namespace = "wp/v2"; // use the WP API namespace
-    var route = "/chapter/(?P<id>)"; // route string - allows optional ID parameter
+    // chapters api
+    var namespace = "wp/v2";
+    var route = "/chapter/(?P<id>)";
     wp.chapter = wp.registerRoute(namespace, route);
 
     wp.chapter()
@@ -51,10 +53,7 @@ export default class ChaptersPage extends Component {
         console.error(err);
       });
 
-    console.log(wpUrl.api_url);
-
-    console.log(wp);
-
+    // usres api
     wp.users().get((err, data) => {
       if (err) {
         console.log(err);
@@ -76,76 +75,85 @@ export default class ChaptersPage extends Component {
     });
   };
   render() {
-    const { url, href } = this.props;
+    const { url, wpUrl, handleOpenChapter } = this.props;
 
     return (
       <React.Fragment>
+        {/* start background map */}
         <div className="bac-img">
           <img
             src={url + "images/background_chapters.jpg"}
             alt="background_chapters"
           />
         </div>
+        {/* end background map  */}
+
         <div className="container-fluid">
+          {/* start part one -- the title*/}
           <div className="p-10 d-flex align-items-center justify-content-center image-map">
             <img src={url + "images/chapters_dark.svg"} alt="chapters" />
-            {/* <h1 className="text-center">Chapters</h1> */}
           </div>
+          {/* end part one -- the title */}
           <hr />
+          {/* start two part */}
           <div className="row">
-            <div className="col-md-10 col-s-9 events">
-              <div className="container">
-                <div className="row">
-                  <div className="col-4">
-                    <div className="input-group mb-2 ">
-                      <div className="input-group-prepend">
-                        <span
-                          className="input-group-text bg-dark text-light"
-                          id="basic-addon1"
-                        >
-                          <SearchIcon />
-                        </span>
-                      </div>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder={"Write city name"}
-                        aria-describedby="basic-addon1"
-                        onChange={this.handleChangeSearch}
-                      />
-                    </div>
-                  </div>
-                  <div className="col-3 text-right offset-5">
-                    <MuiThemeProvider theme={theme}>
-                      <Button variant="contained" color="primary">
-                        Open A Chapter
-                      </Button>
-                    </MuiThemeProvider>
-                  </div>
+            <div className="col-lg-3 col-md-6 col-xs-12">
+              {/* start search input */}
+              <div className="input-group mb-2 ">
+                <div className="input-group-prepend">
+                  <span
+                    className="input-group-text bg-dark text-light"
+                    id="basic-addon1"
+                  >
+                    <SearchIcon />
+                  </span>
                 </div>
-                <hr />
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder={"Write city name"}
+                  aria-describedby="basic-addon1"
+                  onChange={this.handleChangeSearch}
+                />
+              </div>
+              {/* end search input */}
+            </div>
 
-                <Events href={href} />
-              </div>
+            <div className="col-lg-2 offset-lg-7 pr-3 col-md-6 col-xs-12">
+              {/* start open chapters */}
+
+              <MuiThemeProvider theme={theme}>
+                <Button
+                  className="ml-2"
+                  style={{ width: "90%" }}
+                  variant="contained"
+                  color="primary"
+                  onClick={() => handleOpenChapter()}
+                >
+                  Open A Chapter
+                </Button>
+              </MuiThemeProvider>
+
+              {/* end open chapters */}
             </div>
-            <div className="col-md-2 col-s-3">
-              <span className="list-group-item list-group-item-action active">
-                Chapters
-              </span>
-              <div className="list-group">
-                {this.state.chapters.map(chapter => {
-                  return (
-                    <span
-                      onClick={e => this.handleClickChapters(e)}
-                      className="list-group-item list-group-item-action text-uppercase chapter-list "
-                      key={chapter.id}
-                    >
-                      {chapter.name}
-                    </span>
-                  );
-                })}
-              </div>
+            <hr />
+            <hr />
+            {/* start part events */}
+            <div className="col-lg-10 col-s-12">
+              <Events wpUrl={wpUrl} />
             </div>
+            {/* end part events */}
+
+            {/* start search chapters */}
+
+            <div className="col-lg-2 col-s-12">
+              {/* start select chapters */}
+              <Chapters chapters={this.state.chapters} />
+
+              {/* end select chapters */}
+            </div>
+
+            {/* end search chapters */}
           </div>
         </div>
       </React.Fragment>

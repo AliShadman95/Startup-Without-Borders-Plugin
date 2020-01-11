@@ -11,7 +11,6 @@ const Events = ({ wp, src }) => {
   const [sponsors, setSponsors] = useState([]);
   const [partners, setPartners] = useState([]);
   const [speakers, setSpeakers] = useState([]);
-  console.log(src);
 
   useEffect(() => {
     getMedia();
@@ -113,9 +112,9 @@ const Events = ({ wp, src }) => {
         <div className="row">
           <div className="col-md-8">
             <img
-              src={src.plugin_url + "images/events.svg"}
+              src={src + "images/events.svg"}
               alt="Events"
-              style={{ width: "40%" }}
+              style={{ width: "35%" }}
             />
           </div>
           <CreateEvent
@@ -123,14 +122,14 @@ const Events = ({ wp, src }) => {
             partners={partners}
             sponsors={sponsors}
             addEvent={addEvent}
-            addImage={addImage}
+            setImages={setImages}
             images={images}
             events={events}
           />
         </div>
       </div>
 
-      <p className="ml-3">Create and manage events.</p>
+      <p className="loader ml-3">Create and manage events.</p>
       <div className="container">
         <Slider {...settings}>
           {events.map((event, index) => {

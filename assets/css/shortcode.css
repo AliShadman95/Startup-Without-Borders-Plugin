@@ -38,6 +38,9 @@ h1 {
   outline: 1px solid #343a4038;
   padding: 1%;
 }
+img.card-img-top {
+  height: 200px;
+}
 .slick-slide img {
   border-radius: 0.15rem !important;
   -webkit-border-radius: 0.15rem !important;
@@ -131,7 +134,7 @@ li.slick-active div {
   padding: 2% 0;
 }
 
-.list-group-item.active {
+.list-chapters.active {
   background-color: #343a40 !important;
   border-color: #f8f9fa !important;
 }
@@ -152,4 +155,48 @@ button:focus {
 }
 .chapter-list {
   cursor: pointer;
+}
+
+span.cancel-btn {
+  position: absolute;
+  bottom: 2%;
+  left: 4%;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.fill-send {
+  float: right;
+}
+
+.open-chapter {
+  position: absolute;
+  background: #ffffff;
+  z-index: 99;
+  top: 10%;
+  transform: scale(0);
+  -webkit-transform: scale(0);
+  -moz-transform: scale(0);
+  -ms-transform: scale(0);
+  -o-transform: scale(0);
+  animation: scale 2s linear forwards;
+  -webkit-animation: scale 2s linear forwards;
+}
+
+@keyframes scale {
+  20% {
+    box-shadow: 10px 10px 0px 0px rgba(3, 3, 3, 0.5);
+  }
+  60% {
+    box-shadow: 20px 20px 0px 0px rgba(3, 3, 3, 0.5);
+  }
+  100% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+  }
+}
+.open-chapter .MuiInput-underline::before {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.8);
 }

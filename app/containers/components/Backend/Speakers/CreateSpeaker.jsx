@@ -15,10 +15,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="left" ref={ref} {...props} />;
 });
 
-const CreateSpeaker = ({ addSpeaker, addImage, images }) => {
+const CreateSpeaker = ({ addSpeaker, setImages, images }) => {
   const [title, setTitle] = useState("");
   const [imageId, setImageId] = useState("0");
   const [open, setOpen] = React.useState(false);
+  const [waitUploadMediaBool, setWaitUploadMediaBool] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -32,6 +33,7 @@ const CreateSpeaker = ({ addSpeaker, addImage, images }) => {
     createPostType("Speaker", title, imageId.toString(), "publish").then(
       res => {
         addSpeaker(res);
+        setWaitUploadMediaBool(false);
         handleClose();
       }
     );
@@ -56,7 +58,7 @@ const CreateSpeaker = ({ addSpeaker, addImage, images }) => {
         TransitionComponent={Transition}
         keepMounted
       >
-        <DialogTitle id="form-dialog-title">Create an event</DialogTitle>
+        <DialogTitle id="form-dialog-title">Add a Speaker</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -75,7 +77,12 @@ const CreateSpeaker = ({ addSpeaker, addImage, images }) => {
               />
             </div>
             <div className="col-md-6">
-              <UploadFile onFileUpload={onFileUpload} />
+              <UploadFile
+                setfeaturedMediaIdImage={setImageId}
+                setWaitUploadMediaBool={setWaitUploadMediaBool}
+                setImage={setImages}
+                image={images}
+              />
             </div>
           </div>
         </DialogContent>
@@ -83,9 +90,13 @@ const CreateSpeaker = ({ addSpeaker, addImage, images }) => {
           <Button onClick={handleClose} color="secondary">
             Cancel
           </Button>
-          <Button onClick={onCreateClick} color="primary">
-            Create
-          </Button>
+          {waitUploadMediaBool === false ? (
+            <p>Wait Upload Media</p>
+          ) : (
+            <Button onClick={onCreateClick} color="primary">
+              Create
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
     </div>
