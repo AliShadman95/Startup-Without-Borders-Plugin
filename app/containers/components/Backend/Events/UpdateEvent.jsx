@@ -184,7 +184,7 @@ const UpdateEvent = ({
             <div className="col-md-12">
               <InputLabel id="demo-mutiple-name-label">Title</InputLabel>
               <TextField
-                defaultValue={title}
+                placeholder={title}
                 fullWidth
                 style={{ border: "0px !important" }}
                 onChange={e => {
@@ -199,7 +199,7 @@ const UpdateEvent = ({
               label="Description"
               multiline
               rows="4"
-              defaultValue={description}
+              placeholder={description}
               variant="outlined"
               fullWidth
               onChange={e => {
@@ -226,7 +226,7 @@ const UpdateEvent = ({
             <div className="col-md-6">
               <InputLabel id="demo-mutiple-name-label">Address</InputLabel>
               <TextField
-                defaultValue={address}
+                placeholder={address}
                 fullWidth
                 style={{ border: "0px !important" }}
                 onChange={e => {

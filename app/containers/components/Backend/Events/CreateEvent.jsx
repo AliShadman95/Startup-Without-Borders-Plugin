@@ -139,6 +139,7 @@ const CreateEvent = ({
             <div className="col-md-6">
               <InputLabel id="demo-mutiple-name-label">Title</InputLabel>
               <TextField
+                value={title}
                 id="standard-basic"
                 fullWidth
                 style={{ border: "0px !important" }}
@@ -160,6 +161,7 @@ const CreateEvent = ({
             <TextField
               id="outlined-multiline-static"
               label="Description"
+              value={description}
               multiline
               rows="4"
               variant="outlined"
@@ -190,6 +192,7 @@ const CreateEvent = ({
               <TextField
                 id="standard-basic-2"
                 fullWidth
+                value={value}
                 style={{ border: "0px !important" }}
                 onChange={e => {
                   setAddress(e.target.value);
