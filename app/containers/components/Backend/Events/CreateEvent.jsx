@@ -192,7 +192,7 @@ const CreateEvent = ({
               <TextField
                 id="standard-basic-2"
                 fullWidth
-                value={value}
+                value={address}
                 style={{ border: "0px !important" }}
                 onChange={e => {
                   setAddress(e.target.value);
