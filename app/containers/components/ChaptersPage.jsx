@@ -17,7 +17,8 @@ const theme = createMuiTheme({
 export default class ChaptersPage extends Component {
   state = {
     search: "",
-    chapters: []
+    chapters: [],
+    idChapters : null
   };
   componentDidMount() {
     const { wpUrl } = this.props;
@@ -74,6 +75,14 @@ export default class ChaptersPage extends Component {
       search: e.target.textContent
     });
   };
+
+  handleChapters = e => {
+    console.log(e.target.value);
+    this.setState({
+      idChapters: e.target.value
+    })
+  };
+
   render() {
     const { url, wpUrl, handleOpenChapter } = this.props;
 
@@ -91,7 +100,7 @@ export default class ChaptersPage extends Component {
         <div className="container-fluid">
           {/* start part one -- the title*/}
           <div className="p-10 d-flex align-items-center justify-content-center image-map">
-            <img src={url + "images/chapters_dark.svg"} alt="chapters" />
+            <img src={url + "images/chapters.png"} alt="chapters" />
           </div>
           {/* end part one -- the title */}
           <hr />
@@ -140,7 +149,7 @@ export default class ChaptersPage extends Component {
             <hr />
             {/* start part events */}
             <div className="col-lg-10 col-s-12">
-              <Events wpUrl={wpUrl} />
+              <Events wpUrl={wpUrl} idChapters={this.state.idChapters} />
             </div>
             {/* end part events */}
 
@@ -148,7 +157,10 @@ export default class ChaptersPage extends Component {
 
             <div className="col-lg-2 col-s-12">
               {/* start select chapters */}
-              <Chapters chapters={this.state.chapters} />
+              <Chapters
+                chapters={this.state.chapters}
+                handleChapters={this.handleChapters}
+              />
 
               {/* end select chapters */}
             </div>

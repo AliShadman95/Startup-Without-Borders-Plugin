@@ -91,7 +91,9 @@ export default class SimpleSlider extends React.Component {
           return (
             <div className="col-12 mt-2" key={index}>
               <div className="card">
-                <h5 className="card-title ml-3 mt-2">{event.title.rendered}</h5>
+                <h6 className="card-title  mt-2 card-title-event">
+                  {event.title.rendered}
+                </h6>
                 <div className="container-img">
                   <img
                     src={media
@@ -114,10 +116,7 @@ export default class SimpleSlider extends React.Component {
                     <Class /> {"event.category"}
                   </span>
                   <p className="card-text">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Quibusdam impedit aperiam iste provident dignissimos modi,
-                    cum non fuga eum blanditiis.
-                    {"event.par"}
+                    {event.excerpt.rendered.substr(3, 45)}
                   </p>
                   <MuiThemeProvider theme={theme}>
                     <Button variant="contained" color="primary">

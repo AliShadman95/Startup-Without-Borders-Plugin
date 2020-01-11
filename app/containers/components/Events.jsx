@@ -189,7 +189,7 @@ export default class Events extends Component {
     media: []
   };
   componentDidMount() {
-    const { wpUrl } = this.props;
+    const { wpUrl, idChapters } = this.props;
     wp = new WPAPI({
       endpoint: wpUrl.api_url,
       nonce: wpUrl.api_nonce
@@ -202,7 +202,7 @@ export default class Events extends Component {
       params: ["author"]
     });
     wp.media()
-      .get(function(err, data) {
+      .perPage(100, function(err, data) {
         if (err) {
           console.error(err);
         }
@@ -234,10 +234,20 @@ export default class Events extends Component {
         console.error(err);
       });
   }
+  componentDidUpdate(prevProps, prevState) {
+    let newEvent = this.state.newEvent.slice();
+    if (prevProps.idChapters !== this.props.idChapters) {
+      newEvent.filter(item => item.chapter === this.props.idChapters);
+      this.setState({
+        newEvent
+      });
+      console.log("ok");
+    }
+  }
 
   render() {
     const { newEvent, media } = this.state;
-    console.log(newEvent);
+    console.log(this.props.idChapters);
 
     return (
       <React.Fragment>

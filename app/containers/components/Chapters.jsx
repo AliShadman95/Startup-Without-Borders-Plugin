@@ -1,6 +1,5 @@
 import React from "react";
 import Select from "@material-ui/core/Select";
-import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles } from "@material-ui/core/styles";
@@ -12,7 +11,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Chapters({ chapters }) {
+export default function Chapters({ chapters, handleChapters }) {
   const classes = useStyles();
   return (
     <FormControl className={classes.formControl}>
@@ -22,8 +21,8 @@ export default function Chapters({ chapters }) {
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
-        //   value={age}
-        //   onChange={handleChange}
+        value={""}
+        onChange={handleChapters}
       >
         {chapters.map(chapter => {
           return (

@@ -112,7 +112,7 @@ const Events = ({ wp, src }) => {
         <div className="row">
           <div className="col-md-8">
             <img
-              src={src + "images/events.svg"}
+              src={src + "images/events.png"}
               alt="Events"
               style={{ width: "35%" }}
             />

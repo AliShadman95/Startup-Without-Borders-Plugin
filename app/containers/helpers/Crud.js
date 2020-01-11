@@ -121,7 +121,7 @@ export const getPostType = async type => {
   switch (type) {
     case "Media":
       try {
-        const data = await wp.media().get();
+        const data = await wp.media().perPage(100);
         return data;
       } catch (error) {
         console.log(error);
