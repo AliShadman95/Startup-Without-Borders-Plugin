@@ -80,7 +80,17 @@ class Shortcode {
 
     // CSS
     wp_register_style('prefix_bootstrap', '//stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css');
-    wp_enqueue_style('prefix_bootstrap');
+	wp_enqueue_style('prefix_bootstrap');
+	 wp_register_style('prefix_font_icons', '//fonts.googleapis.com/icon?family=Material+Icons');
+	   wp_enqueue_style('prefix_font_icons');
+	   wp_register_style('font_google', '//fonts.googleapis.com/css?family=Raleway&display=swap');
+	   wp_enqueue_style('font_google');
+
+	  wp_register_style('prefix_slider', '//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css');
+	   wp_enqueue_style('prefix_slider');
+	   
+	   wp_register_style('prefix_slider_theme', '//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css');
+	   wp_enqueue_style('prefix_slider_theme');
 	}
 
 	public function shortcode( $atts ) {
@@ -92,7 +102,8 @@ class Shortcode {
 		$object = shortcode_atts( array(
 			'title'       => 'Hello world',
 			'api_nonce'   => wp_create_nonce( 'wp_rest' ),
-			'api_url'	  => rest_url( $this->plugin_slug . '/v1/' ),
+			'api_url'	  => esc_url_raw( rest_url() ),
+			'plugin_url'  => plugins_url( 'Startup-Without-Borders-Plugin/', '' ),
 		), $atts, 'wp-reactivate' );
 
 		wp_localize_script( $this->plugin_slug . '-shortcode-script', $object_name, $object );

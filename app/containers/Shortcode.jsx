@@ -1,46 +1,49 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import Navbar from "./components/Navbar";
+import ChaptersPage from "../containers/components/Frontend/ChaptersPage";
+import SignUp from "../containers/components/Frontend/SignUp";
+import OpenChapter from "../containers/components/Frontend/OpenChapter";
+import Navbar from "../containers/components/Frontend/Navbar";
 
-export default class Shortcode extends Component {
-  constructor(props) {
-    super(props);
+export default function Shortcode(props) {
+  const { wpObject } = props;
+  console.log(wpObject);
+  const [signup, setSignup] = useState(false);
+  const [open, setOpen] = useState(false);
 
-    this.state = { inputValue: "" };
-  }
-
-  onInputChange = event => {
-    this.setState({ inputValue: event.target.value });
+  const handleSignUp = () => {
+    setSignup(true);
+  };
+  const handleChangeCheck = () => {
+    setSignup(false);
   };
 
-  render() {
-    return (
-      <div>
-        <Navbar />
-        <h1>TEST SHORTCODE</h1>
-      </div>
-    );
-  }
+  const handleOpenChapter = () => {
+    setOpen(true);
+  };
+  const handleCancel = () => {
+    setOpen(false);
+  };
+
+  return (
+    <div className="container-fluid position-relative container-shortcode">
+      <Navbar url={wpObject.plugin_url} handleSignUp={handleSignUp} />
+
+      {signup ? (
+        <SignUp wpUrl={wpObject} handleChangeCheck={handleChangeCheck} />
+      ) : null}
+      {open ? (
+        <OpenChapter wpUrl={wpObject} handleCancel={handleCancel} />
+      ) : null}
+      <ChaptersPage
+        url={wpObject.plugin_url}
+        wpUrl={wpObject}
+        handleOpenChapter={handleOpenChapter}
+      />
+    </div>
+  );
 }
 
 Shortcode.propTypes = {
   wpObject: PropTypes.object
 };
-
-/* import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-
-export default class Shortcode extends Component {
-  render() {
-    return (
-      <div>
-        <h1>WP Reactivate Frontend</h1>
-        <p>Title: {this.props.wpObject.title}</p>
-      </div>
-    );
-  }
-}
-
-Shortcode.propTypes = {
-  wpObject: PropTypes.object
-}; */
