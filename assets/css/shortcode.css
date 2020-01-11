@@ -34,6 +34,10 @@ h1 {
 .card {
   border: 1px solid #343a407a !important;
 }
+.card .card-title-event {
+  min-height: 50px;
+  text-align: center;
+}
 .container-img {
   outline: 1px solid #343a4038;
   padding: 1%;

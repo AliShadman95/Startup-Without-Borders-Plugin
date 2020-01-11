@@ -79,7 +79,7 @@ const CreateEvent = ({
   const onCreateClick = () => {
     let n = new Date(selectedDate);
     createEvent(
-      [26],
+      [18],
       title,
       imageId.toString(),
       {

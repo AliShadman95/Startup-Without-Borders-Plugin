@@ -27,7 +27,7 @@ export default function Chapters({ chapters }) {
       >
         {chapters.map(chapter => {
           return (
-            <MenuItem key={chapter.id} value={chapter.name}>
+            <MenuItem key={chapter.id} value={chapter.id}>
               {chapter.name}
             </MenuItem>
           );
