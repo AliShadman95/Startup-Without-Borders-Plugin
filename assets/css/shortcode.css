@@ -8,15 +8,22 @@ body {
   background-color: #f2f2f2 !important;
   color: #343a40;
 }
-#navbar-chapters button:focus {
-  background: #f2f2f2;
-  color: #343a40;
-}
+
 .container-shortcode {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
 
+/* Start Navbar */
+
+#navbar-chapters button:focus {
+  background: #f2f2f2;
+  color: #343a40;
+}
+
+/* end Navbar */
+
+/* Start style bacground the page */
 .bac-img {
   position: absolute;
   width: 100%;
@@ -28,15 +35,20 @@ body {
   width: 100%;
   height: 100%;
 }
+/* end style background the page  */
+
+/* start the first part */
+
 .image-map {
   height: 200px;
 }
 img.chapters-img {
   width: 25%;
 }
-h1 {
-  text-transform: uppercase;
-}
+
+/* end the first part */
+/* Start the Card Events part */
+
 .card {
   border: 1px solid #343a407a !important;
 }
@@ -48,16 +60,19 @@ h1 {
   outline: 1px solid #343a4038;
   padding: 1%;
 }
-img.card-img-top {
+.card-img-top {
   height: 200px;
+  border-radius: 0.2rem !important;
+  -webkit-border-radius: 0.2rem !important;
+  -moz-border-radius: 0.2rem !important;
+  -ms-border-radius: 0.2rem !important;
+  -o-border-radius: 0.2rem !important;
+  border: 1px solid #343a40;
+  padding: 2px;
 }
-.slick-slide img {
-  border-radius: 0.15rem !important;
-  -webkit-border-radius: 0.15rem !important;
-  -moz-border-radius: 0.15rem !important;
-  -ms-border-radius: 0.15rem !important;
-  -o-border-radius: 0.15rem !important;
-}
+
+/* end the Card Events part */
+/* Start the Slick Slide Events */
 
 .slick-dots li {
   margin: 0 2% !important;
@@ -66,6 +81,19 @@ li.slick-active div {
   background-color: #343a40;
   color: #f2f2f2 !important;
 }
+
+.slick-next:before,
+.slick-prev:before {
+  font-size: 20px;
+  line-height: 1;
+  opacity: 0.75;
+  color: #343a40;
+}
+
+/* End the Slick Slide Events */
+
+/* Start Sign up */
+
 #signup {
   width: 100%;
   position: absolute;
@@ -85,10 +113,8 @@ li.slick-active div {
   background-image: none;
 }
 
-.list-chapters.active {
-  background-color: #343a40 !important;
-  border-color: #f8f9fa !important;
-}
+/* End Sign up */
+
 .MuiButton-contained:hover {
   background-color: #545b62 !important;
 }
@@ -97,16 +123,7 @@ button:focus {
   outline: 5px auto #f8f9fa;
 }
 
-.slick-next:before,
-.slick-prev:before {
-  font-size: 20px;
-  line-height: 1;
-  opacity: 0.75;
-  color: #343a40;
-}
-.chapter-list {
-  cursor: pointer;
-}
+/* Start Button Open A Chapter */
 
 span.cancel-btn {
   position: absolute;
@@ -137,3 +154,5 @@ span.cancel-btn {
   color: #fff;
   margin-left: 18px;
 }
+
+/* End Button Open A Chapter */

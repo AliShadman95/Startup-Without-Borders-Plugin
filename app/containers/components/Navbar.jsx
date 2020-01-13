@@ -96,7 +96,6 @@ const Navbar = props => {
           <Button
             className={classes.styleBtn}
             variant="contained"
-            color="dark"
             onClick={() => handleSignUp()}
           >
             Sign Up

@@ -17,9 +17,10 @@ const theme = createMuiTheme({
 export default class ChaptersPage extends Component {
   state = {
     search: "",
+    type: "",
     chapters: [],
     idChapters: 0,
-    events : []
+    events: []
   };
   componentDidMount() {
     const { wpUrl } = this.props;
@@ -45,8 +46,6 @@ export default class ChaptersPage extends Component {
         });
       });
 
-
-
     // usres api
     wp.users().get((err, data) => {
       if (err) {
@@ -63,29 +62,22 @@ export default class ChaptersPage extends Component {
     });
 
     wp.event()
-      .get(function (err, data) {
+      .get(function(err, data) {
         if (err) {
           console.error(err);
         }
       })
       .then(res => {
-
         this.setState({
           events: res
         });
-
       });
-
-
-
-
-
   }
 
   handleChangeSearch = e => {
     let value = e.target.value;
     this.setState({
-      search: value
+      type: value
     });
   };
   handleClickChapters = e => {
@@ -101,7 +93,11 @@ export default class ChaptersPage extends Component {
       idChapters: e.target.value
     });
   };
-
+  sendSearch = () => {
+    this.setState({
+      search: this.state.type
+    });
+  };
   render() {
     const { url, wpUrl, handleOpenChapter } = this.props;
 
@@ -136,6 +132,7 @@ export default class ChaptersPage extends Component {
                   <span
                     className="input-group-text bg-dark text-light"
                     id="basic-addon1"
+                    onClick={() => this.sendSearch()}
                   >
                     <SearchIcon />
                   </span>
@@ -172,7 +169,13 @@ export default class ChaptersPage extends Component {
             <hr />
             {/* start part events */}
             <div className="col-lg-10 col-s-12">
-              <Events wpUrl={wpUrl} idChapters={this.state.idChapters} events={this.state.events} chapters={this.state.chapters} />
+              <Events
+                wpUrl={wpUrl}
+                idChapters={this.state.idChapters}
+                events={this.state.events}
+                chapters={this.state.chapters}
+                search={this.state.search}
+              />
             </div>
             {/* end part events */}
 
