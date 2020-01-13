@@ -19,10 +19,13 @@ const Navbar = props => {
   const classes = useStyles();
   const { url, handleSignUp } = props;
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav
+      className="navbar navbar-expand-lg navbar-dark bg-dark"
+      id="navbar-chapters"
+    >
       <a className="navbar-brand" style={{ width: "10%" }} href="#">
         <img
-          src={url + "images/logo.svg"}
+          src={url + "images/logo_white.png"}
           alt="logo"
           style={{ width: "100%" }}
         />
@@ -93,6 +96,7 @@ const Navbar = props => {
           <Button
             className={classes.styleBtn}
             variant="contained"
+            color="dark"
             onClick={() => handleSignUp()}
           >
             Sign Up

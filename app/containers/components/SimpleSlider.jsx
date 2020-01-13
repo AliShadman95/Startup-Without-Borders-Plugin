@@ -40,7 +40,7 @@ export default class SimpleSlider extends React.Component {
             rows: 2,
             slidesToShow: 3,
             slidesToScroll: 3,
-            infinite: true,
+            infinite: false,
             dots: true
           }
         },
@@ -84,7 +84,8 @@ export default class SimpleSlider extends React.Component {
         </div>
       )
     };
-    const { events, media } = this.props;
+    const { events, media, chapters } = this.props;
+
     return (
       <Slider {...settings}>
         {events.map((event, index) => {
@@ -110,13 +111,16 @@ export default class SimpleSlider extends React.Component {
                   </span>
                   <span className="info-events float-right">
                     {" "}
-                    <LocationOn /> {event.meta.place}{" "}
+                    <LocationOn />{" "}
+                    {chapters
+                      .filter(chapter => chapter.id === event.chapter[0])
+                      .map(url => url.name)}{" "}
                   </span>
                   <span className="d-block my-2">
                     <Class /> {"event.category"}
                   </span>
                   <p className="card-text">
-                    {event.excerpt.rendered.substr(3, 45)}
+                    {event.excerpt.rendered.substr(3, 67)}....
                   </p>
                   <MuiThemeProvider theme={theme}>
                     <Button variant="contained" color="primary">

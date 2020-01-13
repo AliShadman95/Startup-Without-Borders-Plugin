@@ -47,7 +47,7 @@ export default function OpenChapter({ handleCancel }) {
   };
 
   return (
-    <div className="col-lg-4 offset-lg-4 py-3 col-s-12 open-chapter">
+    <div className="col-lg-4 offset-lg-4 py-3 col-s-12 " id="open-chapter">
       <h2 className="text-center">Request Form</h2>
       <form className={classes.root} noValidate autoComplete="off">
         <TextField

@@ -18,7 +18,8 @@ export default class ChaptersPage extends Component {
   state = {
     search: "",
     chapters: [],
-    idChapters : null
+    idChapters: 0,
+    events : []
   };
   componentDidMount() {
     const { wpUrl } = this.props;
@@ -44,15 +45,7 @@ export default class ChaptersPage extends Component {
         });
       });
 
-    // Promises
 
-    wp.chapter()
-      .then(function(data) {
-        console.log(data);
-      })
-      .catch(function(err) {
-        console.error(err);
-      });
 
     // usres api
     wp.users().get((err, data) => {
@@ -61,6 +54,32 @@ export default class ChaptersPage extends Component {
       }
       console.log(data);
     });
+
+    var namespace = "wp/v2";
+    //Event
+    var route = "/event/(?P<id>)";
+    wp.event = wp.registerRoute(namespace, route, {
+      params: ["author"]
+    });
+
+    wp.event()
+      .get(function (err, data) {
+        if (err) {
+          console.error(err);
+        }
+      })
+      .then(res => {
+
+        this.setState({
+          events: res
+        });
+
+      });
+
+
+
+
+
   }
 
   handleChangeSearch = e => {
@@ -80,7 +99,7 @@ export default class ChaptersPage extends Component {
     console.log(e.target.value);
     this.setState({
       idChapters: e.target.value
-    })
+    });
   };
 
   render() {
@@ -100,7 +119,11 @@ export default class ChaptersPage extends Component {
         <div className="container-fluid">
           {/* start part one -- the title*/}
           <div className="p-10 d-flex align-items-center justify-content-center image-map">
-            <img src={url + "images/chapters.png"} alt="chapters" />
+            <img
+              src={url + "images/chapters.png"}
+              alt="chapters"
+              className="chapters-img"
+            />
           </div>
           {/* end part one -- the title */}
           <hr />
@@ -149,7 +172,7 @@ export default class ChaptersPage extends Component {
             <hr />
             {/* start part events */}
             <div className="col-lg-10 col-s-12">
-              <Events wpUrl={wpUrl} idChapters={this.state.idChapters} />
+              <Events wpUrl={wpUrl} idChapters={this.state.idChapters} events={this.state.events} chapters={this.state.chapters} />
             </div>
             {/* end part events */}
 
@@ -160,6 +183,7 @@ export default class ChaptersPage extends Component {
               <Chapters
                 chapters={this.state.chapters}
                 handleChapters={this.handleChapters}
+                value={this.state.idChapters}
               />
 
               {/* end select chapters */}

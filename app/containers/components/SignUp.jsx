@@ -9,12 +9,12 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import DoneIcon from "@material-ui/icons/Done";
 import Button from "@material-ui/core/Button";
-import ReactFormInputValidation from "react-form-input-validation";
 var WPAPI = require("wpapi");
 const useStyles = makeStyles(theme => ({
   root: {
     "& > *": {
-      margin: theme.spacing(1)
+      margin: theme.spacing(1),
+      
     }
   },
   label: {
@@ -23,7 +23,8 @@ const useStyles = makeStyles(theme => ({
   },
   full: {
     width: "75%",
-    left: "12.5%"
+    left: "12.5%",
+ 
   },
   errorField: {
     width: "75%",
