@@ -13,8 +13,7 @@ var WPAPI = require("wpapi");
 const useStyles = makeStyles(theme => ({
   root: {
     "& > *": {
-      margin: theme.spacing(1),
-      
+      margin: theme.spacing(1)
     }
   },
   label: {
@@ -23,8 +22,7 @@ const useStyles = makeStyles(theme => ({
   },
   full: {
     width: "75%",
-    left: "12.5%",
- 
+    left: "12.5%"
   },
   errorField: {
     width: "75%",
@@ -67,14 +65,6 @@ export default function SignUp(props) {
     wp = new WPAPI({
       endpoint: wpUrl.api_url,
       nonce: wpUrl.api_nonce
-    });
-    console.log(wp);
-
-    wp.users().get((err, data) => {
-      if (err) {
-        console.log(err);
-      }
-      console.log(data);
     });
   }, []);
   const handleChange = prop => event => {

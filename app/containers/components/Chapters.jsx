@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -22,25 +22,33 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Chapters({ chapters, handleChapters, idChapters }) {
+export default function Chapters({ chapters, handleChapters, value }) {
   const classes = useStyles();
+  // const [nameChapter, setNameChapter] = useState("");
+  // useEffect(() => {
+  //   if (value > 0) {
+  //     let nm = chapters.find(it => it.id === value);
+  //     console.log(nm);
 
+  //     setNameChapter(nm.name);
+  //   }
+  // }, [value]);
   return (
     <FormControl className={classes.formControl}>
-      <InputLabel
+      {/* <InputLabel
         className={classes.labelControl}
         id="demo-simple-select-label"
       >
         Chapters
-      </InputLabel>
+      </InputLabel> */}
 
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
-        value={idChapters}
+        value={value === 0 ? "All Chapters" : value}
         onChange={handleChapters}
       >
-        <MenuItem value={0}>All Chapters</MenuItem>
+        <MenuItem value={"All Chapters"}>All Chapters</MenuItem>
         {chapters.map(chapter => {
           return (
             <MenuItem key={chapter.id} value={chapter.id}>

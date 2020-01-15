@@ -5,7 +5,6 @@ import Events from "./Events";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
 import Chapters from "./Chapters";
-var WPAPI = require("wpapi");
 
 const theme = createMuiTheme({
   palette: {
@@ -22,57 +21,6 @@ export default class ChaptersPage extends Component {
     idChapters: 0,
     events: []
   };
-  componentDidMount() {
-    const { wpUrl } = this.props;
-    wp = new WPAPI({
-      endpoint: wpUrl.api_url,
-      nonce: wpUrl.api_nonce
-    });
-    // chapters api
-    var namespace = "wp/v2";
-    var route = "/chapter/(?P<id>)";
-    wp.chapter = wp.registerRoute(namespace, route);
-
-    wp.chapter()
-      .get(function(err, data) {
-        if (err) {
-          console.error(err);
-        }
-        console.log(data);
-      })
-      .then(res => {
-        this.setState({
-          chapters: res
-        });
-      });
-
-    // usres api
-    wp.users().get((err, data) => {
-      if (err) {
-        console.log(err);
-      }
-      console.log(data);
-    });
-
-    var namespace = "wp/v2";
-    //Event
-    var route = "/event/(?P<id>)";
-    wp.event = wp.registerRoute(namespace, route, {
-      params: ["author"]
-    });
-
-    wp.event()
-      .get(function(err, data) {
-        if (err) {
-          console.error(err);
-        }
-      })
-      .then(res => {
-        this.setState({
-          events: res
-        });
-      });
-  }
 
   handleChangeSearch = e => {
     let value = e.target.value;
@@ -99,7 +47,7 @@ export default class ChaptersPage extends Component {
     });
   };
   render() {
-    const { url, wpUrl, handleOpenChapter } = this.props;
+    const { url, events, media, chapters, handleOpenChapter } = this.props;
 
     return (
       <React.Fragment>
@@ -170,11 +118,11 @@ export default class ChaptersPage extends Component {
             {/* start part events */}
             <div className="col-lg-10 col-s-12">
               <Events
-                wpUrl={wpUrl}
                 idChapters={this.state.idChapters}
-                events={this.state.events}
-                chapters={this.state.chapters}
+                events={events}
+                chapters={chapters}
                 search={this.state.search}
+                media={media}
               />
             </div>
             {/* end part events */}
@@ -184,7 +132,7 @@ export default class ChaptersPage extends Component {
             <div className="col-lg-2 col-s-12">
               {/* start select chapters */}
               <Chapters
-                chapters={this.state.chapters}
+                chapters={chapters}
                 handleChapters={this.handleChapters}
                 value={this.state.idChapters}
               />

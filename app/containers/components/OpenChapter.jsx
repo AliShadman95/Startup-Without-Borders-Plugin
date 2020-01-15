@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: "2%"
   }
 }));
-export default function OpenChapter({ handleCancel }) {
+export default function OpenChapter({ wpUrl, handleCancel }) {
   const classes = useStyles();
   const [selectedDate, setSelectedDate] = React.useState(
     new Date("2014-08-18T21:11:54")

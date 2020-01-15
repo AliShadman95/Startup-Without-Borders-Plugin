@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import SimpleSlider from "./SimpleSlider";
-var WPAPI = require("wpapi");
 export default function Events({
-  wpUrl,
+  media,
   idChapters,
   events,
   chapters,
   search
 }) {
   const [newEvent, setNewEvent] = useState([]);
-  const [media, setMedia] = useState([]);
 
   useEffect(() => {
     if (idChapters !== 0) {
@@ -27,24 +25,6 @@ export default function Events({
       setNewEvent(events);
     }
   }, [events, idChapters, search]);
-
-  useEffect(() => {
-    wp = new WPAPI({
-      endpoint: wpUrl.api_url,
-      nonce: wpUrl.api_nonce
-    });
-
-    wp.media()
-      .perPage(100, function(err, data) {
-        if (err) {
-          console.error(err);
-        }
-        console.log(data);
-      })
-      .then(res => {
-        setMedia(res);
-      });
-  }, [wp]);
 
   return (
     <React.Fragment>
