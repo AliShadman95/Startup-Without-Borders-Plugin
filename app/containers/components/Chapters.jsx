@@ -6,7 +6,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 const useStyles = makeStyles(theme => ({
   formControl: {
-    margin: theme.spacing(1),
     minWidth: "90%",
     background: "#343a40",
     borderRadius: "0.15rem",
@@ -22,22 +21,15 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Chapters({ chapters, handleChapters, idChapters }) {
+export default function Chapters({ chapters, handleChapters, value }) {
   const classes = useStyles();
 
   return (
     <FormControl className={classes.formControl}>
-      <InputLabel
-        className={classes.labelControl}
-        id="demo-simple-select-label"
-      >
-        Chapters
-      </InputLabel>
-
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
-        value={idChapters}
+        value={value}
         onChange={handleChapters}
       >
         <MenuItem value={0}>All Chapters</MenuItem>

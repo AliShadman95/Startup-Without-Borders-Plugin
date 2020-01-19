@@ -27,19 +27,10 @@ export default function Shortcode(props) {
 
   return (
     <div className="container-fluid position-relative container-shortcode">
-      <Navbar url={wpObject.plugin_url} handleSignUp={handleSignUp} />
-
-      {signup ? (
-        <SignUp wpUrl={wpObject} handleChangeCheck={handleChangeCheck} />
-      ) : null}
       {open ? (
         <OpenChapter wpUrl={wpObject} handleCancel={handleCancel} />
       ) : null}
-      <ChaptersPage
-        url={wpObject.plugin_url}
-        wpUrl={wpObject}
-        handleOpenChapter={handleOpenChapter}
-      />
+      <ChaptersPage wpUrl={wpObject} handleOpenChapter={handleOpenChapter} />
     </div>
   );
 }
