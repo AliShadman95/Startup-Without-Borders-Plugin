@@ -1,0 +1,16 @@
+export const POST_EVENT = "POST_EVENT";
+export const GET_EVENTS = "GET_EVENTS";
+export const DELETE_EVENT = "DELETE_EVENT";
+export const EDIT_EVENT = "EDIT_EVENT";
+export const POST_SPONSOR = "POST_SPONSOR";
+export const GET_SPONSORS = "GET_SPONSORS";
+export const EDIT_SPONSOR = "EDIT_SPONSOR";
+export const DELETE_SPONSOR = "DELETE_SPONSOR";
+export const POST_SPEAKER = "POST_SPEAKER";
+export const GET_SPEAKERS = "GET_SPEAKERS";
+export const EDIT_SPEAKER = "EDIT_SPEAKER";
+export const DELETE_SPEAKER = "DELETE_SPEAKER";
+export const POST_PARTNER = "POST_PARTNER";
+export const GET_PARTNERS = "GET_PARTNERS";
+export const EDIT_PARTNER = "EDIT_PARTNER";
+export const DELETE_PARTNER = "DELETE_PARTNER";

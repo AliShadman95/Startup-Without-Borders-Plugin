@@ -5,19 +5,18 @@ import CreateEvent from "./CreateEvent";
 
 import { getPostType } from "../../../helpers/Crud";
 
-const Events = ({ wp }) => {
+import { connect } from "react-redux";
+
+const Events = ({ wp, events, sponsors, partners, speakers }) => {
   const [images, setImages] = useState([]);
-  const [events, setEvents] = useState([]);
-  const [sponsors, setSponsors] = useState([]);
-  const [partners, setPartners] = useState([]);
-  const [speakers, setSpeakers] = useState([]);
 
   useEffect(() => {
     getMedia();
-    getPostType("Event").then(eve => {
+
+    /* getPostType("Event").then(eve => {
       setEvents(eve);
-    });
-    getPostType("Sponsor").then(res => {
+    }); */
+    /* getPostType("Sponsor").then(res => {
       setSponsors(res);
     });
     getPostType("Speaker").then(res => {
@@ -25,7 +24,7 @@ const Events = ({ wp }) => {
     });
     getPostType("Partner").then(res => {
       setPartners(res);
-    });
+    }); */
   }, []);
 
   const getMedia = () => {
@@ -168,4 +167,11 @@ const Events = ({ wp }) => {
   );
 };
 
-export default Events;
+const mapStateToProps = state => ({
+  events: state.events.items,
+  partners: state.partners.items,
+  speakers: state.speakers.items,
+  sponsors: state.sponsors.items
+});
+
+export default connect(mapStateToProps, {})(Events);

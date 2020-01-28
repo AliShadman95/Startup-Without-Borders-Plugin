@@ -10,6 +10,11 @@ import Events from "./Events/Events";
 import Speakers from "./Speakers/Speakers";
 import Partners from "./Partners/Partners";
 import Sponsors from "./Sponsor/Sponsors";
+import { connect } from "react-redux";
+import { getEvents } from "../Backend/Redux/Actions/eventsActions";
+import { getSpeakers } from "../Backend/Redux/Actions/speakersActions";
+import { getSponsors } from "../Backend/Redux/Actions/sponsorsAction";
+import { getPartners } from "../Backend/Redux/Actions/partnersActions";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -53,9 +58,19 @@ const useStyles = makeStyles(theme => ({
   tabPanel: { width: "85vw" }
 }));
 
-const VerticalTab = ({ wp }) => {
+const VerticalTab = ({
+  wp,
+  getEvents,
+  getSpeakers,
+  getPartners,
+  getSponsors
+}) => {
   useEffect(() => {
     registerRoutes();
+    getEvents();
+    getSponsors();
+    getSpeakers();
+    getPartners();
   }, []);
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -107,4 +122,9 @@ const VerticalTab = ({ wp }) => {
   );
 };
 
-export default VerticalTab;
+export default connect(null, {
+  getEvents,
+  getSponsors,
+  getPartners,
+  getSpeakers
+})(VerticalTab);
