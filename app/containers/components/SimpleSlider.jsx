@@ -105,10 +105,6 @@ export default class SimpleSlider extends React.Component {
                   />
                 </div>
                 <div className="card-body">
-                  <span className="info-events">
-                    {" "}
-                    <Event /> {event.meta.Date[0]}{" "}
-                  </span>
                   <span className="info-events float-right">
                     {" "}
                     <LocationOn />{" "}
@@ -116,10 +112,15 @@ export default class SimpleSlider extends React.Component {
                       .filter(chapter => chapter.id === event.chapter[0])
                       .map(url => url.name)}{" "}
                   </span>
-                  <span className="d-block my-2">
+                  <span className="d-block mb-2">
                     <Class /> {"event.category"}
                   </span>
-                  <p className="card-text">
+                  <span className="info-events">
+                    {" "}
+                    <Event />
+                    {event.meta.Date[0]}{" "}
+                  </span>
+                  <p className="card-text mt-2">
                     {event.excerpt.rendered.substr(3, 67)}....
                   </p>
                   <MuiThemeProvider theme={theme}>

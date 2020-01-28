@@ -112,7 +112,21 @@ li.slick-active div {
   border: none;
   background-image: none;
 }
-
+#signup button:not(.toggle),
+.button,
+.faux-button,
+.wp-block-button__link,
+.wp-block-file .wp-block-file__button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+.bg-accent,
+.bg-accent-hover:hover,
+.bg-accent-hover:focus,
+:root .has-accent-background-color,
+.comment-reply-link {
+  background-color: #68696b;
+}
 /* End Sign up */
 
 .MuiButton-contained:hover {
@@ -150,11 +164,9 @@ span.cancel-btn {
   background: transparent;
   background-image: none;
 }
-
-/* End Button Open A Chapter */
-
-/* Select Chapters */
 .MuiSelect-select {
   color: #fff;
-  margin: 10px 0 10px 18px;
+  margin-left: 18px;
 }
+
+/* End Button Open A Chapter */
