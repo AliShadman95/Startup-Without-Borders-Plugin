@@ -7,24 +7,11 @@ import { getPostType } from "../../../helpers/Crud";
 
 import { connect } from "react-redux";
 
-const Events = ({ wp, events, sponsors, partners, speakers }) => {
+const Events = ({ wp, events }) => {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
     getMedia();
-
-    /* getPostType("Event").then(eve => {
-      setEvents(eve);
-    }); */
-    /* getPostType("Sponsor").then(res => {
-      setSponsors(res);
-    });
-    getPostType("Speaker").then(res => {
-      setSpeakers(res);
-    });
-    getPostType("Partner").then(res => {
-      setPartners(res);
-    }); */
   }, []);
 
   const getMedia = () => {
@@ -112,15 +99,7 @@ const Events = ({ wp, events, sponsors, partners, speakers }) => {
           <div className="col-md-8">
             <h1>Events</h1>
           </div>
-          <CreateEvent
-            speakers={speakers}
-            partners={partners}
-            sponsors={sponsors}
-            addEvent={addEvent}
-            setImages={setImages}
-            images={images}
-            events={events}
-          />
+          <CreateEvent setImages={setImages} images={images} />
         </div>
       </div>
 
@@ -152,11 +131,6 @@ const Events = ({ wp, events, sponsors, partners, speakers }) => {
                   selectedPartners={event.meta.Partners}
                   selectedSpeakers={event.meta.Speakers}
                   addImage={addImage}
-                  updateEvent={updateEvent}
-                  deleteEvent={deleteEvent}
-                  speakers={speakers}
-                  partners={partners}
-                  sponsors={sponsors}
                 />
               </div>
             );
@@ -168,10 +142,7 @@ const Events = ({ wp, events, sponsors, partners, speakers }) => {
 };
 
 const mapStateToProps = state => ({
-  events: state.events.items,
-  partners: state.partners.items,
-  speakers: state.speakers.items,
-  sponsors: state.sponsors.items
+  events: state.events.items
 });
 
 export default connect(mapStateToProps, {})(Events);

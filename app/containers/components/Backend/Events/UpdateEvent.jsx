@@ -7,7 +7,6 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import UploadFile from "../../UploadFile";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
@@ -16,33 +15,26 @@ import IconButton from "@material-ui/core/IconButton";
 import Input from "@material-ui/core/Input";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemText from "@material-ui/core/ListItemText";
-import { editEvent } from "../../../helpers/Crud";
 import Grid from "@material-ui/core/Grid";
 import {
   MuiPickersUtilsProvider,
   KeyboardDateTimePicker
 } from "@material-ui/pickers";
+import { connect } from "react-redux";
 
 import DateFnsUtils from "@date-io/date-fns";
 import Slide from "@material-ui/core/Slide";
 import moment from "moment";
+import { editEvent } from "../Redux/Actions/eventsActions";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="left" ref={ref} {...props} />;
 });
 
 const UpdateEvent = ({
-  prevTitle,
   id,
-  prevDescription,
-  prevDate,
-  prevPlace,
-  prevSelSponsors,
-  prevSelPartners,
-  prevSelSpeakers,
   imageId,
-  addImage,
-  updateEvent,
+  editEvent,
   speakers,
   partners,
   sponsors
@@ -55,49 +47,6 @@ const UpdateEvent = ({
   const [selectedSpeakers, setSelectedSpeakers] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState("mm/dd/yyyy");
-
-  useEffect(() => {
-    setTitle(prevTitle);
-    setDescription(prevDescription);
-    setAddress(prevPlace);
-    sponsors.length >= 1 &&
-      setSelectedSponsors(
-        prevSelSponsors.map(prevSSpo => {
-          return sponsors.find(
-            sponsor => sponsor.id.toString() === prevSSpo.toString()
-          ).title.rendered;
-        })
-      );
-    partners.length >= 1 &&
-      setSelectedPartners(
-        prevSelPartners.map(prevSPar => {
-          return partners.find(
-            partner => partner.id.toString() === prevSPar.toString()
-          ).title.rendered;
-        })
-      );
-    speakers.length >= 1 &&
-      setSelectedSpeakers(
-        prevSelSpeakers.map(prevSSpe => {
-          return speakers.find(
-            speaker => speaker.id.toString() === prevSSpe.toString()
-          ).title.rendered;
-        })
-      );
-    setSelectedDate(prevDate);
-  }, [
-    prevTitle,
-    prevDescription,
-    prevPlace,
-    prevSelSponsors,
-    prevSelPartners,
-    prevSelSpeakers,
-    imageId,
-    prevDate,
-    sponsors,
-    partners,
-    speakers
-  ]);
 
   const handleDateChange = date => {
     setSelectedDate(date);
@@ -128,6 +77,7 @@ const UpdateEvent = ({
       id,
       5,
       title,
+      description,
       imageId.toString(),
       {
         Sponsors: selectedSponsors.map(selSpo => {
@@ -146,20 +96,13 @@ const UpdateEvent = ({
             .id.toString();
         }),
         Date: selectedDate,
-        Place: address,
-        Description: description
+        Place: address
       },
       "publish"
-    ).then(res => {
-      console.log(res);
-      updateEvent(res);
-      handleClose();
-    });
+    );
+    handleClose();
   };
-  const onFileUpload = res => {
-    addImage(res);
-    setImageId(res.id.toString());
-  };
+
   return (
     <div>
       <IconButton onClick={handleClickOpen}>
@@ -176,10 +119,7 @@ const UpdateEvent = ({
       >
         <DialogTitle id="form-dialog-title">Edit an event</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
-          </DialogContentText>
+          <DialogContentText>Edit the event</DialogContentText>
           <div className="row">
             <div className="col-md-12">
               <InputLabel id="demo-mutiple-name-label">Title</InputLabel>
@@ -327,4 +267,10 @@ const UpdateEvent = ({
   );
 };
 
-export default UpdateEvent;
+const mapStateToProps = state => ({
+  partners: state.partners.items,
+  speakers: state.speakers.items,
+  sponsors: state.sponsors.items
+});
+
+export default connect(mapStateToProps, { editEvent })(UpdateEvent);

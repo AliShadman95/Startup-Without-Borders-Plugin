@@ -24,6 +24,8 @@ import {
 import DateFnsUtils from "@date-io/date-fns";
 import Slide from "@material-ui/core/Slide";
 import moment from "moment";
+import { connect } from "react-redux";
+import { addEvent } from "../Redux/Actions/eventsActions";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="left" ref={ref} {...props} />;
@@ -33,10 +35,9 @@ const CreateEvent = ({
   sponsors,
   partners,
   speakers,
-  addEvent,
   setImages,
   images,
-  events
+  addEvent
 }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -77,9 +78,10 @@ const CreateEvent = ({
   };
 
   const onCreateClick = () => {
-    createEvent(
+    addEvent(
       5,
       title,
+      description,
       imageId.toString(),
       {
         Sponsors: selectedSponsors.map(selSpo => {
@@ -98,16 +100,13 @@ const CreateEvent = ({
             .id.toString();
         }),
         Date: selectedDate,
-        Place: address,
-        Description: description
+        Place: address
       },
       "publish"
-    ).then(res => {
-      console.log(res);
-      addEvent(res);
-      setWaitUploadMediaBool(false);
-      handleClose();
-    });
+    );
+
+    handleClose();
+    setWaitUploadMediaBool(false);
   };
 
   const onFileUpload = res => {
@@ -296,4 +295,10 @@ const CreateEvent = ({
   );
 };
 
-export default CreateEvent;
+const mapStateToProps = state => ({
+  partners: state.partners.items,
+  speakers: state.speakers.items,
+  sponsors: state.sponsors.items
+});
+
+export default connect(mapStateToProps, { addEvent })(CreateEvent);

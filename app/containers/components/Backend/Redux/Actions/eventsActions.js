@@ -21,55 +21,69 @@ export const getEvents = () => async dispatch => {
   dispatch({ type: GET_EVENTS, payload: response });
 };
 
-/* export const getLatestMessages = room => async dispatch => {
-  const response = await axios.get(
-    `https://chat-by-as.herokuapp.com/messages/latest/${room}`
-  );
-
-  dispatch({ type: GET_MESSAGES, payload: response.data.reverse() });
-}; */
-
-/* export const postMessage = user => async dispatch => {
+export const addEvent = (
+  chapter,
+  title,
+  description,
+  image,
+  meta,
+  status
+) => async dispatch => {
   console.log("about to POST");
-  const response = await axios.post(
-    `https://chat-by-as.herokuapp.com/messages`,
-    user
-  );
-  dispatch({ type: POST_MESSAGE, payload: response.data });
+  const response = await wp.event().create({
+    title,
+    excerpt: description,
+    chapter,
+    featured_media: image,
+    meta,
+    status
+  });
+  dispatch({ type: POST_EVENT, payload: response });
 };
 
-export const emitMessage = message => async dispatch => {
-  console.log("about to EMIT");
-  dispatch({ type: POST_MESSAGE, payload: message });
-};
-
-export const setMessage = user => async dispatch => {
-  console.log("about to SET");
-  dispatch({ type: POST_MESSAGE, payload: user });
-};
-
-export const deleteMessage = id => async dispatch => {
+export const deleteEvent = id => async dispatch => {
   console.log("about to delete", id);
 
-  const response = await axios.delete(
-    `https://chat-by-as.herokuapp.com/messages/id/${id}`
-  );
+  await wp
+    .event()
+    .id(id)
+    .delete();
 
-  dispatch({ type: DELETE_MESSAGE, id: id });
+  dispatch({ type: DELETE_EVENT, id: id });
 };
 
-export const editMessage = (id, message) => async dispatch => {
+export const editEvent = (
+  id,
+  chapter,
+  title,
+  description,
+  image,
+  meta,
+  status
+) => async dispatch => {
   console.log("about to edit");
-  const response = await axios.put(
-    `https://chat-by-as.herokuapp.com/messages/id/${id}`,
-    {
-      message
-    }
-  );
 
-  dispatch({ type: EDIT_MESSAGE, id: id, message });
+  const response = await wp
+    .event()
+    .id(id)
+    .update({
+      title,
+      slug: title,
+      description,
+      chapter,
+      featured_media: image,
+      meta,
+      status
+    });
+
+  console.log(response);
+
+  dispatch({
+    type: EDIT_EVENT,
+    payload: response
+  });
 };
-
+/*
 export const searchMessage = (room, value, type) => async dispatch => {
   const str = type === 0 ? `${value}` : `room/${room}/${value}`;
   const response = await axios.get(

@@ -8,7 +8,9 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 import Slide from "@material-ui/core/Slide";
 import Button from "@material-ui/core/Button";
-import { deletePostType } from "../../../helpers/Crud";
+/* import { deletePostType } from "../../../helpers/Crud"; */
+import { deleteEvent } from "../Redux/Actions/eventsActions";
+import { connect } from "react-redux";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -25,10 +27,8 @@ const DeleteEvent = ({ id, deleteEvent }) => {
   };
 
   const onDeleteClick = () => {
-    deletePostType("Event", id).then(res => {
-      deleteEvent(id);
-      handleClose();
-    });
+    deleteEvent(id);
+    handleClose();
   };
   return (
     <React.Fragment>
@@ -63,4 +63,4 @@ const DeleteEvent = ({ id, deleteEvent }) => {
   );
 };
 
-export default DeleteEvent;
+export default connect(null, { deleteEvent })(DeleteEvent);
