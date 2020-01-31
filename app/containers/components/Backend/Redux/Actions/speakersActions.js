@@ -31,16 +31,19 @@ export const createSpeaker = (title, imageId, status) => async dispatch => {
     .create({ title, featured_media: imageId, status });
   dispatch({ type: POST_SPEAKER, payload: response });
 };
-/*
-export const emitMessage = message => async dispatch => {
-  console.log("about to EMIT");
-  dispatch({ type: POST_MESSAGE, payload: message });
+
+export const editSpeaker = (id, title, imageId, status) => async dispatch => {
+  console.log("about to edit");
+  const response = await wp
+    .speaker()
+    .id(id)
+    .update({ title, featured_media: imageId, status });
+
+  dispatch({ type: EDIT_SPEAKER, payload: response });
 };
 
-export const setMessage = user => async dispatch => {
-  console.log("about to SET");
-  dispatch({ type: POST_MESSAGE, payload: user });
-};
+/*
+
 
 export const deleteMessage = id => async dispatch => {
   console.log("about to delete", id);
@@ -51,25 +54,4 @@ export const deleteMessage = id => async dispatch => {
 
   dispatch({ type: DELETE_MESSAGE, id: id });
 };
-
-export const editMessage = (id, message) => async dispatch => {
-  console.log("about to edit");
-  const response = await axios.put(
-    `https://chat-by-as.herokuapp.com/messages/id/${id}`,
-    {
-      message
-    }
-  );
-
-  dispatch({ type: EDIT_MESSAGE, id: id, message });
-};
-
-export const searchMessage = (room, value, type) => async dispatch => {
-  const str = type === 0 ? `${value}` : `room/${room}/${value}`;
-  const response = await axios.get(
-    `https://chat-by-as.herokuapp.com/messages/search/${str}`
-  );
-
-  dispatch({ type: SEARCH_MESSAGE, payload: response.data });
-};
- */
+*/

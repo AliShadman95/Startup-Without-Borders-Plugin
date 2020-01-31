@@ -11,12 +11,14 @@ import EditIcon from "@material-ui/icons/Edit";
 import IconButton from "@material-ui/core/IconButton";
 import { updatePostType } from "../../../helpers/Crud";
 import Slide from "@material-ui/core/Slide";
+import { editSpeaker } from "../Redux/Actions/speakersActions";
+import { connect } from "react-redux";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="left" ref={ref} {...props} />;
 });
 
-const UpdateSpeaker = ({ prevTitle, id, imageId, addImage, updateSpeaker }) => {
+const UpdateSpeaker = ({ prevTitle, id, imageId, addImage, editSpeaker }) => {
   const [title, setTitle] = useState("");
   const [open, setOpen] = useState(false);
 
@@ -34,7 +36,7 @@ const UpdateSpeaker = ({ prevTitle, id, imageId, addImage, updateSpeaker }) => {
 
   const onEditClick = async () => {
     console.log("ON EDIT");
-    updatePostType(
+    /*  updatePostType(
       "Speaker",
       id,
       title,
@@ -45,7 +47,10 @@ const UpdateSpeaker = ({ prevTitle, id, imageId, addImage, updateSpeaker }) => {
       console.log(res);
       updateSpeaker(res);
       handleClose();
-    });
+    }); */
+
+    editSpeaker(id, title, imageId.toString(), "publish");
+    handleClose();
   };
   const onFileUpload = res => {
     addImage(res);
@@ -97,4 +102,4 @@ const UpdateSpeaker = ({ prevTitle, id, imageId, addImage, updateSpeaker }) => {
   );
 };
 
-export default UpdateSpeaker;
+export default connect(null, { editSpeaker })(UpdateSpeaker);
