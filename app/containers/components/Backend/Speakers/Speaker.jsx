@@ -17,15 +17,7 @@ const useStyles = makeStyles({
   }
 });
 
-const Speaker = ({
-  imageUrl,
-  imageId,
-  id,
-  title,
-  addImage,
-  updateSpeaker,
-  deleteSpeaker
-}) => {
+const Speaker = ({ imageUrl, imageId, id, title, addImage }) => {
   const classes = useStyles();
 
   return (
@@ -46,10 +38,9 @@ const Speaker = ({
           id={id}
           prevTitle={title}
           addImage={addImage}
-          updateSpeaker={updateSpeaker}
           imageId={imageId}
         />
-        <DeleteSpeaker deleteSpeaker={deleteSpeaker} id={id} />
+        <DeleteSpeaker id={id} />
       </CardActions>
     </Card>
   );

@@ -42,16 +42,13 @@ export const editSpeaker = (id, title, imageId, status) => async dispatch => {
   dispatch({ type: EDIT_SPEAKER, payload: response });
 };
 
-/*
-
-
-export const deleteMessage = id => async dispatch => {
+export const deleteSpeaker = id => async dispatch => {
   console.log("about to delete", id);
 
-  const response = await axios.delete(
-    `https://chat-by-as.herokuapp.com/messages/id/${id}`
-  );
+  const response = await wp
+    .speaker()
+    .id(id)
+    .delete();
 
-  dispatch({ type: DELETE_MESSAGE, id: id });
+  dispatch({ type: DELETE_SPEAKER, id: id });
 };
-*/

@@ -20,7 +20,6 @@ export default (state = initialState, action) => {
       return { ...state, items: copy };
     case DELETE_SPEAKER:
       const copyState = [...state.items].filter(e => e.id !== action.id);
-      console.log(copyState);
       return { ...state, items: copyState };
     default:
       return state;

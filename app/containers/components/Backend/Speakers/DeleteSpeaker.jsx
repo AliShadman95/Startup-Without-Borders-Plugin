@@ -9,6 +9,9 @@ import IconButton from "@material-ui/core/IconButton";
 import Slide from "@material-ui/core/Slide";
 import Button from "@material-ui/core/Button";
 import { deletePostType } from "../../../helpers/Crud";
+import { deleteSpeaker } from "../Redux/Actions/speakersActions";
+import { connect } from "react-redux";
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -25,10 +28,14 @@ const DeleteSpeaker = ({ id, deleteSpeaker }) => {
   };
 
   const onDeleteClick = () => {
-    deletePostType("Speaker", id).then(res => {
+    /*  deletePostType("Speaker", id).then(res => {
       deleteSpeaker(id);
       handleClose();
     });
+     */
+
+    deleteSpeaker(id);
+    handleClose();
   };
   return (
     <React.Fragment>
@@ -63,4 +70,4 @@ const DeleteSpeaker = ({ id, deleteSpeaker }) => {
   );
 };
 
-export default DeleteSpeaker;
+export default connect(null, { deleteSpeaker })(DeleteSpeaker);

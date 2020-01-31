@@ -124,8 +124,7 @@ const Speakers = ({ speakers }) => {
                   id={speaker.id}
                   title={speaker.title.rendered}
                   addImage={addImage}
-                  updateSpeaker={updateSpeaker}
-                  deleteSpeaker={deleteSpeaker}
+                  
                 />
               </div>
             );
