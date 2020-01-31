@@ -24,23 +24,14 @@ export const getSpeakers = () => async dispatch => {
   dispatch({ type: GET_SPEAKERS, payload: response });
 };
 
-/* export const getLatestMessages = room => async dispatch => {
-  const response = await axios.get(
-    `https://chat-by-as.herokuapp.com/messages/latest/${room}`
-  );
-
-  dispatch({ type: GET_MESSAGES, payload: response.data.reverse() });
-}; */
-
-/* export const postMessage = user => async dispatch => {
+export const createSpeaker = (title, imageId, status) => async dispatch => {
   console.log("about to POST");
-  const response = await axios.post(
-    `https://chat-by-as.herokuapp.com/messages`,
-    user
-  );
-  dispatch({ type: POST_MESSAGE, payload: response.data });
+  const response = await wp
+    .speaker()
+    .create({ title, featured_media: imageId, status });
+  dispatch({ type: POST_SPEAKER, payload: response });
 };
-
+/*
 export const emitMessage = message => async dispatch => {
   console.log("about to EMIT");
   dispatch({ type: POST_MESSAGE, payload: message });

@@ -3,18 +3,13 @@ import Slider from "react-slick";
 import Speaker from "./Speaker";
 import CreateSpeaker from "./CreateSpeaker";
 import { getPostType } from "../../../helpers/Crud";
+import { connect } from "react-redux";
 
-const Speakers = () => {
+const Speakers = ({ speakers }) => {
   const [images, setImages] = useState([]);
-
-  const [speakers, setSpeakers] = useState([]);
 
   useEffect(() => {
     getMedia();
-
-    getPostType("Speaker").then(res => {
-      setSpeakers(res);
-    });
   }, []);
 
   const getMedia = () => {
@@ -27,10 +22,6 @@ const Speakers = () => {
           })
         );
       });
-  };
-
-  const addSpeaker = newSpeaker => {
-    setSpeakers(speakers => [newSpeaker, ...speakers]);
   };
 
   const updateSpeaker = updatedSpeaker => {
@@ -104,7 +95,6 @@ const Speakers = () => {
             <h1>Speakers</h1>
           </div>
           <CreateSpeaker
-            addSpeaker={addSpeaker}
             addImage={addImage}
             images={images}
             setImages={setImages}
@@ -146,4 +136,8 @@ const Speakers = () => {
   );
 };
 
-export default Speakers;
+const mapStateToProps = state => ({
+  speakers: state.speakers.items
+});
+
+export default connect(mapStateToProps, {})(Speakers);

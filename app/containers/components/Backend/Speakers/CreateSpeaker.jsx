@@ -8,14 +8,16 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import UploadFile from "../../UploadFile";
 import InputLabel from "@material-ui/core/InputLabel";
-import { createPostType } from "../../../helpers/Crud";
+/* import { createPostType } from "../../../helpers/Crud"; */
 import Slide from "@material-ui/core/Slide";
+import { createSpeaker } from "../Redux/Actions/speakersActions";
+import { connect } from "react-redux";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="left" ref={ref} {...props} />;
 });
 
-const CreateSpeaker = ({ addSpeaker, setImages, images }) => {
+const CreateSpeaker = ({ createSpeaker, setImages, images }) => {
   const [title, setTitle] = useState("");
   const [imageId, setImageId] = useState("0");
   const [open, setOpen] = React.useState(false);
@@ -30,13 +32,16 @@ const CreateSpeaker = ({ addSpeaker, setImages, images }) => {
   };
 
   const onCreateClick = () => {
-    createPostType("Speaker", title, imageId.toString(), "publish").then(
+    /* createPostType("Speaker", title, imageId.toString(), "publish").then(
       res => {
         addSpeaker(res);
         setWaitUploadMediaBool(false);
         handleClose();
       }
-    );
+    ); */
+    createSpeaker(title, imageId.toString(), "publish");
+    setWaitUploadMediaBool(false);
+    handleClose();
   };
 
   const onFileUpload = res => {
@@ -60,10 +65,7 @@ const CreateSpeaker = ({ addSpeaker, setImages, images }) => {
       >
         <DialogTitle id="form-dialog-title">Add a Speaker</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.
-          </DialogContentText>
+          <DialogContentText>Add a new speaker</DialogContentText>
           <div className="row">
             <div className="col-md-6">
               <InputLabel id="demo-mutiple-name-label">Title</InputLabel>
@@ -103,4 +105,4 @@ const CreateSpeaker = ({ addSpeaker, setImages, images }) => {
   );
 };
 
-export default CreateSpeaker;
+export default connect(null, { createSpeaker })(CreateSpeaker);

@@ -83,13 +83,3 @@ export const editEvent = (
     payload: response
   });
 };
-/*
-export const searchMessage = (room, value, type) => async dispatch => {
-  const str = type === 0 ? `${value}` : `room/${room}/${value}`;
-  const response = await axios.get(
-    `https://chat-by-as.herokuapp.com/messages/search/${str}`
-  );
-
-  dispatch({ type: SEARCH_MESSAGE, payload: response.data });
-};
- */

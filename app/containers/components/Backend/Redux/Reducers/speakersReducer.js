@@ -10,7 +10,7 @@ const initialState = { items: [], item: [] };
 export default (state = initialState, action) => {
   switch (action.type) {
     case POST_SPEAKER:
-      return { ...state, items: [...state.items, action.payload] };
+      return { ...state, items: [action.payload, ...state.items] };
     case GET_SPEAKERS:
       return { ...state, items: action.payload };
     case DELETE_SPEAKER:
