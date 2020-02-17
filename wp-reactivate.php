@@ -213,7 +213,7 @@ function cptui_register_my_cpts() {
 		"hierarchical" => true,
 		"rewrite" => [ "slug" => "event", "with_front" => true ],
 		"query_var" => true,
-		"supports" => [ "title", "thumbnail", "excerpt", "custom-fields" ],
+		"supports" => [ "title", "thumbnail", "excerpt", "custom-fields","testing" ],
 		"taxonomies" => [ "chapter" ],
 	];
 
@@ -439,12 +439,10 @@ register_meta( 'post', 'Partners', array(
 register_meta( 'post', 'Date', array(
 	'show_in_rest' => true,
 ));
-register_meta( 'post', 'Place', array(
+register_meta( 'post', 'Address', array(
 	'show_in_rest' => true,
 ));
-register_meta( 'post', 'Description', array(
-	'show_in_rest' => true,
-));
+
 
 
 

@@ -56,49 +56,6 @@ const UpdateEvent = ({
   const [open, setOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState("mm/dd/yyyy");
 
-  useEffect(() => {
-    setTitle(prevTitle);
-    setDescription(prevDescription);
-    setAddress(prevPlace);
-    sponsors.length >= 1 &&
-      setSelectedSponsors(
-        prevSelSponsors.map(prevSSpo => {
-          return sponsors.find(
-            sponsor => sponsor.id.toString() === prevSSpo.toString()
-          ).title.rendered;
-        })
-      );
-    partners.length >= 1 &&
-      setSelectedPartners(
-        prevSelPartners.map(prevSPar => {
-          return partners.find(
-            partner => partner.id.toString() === prevSPar.toString()
-          ).title.rendered;
-        })
-      );
-    speakers.length >= 1 &&
-      setSelectedSpeakers(
-        prevSelSpeakers.map(prevSSpe => {
-          return speakers.find(
-            speaker => speaker.id.toString() === prevSSpe.toString()
-          ).title.rendered;
-        })
-      );
-    setSelectedDate(prevDate);
-  }, [
-    prevTitle,
-    prevDescription,
-    prevPlace,
-    prevSelSponsors,
-    prevSelPartners,
-    prevSelSpeakers,
-    imageId,
-    prevDate,
-    sponsors,
-    partners,
-    speakers
-  ]);
-
   const handleDateChange = date => {
     setSelectedDate(date);
   };
@@ -146,8 +103,7 @@ const UpdateEvent = ({
             .id.toString();
         }),
         Date: selectedDate,
-        Place: address,
-        Description: description
+        Address: address
       },
       "publish"
     ).then(res => {

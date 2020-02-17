@@ -27,10 +27,7 @@ const Event = ({
   title,
   description,
   date,
-  place,
-  selectedSponsors,
-  selectedPartners,
-  selectedSpeakers,
+  address,
   addImage,
   updateEvent,
   sponsors,
@@ -39,7 +36,6 @@ const Event = ({
   deleteEvent
 }) => {
   const classes = useStyles();
-  const handleClick = () => {};
 
   return (
     <Card className={classes.card}>
@@ -55,26 +51,24 @@ const Event = ({
           {title}
         </Typography>
         <Typography variant="subtitle1" component="p">
-          {description.join(" ")}
+          {description.substring(0, description.length - 5).substring(3)}
         </Typography>
         <Typography variant="subtitle2" component="p">
-          {moment(date).format("MM/DD/YYYY")}
+          {moment(date.toString()).format("YYYY-MM-DD h:mm:ss a")}
         </Typography>
         <Typography variant="subtitle2" component="p">
-          {place.join(" ")}
+          {address
+            .toString()
+            .split("-")
+            .join(" ")
+            .split("+")
+            .join("-")}
         </Typography>
       </CardContent>
 
       <CardActions className="justify-content-end">
         <UpdateEvent
           id={id}
-          prevTitle={title}
-          prevDescription={description.join(" ")}
-          prevDate={date}
-          prevPlace={place.join(" ")}
-          prevSelSponsors={selectedSponsors}
-          prevSelPartners={selectedPartners}
-          prevSelSpeakers={selectedSpeakers}
           addImage={addImage}
           updateEvent={updateEvent}
           sponsors={sponsors}

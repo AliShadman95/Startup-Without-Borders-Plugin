@@ -81,6 +81,7 @@ const CreateEvent = ({
       5,
       title,
       imageId.toString(),
+      description,
       {
         Sponsors: selectedSponsors.map(selSpo => {
           return sponsors
@@ -98,8 +99,11 @@ const CreateEvent = ({
             .id.toString();
         }),
         Date: selectedDate,
-        Place: address,
-        Description: description
+        Address: address
+          .split("-")
+          .join("+")
+          .split(" ")
+          .join("-")
       },
       "publish"
     ).then(res => {

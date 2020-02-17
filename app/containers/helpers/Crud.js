@@ -28,12 +28,20 @@ export const registerRoutes = () => {
 };
 
 //Create an event
-export const createEvent = async (chapter, title, image, meta, status) => {
+export const createEvent = async (
+  chapter,
+  title,
+  image,
+  description,
+  meta,
+  status
+) => {
   try {
     const data = await wp.event().create({
       title,
       chapter,
       featured_media: image,
+      excerpt: description,
       meta,
       status
     });
