@@ -96,6 +96,7 @@ export const createPostType = async (type, title, image, meta, status) => {
         const data = await wp.partner().create({
           title,
           featured_media: image,
+          meta,
           status
         });
         return data;
@@ -146,7 +147,6 @@ export const getPostType = async type => {
         console.log(error);
         return error;
       }
-
     case "Sponsor":
       try {
         const data = await wp.sponsor().get();
@@ -156,7 +156,6 @@ export const getPostType = async type => {
         console.log(error);
         return error;
       }
-
     case "Partner":
       try {
         const data = await wp.partner().get();

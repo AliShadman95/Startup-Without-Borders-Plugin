@@ -14,6 +14,7 @@ function Sponsors() {
   const [listSponsors, setListSponsors] = useState([]);
   const [images, setImages] = useState([]);
   console.log("listSponsors", listSponsors);
+
   useEffect(() => {
     getPostType("Sponsor").then(resp => {
       setListSponsors(resp);
