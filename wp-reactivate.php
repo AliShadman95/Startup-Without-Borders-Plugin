@@ -344,7 +344,7 @@ function cptui_register_my_cpts() {
 		"hierarchical" => false,
 		"rewrite" => [ "slug" => "sponsor", "with_front" => true ],
 		"query_var" => true,
-		"supports" => [ "title", "thumbnail" ],
+		"supports" => [ "title", "thumbnail", "custom-fields" ],
 	];
 
 	register_post_type( "sponsor", $args );
@@ -409,7 +409,7 @@ function cptui_register_my_cpts() {
 		"hierarchical" => false,
 		"rewrite" => [ "slug" => "partner", "with_front" => true ],
 		"query_var" => true,
-		"supports" => [ "title", "thumbnail" ],
+		"supports" => [ "title", "thumbnail","custom-fields" ],
 	];
 
 	register_post_type( "partner", $args );
@@ -445,6 +445,37 @@ register_meta( 'post', 'Place', array(
 register_meta( 'post', 'Description', array(
 	'show_in_rest' => true,
 ));
+register_meta( 'post', 'CountryOrganization', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'CompanyAddress', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'PostalCode', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'City', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'RegistrationNumber', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'BusinessEntityType', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'BusinessURLaddress', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'ContactPointName', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'Title', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'Email', array(
+	'show_in_rest' => true,
+));
+
 
 
 

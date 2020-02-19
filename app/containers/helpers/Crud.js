@@ -64,7 +64,7 @@ export const editEvent = async (id, chapter, title, image, meta, status) => {
 };
 
 //Create a post type based on the "type" param
-export const createPostType = async (type, title, image, status) => {
+export const createPostType = async (type, title, image, meta, status) => {
   switch (type) {
     case "Speaker":
       try {
@@ -83,6 +83,7 @@ export const createPostType = async (type, title, image, status) => {
         const data = await wp.sponsor().create({
           title,
           featured_media: image,
+          meta,
           status
         });
         return data;
@@ -208,7 +209,7 @@ export const updatePostType = async (type, id, title, image, meta, status) => {
         const data = await wp
           .sponsor()
           .id(id)
-          .update({ title, featured_media: image, status });
+          .update({ title, featured_media: image, meta, status });
         return data;
       } catch (error) {
         console.log(error);

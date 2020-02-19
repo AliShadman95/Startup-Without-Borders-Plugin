@@ -13,7 +13,7 @@ import {
 function Sponsors() {
   const [listSponsors, setListSponsors] = useState([]);
   const [images, setImages] = useState([]);
-
+  console.log("listSponsors", listSponsors);
   useEffect(() => {
     getPostType("Sponsor").then(resp => {
       setListSponsors(resp);
@@ -33,26 +33,78 @@ function Sponsors() {
     setListSponsors(newlistSponsors);
   };
 
-  const handleAddNewSponsor = (sponsorName, featuredMediaIdImage) => {
+  const handleAddNewSponsor = (
+    sponsorName,
+    featuredMediaIdImage,
+    countryOrganization,
+    companyAddress,
+    postalCode,
+    city,
+    registrationNumber,
+    businessEntityType,
+    businessURLaddress,
+    contactPointName,
+    titleTwo,
+    email
+  ) => {
     createPostType(
       "Sponsor",
       sponsorName,
       featuredMediaIdImage,
+      {
+        CountryOrganization: countryOrganization,
+        CompanyAddress: companyAddress,
+        PostalCode: postalCode,
+        City: city,
+        RegistrationNumber: registrationNumber,
+        BusinessEntityType: businessEntityType,
+        BusinessURLaddress: businessURLaddress,
+        ContactPointName: contactPointName,
+        Title: titleTwo,
+        Email: email
+      },
       "publish"
     ).then(respObj => {
+      console.log(respObj);
       setListSponsors([respObj, ...listSponsors]);
     });
   };
 
-  const handleEditSponsorName = (newNameEdit, sponsorId, imageId) => {
-    console.log("sponsor aggiornato - newNameEdit", newNameEdit);
-    console.log("sponsor aggiornato - sponsorId", sponsorId);
+  const handleEditSponsorName = (
+    newNameEdit,
+    sponsorId,
+    imageId,
+    newCountryEdit,
+    newCompanyAddressEdit,
+    newPostalCodeEdit,
+    newCityEdit,
+    newRegistrationNumberEdit,
+    newBusinessEntityTypeEdit,
+    newBusinessURLaddress,
+    newContactPointNameEdit,
+    newTitleEdit,
+    newEmailEdit
+  ) => {
+    // console.log("sponsor aggiornato - newNameEdit", newNameEdit);
+    // console.log("sponsor aggiornato - sponsorId", sponsorId);
     updatePostType(
       "Sponsor",
       sponsorId,
       newNameEdit,
       imageId,
-      {},
+
+      {
+        CountryOrganization: newCountryEdit,
+        CompanyAddress: newCompanyAddressEdit,
+        PostalCode: newPostalCodeEdit,
+        City: newCityEdit,
+        RegistrationNumber: newRegistrationNumberEdit,
+        BusinessEntityType: newBusinessEntityTypeEdit,
+        BusinessURLaddress: newBusinessURLaddress,
+        ContactPointName: newContactPointNameEdit,
+        Title: newTitleEdit,
+        Email: newEmailEdit
+      },
       "publish"
     ).then(data => {
       console.log("obj restituito dall'update", data);
@@ -139,6 +191,16 @@ function Sponsors() {
                 }
                 sponsorId={sponsor.id}
                 imageId={sponsor.featured_media}
+                countryOrganization={sponsor.meta.CountryOrganization}
+                companyAddress={sponsor.meta.CompanyAddress}
+                postalCode={sponsor.meta.PostalCode}
+                city={sponsor.meta.City}
+                registrationNumber={sponsor.meta.RegistrationNumber}
+                businessEntityType={sponsor.meta.BusinessEntityType}
+                businessURLaddress={sponsor.meta.BusinessURLaddress}
+                contactPointName={sponsor.meta.ContactPointName}
+                titleTwo={sponsor.meta.Title}
+                email={sponsor.meta.Email}
                 altText={
                   images.find(img => img.id === sponsor.featured_media) &&
                   images.find(img => img.id === sponsor.featured_media).alt_text
