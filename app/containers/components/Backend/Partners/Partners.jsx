@@ -28,10 +28,8 @@ const Partners = () => {
     });
   }, []);
 
-  const handleDeletePartner = (id) => {
-    const newlistPartner = listPartner.filter(
-      elemento => elemento.id !== id
-    );
+  const handleDeletePartner = id => {
+    const newlistPartner = listPartner.filter(elemento => elemento.id !== id);
     setListPartner(newlistPartner);
   };
 

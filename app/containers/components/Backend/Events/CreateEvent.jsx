@@ -14,7 +14,7 @@ import Select from "@material-ui/core/Select";
 import Input from "@material-ui/core/Input";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemText from "@material-ui/core/ListItemText";
-import { createPostType, createEvent } from "../../../helpers/Crud";
+import { createPostType } from "../../../helpers/Crud";
 import Grid from "@material-ui/core/Grid";
 import {
   MuiPickersUtilsProvider,
@@ -77,7 +77,8 @@ const CreateEvent = ({
   };
 
   const onCreateClick = () => {
-    createEvent(
+    createPostType(
+      "Event",
       5,
       title,
       imageId.toString(),

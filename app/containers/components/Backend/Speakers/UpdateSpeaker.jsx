@@ -39,6 +39,7 @@ const UpdateSpeaker = ({ prevTitle, id, imageId, addImage, updateSpeaker }) => {
       id,
       title,
       imageId.toString(),
+      "",
       {},
       "publish"
     ).then(res => {

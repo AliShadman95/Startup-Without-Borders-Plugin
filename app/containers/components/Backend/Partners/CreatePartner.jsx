@@ -15,8 +15,6 @@ const CreatePartner = ({ handleAddNewPartner, setImage, image }) => {
     100000000
   );
   const [waitUploadMediaBool, setWaitUploadMediaBool] = React.useState(false);
-  // console.log("Partner name - formPartner", partnerName);
-  // console.log("urlImg - formPartner", urlImg);
 
   const handleClickOpen = () => {
     setOpen(true);

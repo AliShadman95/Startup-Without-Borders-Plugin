@@ -16,7 +16,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Input from "@material-ui/core/Input";
 import Checkbox from "@material-ui/core/Checkbox";
 import ListItemText from "@material-ui/core/ListItemText";
-import { editEvent } from "../../../helpers/Crud";
+import { updatePostType } from "../../../helpers/Crud";
 import Grid from "@material-ui/core/Grid";
 import {
   MuiPickersUtilsProvider,
@@ -81,11 +81,12 @@ const UpdateEvent = ({
 
   const onEditClick = async () => {
     console.log("ON EDIT");
-    editEvent(
+    updatePostType(
+      "Event",
       id,
-      5,
       title,
       imageId.toString(),
+      description,
       {
         Sponsors: selectedSponsors.map(selSpo => {
           return sponsors

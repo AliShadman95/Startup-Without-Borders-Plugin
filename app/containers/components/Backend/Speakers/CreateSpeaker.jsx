@@ -30,7 +30,7 @@ const CreateSpeaker = ({ addSpeaker, setImages, images }) => {
   };
 
   const onCreateClick = () => {
-    createPostType("Speaker", title, imageId.toString(), "publish").then(
+    createPostType("Speaker", 0, title, imageId.toString(), "", "publish").then(
       res => {
         addSpeaker(res);
         setWaitUploadMediaBool(false);
