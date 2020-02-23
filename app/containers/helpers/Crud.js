@@ -140,6 +140,8 @@ export const createPostType = async (
         const data = await wp.team().create({
           title,
           featured_media: image,
+          excerpt: description,
+          meta,
           status
         });
         return data;
@@ -253,6 +255,7 @@ export const updatePostType = async (
             title,
             slug: title,
             featured_media: image,
+            excerpt: description,
             meta,
             status
           });
@@ -299,7 +302,13 @@ export const updatePostType = async (
         const data = await wp
           .team()
           .id(id)
-          .update({ title, featured_media: image, status });
+          .update({
+            title,
+            featured_media: image,
+            excerpt: description,
+            meta,
+            status
+          });
         return data;
       } catch (error) {
         console.log(error);

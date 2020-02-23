@@ -503,6 +503,15 @@ register_meta( 'post', 'Date', array(
 register_meta( 'post', 'Address', array(
 	'show_in_rest' => true,
 ));
+register_meta( 'post', 'TwitterURL', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'FacebookURL', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'LinkedinURL', array(
+	'show_in_rest' => true,
+));
 
 
 

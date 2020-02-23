@@ -40,7 +40,7 @@ const Teams = () => {
       setTeams(
         teams.map((team, i) => {
           if (i === index) {
-            return updatedTeams;
+            return updatedTeam;
           } else {
             return team;
           }

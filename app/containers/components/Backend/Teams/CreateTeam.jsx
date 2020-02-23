@@ -18,8 +18,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const CreateTeam = ({ addTeam, setImages, images }) => {
   const [title, setTitle] = useState("");
   const [imageId, setImageId] = useState("0");
-  const [open, setOpen] = React.useState(false);
-  const [waitUploadMediaBool, setWaitUploadMediaBool] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [waitUploadMediaBool, setWaitUploadMediaBool] = useState(false);
+  const [description, setDescription] = useState("");
+  const [twitterURL, setTwitterURL] = useState("");
+  const [facebookURL, setFacebookURL] = useState("");
+  const [linkedinURL, setLinkedinURL] = useState("");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -35,8 +39,12 @@ const CreateTeam = ({ addTeam, setImages, images }) => {
       0,
       title,
       imageId.toString(),
-      "",
-      {},
+      description,
+      {
+        TwitterURL: twitterURL,
+        FacebookURL: facebookURL,
+        LinkedinURL: linkedinURL
+      },
       "publish"
     ).then(res => {
       addTeam(res);
@@ -74,7 +82,6 @@ const CreateTeam = ({ addTeam, setImages, images }) => {
             <div className="col-md-6">
               <InputLabel id="demo-mutiple-name-label">Title</InputLabel>
               <TextField
-                id="standard-basic"
                 fullWidth
                 style={{ border: "0px !important" }}
                 onChange={e => {
@@ -90,6 +97,58 @@ const CreateTeam = ({ addTeam, setImages, images }) => {
                 image={images}
               />
             </div>
+          </div>
+          <div className="mt-3">
+            <TextField
+              id="outlined-multiline-static"
+              label="Description"
+              value={description}
+              multiline
+              rows="4"
+              variant="outlined"
+              fullWidth
+              onChange={e => {
+                setDescription(e.target.value);
+              }}
+            />
+          </div>
+          <div className="row mt-3">
+            <div className="col-md-6">
+              <InputLabel id="demo-mutiple-name-label">Twitter URL</InputLabel>
+              <TextField
+                fullWidth
+                value={twitterURL}
+                style={{ border: "0px !important" }}
+                onChange={e => {
+                  setTwitterURL(e.target.value);
+                }}
+              />
+            </div>
+            <div className="col-md-6">
+              <InputLabel id="demo-mutiple-name-label">Facebook URL</InputLabel>
+              <TextField
+                fullWidth
+                value={facebookURL}
+                style={{ border: "0px !important" }}
+                onChange={e => {
+                  setFacebookURL(e.target.value);
+                }}
+              />
+            </div>
+          </div>
+          <div className="row mt-3">
+            <div className="col-md-6">
+              <InputLabel id="demo-mutiple-name-label">Linkedin URL</InputLabel>
+              <TextField
+                fullWidth
+                value={linkedinURL}
+                style={{ border: "0px !important" }}
+                onChange={e => {
+                  setLinkedinURL(e.target.value);
+                }}
+              />
+            </div>
+            <div className="col-md-6"></div>
           </div>
         </DialogContent>
         <DialogActions>
