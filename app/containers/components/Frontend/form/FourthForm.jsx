@@ -17,7 +17,7 @@ export default function FourthForm(props) {
           aria-label="work"
           name="work"
           value={props.radio}
-          onChange={props.handleChangeRadio}
+          onChange={e => props.handleChangeRadio(e)}
         >
           <FormControlLabel
             value="yes"
@@ -41,7 +41,7 @@ export default function FourthForm(props) {
           control={
             <Checkbox
               checked={props.state.Facebook}
-              onChange={props.handleChangeSocial("Facebook")}
+              onChange={e => props.handleChangeSocial("Facebook", e)}
               value="Facebook"
               color="primary"
             />
@@ -52,7 +52,7 @@ export default function FourthForm(props) {
           control={
             <Checkbox
               checked={props.state.LinkedIn}
-              onChange={props.handleChangeSocial("LinkedIn")}
+              onChange={e => props.handleChangeSocial("LinkedIn", e)}
               value="LinkedIn"
               color="primary"
             />
@@ -63,7 +63,7 @@ export default function FourthForm(props) {
           control={
             <Checkbox
               checked={props.state.Instagram}
-              onChange={props.handleChangeSocial("Instagram")}
+              onChange={e => props.handleChangeSocial("Instagram", e)}
               value="Instagram"
               color="primary"
             />
@@ -74,7 +74,7 @@ export default function FourthForm(props) {
           control={
             <Checkbox
               checked={props.state.Twitter}
-              onChange={props.handleChangeSocial("Twitter")}
+              onChange={e => props.handleChangeSocial("Twitter", e)}
               value="Twitter "
               color="primary"
             />

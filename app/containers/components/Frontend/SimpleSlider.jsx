@@ -27,12 +27,25 @@ export default class SimpleSlider extends React.Component {
 
   render() {
     var settings = {
+      // dots: true,
+      // infinite: false,
+      // speed: 500,
+      // rows: 2,
+      // slidesToShow: 3,
+      // slidesToScroll: 3,
       dots: true,
       infinite: false,
-      speed: 500,
-      rows: 2,
       slidesToShow: 3,
-      slidesToScroll: 3,
+      slidesToScroll: 1,
+      vertical: true,
+      verticalSwiping: true,
+      swipeToSlide: true,
+      beforeChange: function(currentSlide, nextSlide) {
+        console.log("before change", currentSlide, nextSlide);
+      },
+      afterChange: function(currentSlide) {
+        console.log("after change", currentSlide);
+      },
       responsive: [
         {
           breakpoint: 1024,
@@ -84,40 +97,45 @@ export default class SimpleSlider extends React.Component {
         </div>
       )
     };
-    const { events, media } = this.props;
+    const { events, media, chapters } = this.props;
+
     return (
       <Slider {...settings}>
         {events.map((event, index) => {
           return (
-            <div className="col-12 mt-2" key={index}>
-              <div className="card">
-                <h5 className="card-title ml-3 mt-2">{event.title.rendered}</h5>
-                <div className="container-img">
-                  <img
-                    src={media
-                      .filter(img => img.id === event.featured_media)
-                      .map(url => url.source_url)}
-                    className="card-img-top"
-                    alt={event.title.rendered}
-                  />
+            <div className="container-fluid" key={index}>
+              <div className="row">
+                <div className="col-5">
+                  <div className="container-img">
+                    <img
+                      src={media
+                        .filter(img => img.id === event.featured_media)
+                        .map(url => url.source_url)}
+                      className="card-img-top"
+                      alt={event.title.rendered}
+                    />
+                  </div>
                 </div>
-                <div className="card-body">
+                <div className="col-7">
+                  <h5 className="card-title ml-3 mt-2 text-center">
+                    {event.title.rendered}
+                  </h5>
                   <span className="info-events">
                     {" "}
                     <Event /> {event.meta.Date[0]}{" "}
                   </span>
                   <span className="info-events float-right">
                     {" "}
-                    <LocationOn /> {event.meta.place}{" "}
+                    <LocationOn />{" "}
+                    {chapters
+                      .filter(chapter => chapter.id === event.chapter[0])
+                      .map(url => url.name)}{" "}
                   </span>
                   <span className="d-block my-2">
                     <Class /> {"event.category"}
                   </span>
-                  <p className="card-text">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Quibusdam impedit aperiam iste provident dignissimos modi,
-                    cum non fuga eum blanditiis.
-                    {"event.par"}
+                  <p className="card-text mt-2">
+                    {event.excerpt.rendered.substr(3, 67)}....
                   </p>
                   <MuiThemeProvider theme={theme}>
                     <Button variant="contained" color="primary">

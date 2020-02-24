@@ -160,3 +160,7 @@ button:focus {
 .chapter-list {
   cursor: pointer;
 }
+
+.form-control {
+  font-size: 0.65rem !important;
+}

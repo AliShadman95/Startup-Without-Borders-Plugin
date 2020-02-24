@@ -27,20 +27,20 @@ export default function FirstForm(props) {
           id="standard-basic"
           className={classes.fieldName}
           label="Name"
-          onChange={props.handleType("name")}
+          onChange={e => props.handleType("name", e)}
         />
         <TextField
           id="standard-basic"
           className={classes.fieldName}
           label="Surname"
-          onChange={props.handleType("surname")}
+          onChange={e => props.handleType("surname", e)}
         />
 
         <TextField
           id="standard-basic"
           className={classes.fieldName}
           label="Email"
-          onChange={props.handleType("email")}
+          onChange={e => props.handleType("email", e)}
         />
       </FormGroup>
     </div>

@@ -29,7 +29,7 @@ export default function SecondForm(props) {
           multiline
           rows="6"
           className={classes.text}
-          onChange={props.handleType("yourself")}
+          onChange={e => props.handleType("yourself", e)}
         />
         <TextField
           id="standard-multiline-flexible"
@@ -37,7 +37,7 @@ export default function SecondForm(props) {
           multiline
           rows="6"
           className={classes.text}
-          onChange={props.handleType("why")}
+          onChange={e => props.handleType("why", e)}
         />
       </FormGroup>
     </div>

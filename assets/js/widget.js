@@ -112,13 +112,46 @@ class Widget extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
 
     _defineProperty(this, "state", {
       count: 0,
-      isRight: false
+      isRight: false,
+      value: {
+        name: "",
+        surname: "",
+        email: "",
+        yourself: "",
+        why: "",
+        city: "",
+        country: ""
+      },
+      sociale: {
+        Facebook: false,
+        LinkedIn: false,
+        Instagram: false,
+        Twitter: false
+      },
+      regions: "",
+      radio: "yes"
     });
 
-    _defineProperty(this, "handleIncreaseCount", n => {
-      console.log(n);
+    _defineProperty(this, "handleIncreaseCount", () => {
+      let count = this.state.count;
+      let value = { ...this.state.value
+      };
+      console.log(value);
+      let checkEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value.email);
 
-      if (n === this.state.count) {
+      if (count === 0 && value.name !== "" && value.surname !== "" && value.email !== "" && checkEmail) {
+        this.setState({
+          count: this.state.count + 1
+        });
+      } else if (count === 1 && value.yourself !== "" && value.why !== "") {
+        this.setState({
+          count: this.state.count + 1
+        });
+      } else if (count === 2 && value.city !== "" && value.country !== "" && this.state.regions !== "") {
+        this.setState({
+          count: this.state.count + 1
+        });
+      } else {
         this.setState({
           count: this.state.count + 1
         });
@@ -142,16 +175,58 @@ class Widget extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
         isRight: false
       });
     });
+
+    _defineProperty(this, "handleType", (name, e) => {
+      let value = { ...this.state.value
+      };
+      value[name] = e.target.value;
+      this.setState({
+        value
+      });
+    });
+
+    _defineProperty(this, "handleChangeSocial", (name, e) => {
+      let sociale = { ...this.state.sociale
+      };
+      sociale[name] = e.target.value;
+      this.setState({
+        sociale
+      });
+    });
+
+    _defineProperty(this, "handleChange", e => {
+      this.setState({
+        regions: e.target.value
+      });
+    });
+
+    _defineProperty(this, "handleChangeRadio", e => {
+      this.setState({
+        radio: e.target.value
+      });
+    });
   }
 
   render() {
+    const {
+      value,
+      sociale,
+      radio,
+      regions
+    } = this.state;
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.state.isRight ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
       className: "text-center"
     }, "Request Form"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Frontend_FormCreateChapter__WEBPACK_IMPORTED_MODULE_2__["default"], {
       count: this.state.count,
       handleDecreaseCount: this.handleDecreaseCount,
       handleIncreaseCount: this.handleIncreaseCount,
-      handleHide: this.handleHide
+      handleHide: this.handleHide,
+      handleType: this.handleType,
+      handleChange: this.handleChange,
+      radio: radio,
+      sociale: sociale,
+      handleChangeSocial: this.handleChangeSocial,
+      handleChangeRadio: this.handleChangeRadio
     })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       onClick: () => this.handleShow()
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -207,85 +282,37 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function FormCreateChapter(props) {
-  const [value, setValue] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
-    name: "",
-    surname: "",
-    email: "",
-    yourself: "",
-    why: "",
-    nationality: "",
-    des: ""
-  });
-  const [regions, setRegions] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
-  const [state, setState] = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState({
-    Facebook: false,
-    LinkedIn: false,
-    Instagram: false,
-    Twitter: false
-  });
-  const [radio, setRadio] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("yes");
-
-  const handleType = prop => event => {
-    setValue({ ...value,
-      [prop]: event.target.value
-    });
-  };
-
-  const handleChange = e => {
-    setRegions(e.target.value);
-  };
-
-  const handleChangeSocial = name => event => {
-    setState({ ...state,
-      [name]: event.target.checked
-    });
-  };
-
-  const [pass, setPass] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0);
-
-  const handleChangeRadio = e => {
-    setRadio(e.target.value);
-  };
-
   const forms = () => {
     switch (props.count) {
       case 0:
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_form_FirstForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          handleType: handleType
+          handleType: props.handleType
         });
 
       case 1:
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_form_SecondForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          handleType: handleType
+          handleType: props.handleType
         });
 
       case 2:
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_form_ThirdForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
-          handleChange: handleChange,
-          handleType: handleType
+          handleChange: props.handleChange,
+          handleType: props.handleType
         });
 
       case 3:
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_form_FourthForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
-          handleChangeRadio: handleChangeRadio,
-          handleChangeSocial: handleChangeSocial,
-          radio: radio,
-          state: state
+          handleChangeRadio: props.handleChangeRadio,
+          handleChangeSocial: props.handleChangeSocial,
+          radio: props.radio,
+          state: props.sociale
         });
 
       case 4:
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_form_FifthForm__WEBPACK_IMPORTED_MODULE_5__["default"], {
-          handleType: handleType
-        });
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_form_FifthForm__WEBPACK_IMPORTED_MODULE_5__["default"], null);
 
       default:
         break;
-    }
-  };
-
-  const ver = () => {
-    if (props.count === 0 && value.name !== "" && value.surname !== "") {
-      setPass(0);
     }
   };
 
@@ -309,8 +336,7 @@ function FormCreateChapter(props) {
     variant: "contained",
     className: "fill-send",
     color: "primary",
-    onClick: () => props.handleIncreaseCount(pass),
-    onClick: () => ver()
+    onClick: () => props.handleIncreaseCount()
   }, "Next ", "   ", " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_NavigateNext__WEBPACK_IMPORTED_MODULE_8___default.a, {
     className: "ml-3 "
   })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_6__["default"], {
@@ -387,17 +413,17 @@ function FirstForm(props) {
     id: "standard-basic",
     className: classes.fieldName,
     label: "Name",
-    onChange: props.handleType("name")
+    onChange: e => props.handleType("name", e)
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_2__["default"], {
     id: "standard-basic",
     className: classes.fieldName,
     label: "Surname",
-    onChange: props.handleType("surname")
+    onChange: e => props.handleType("surname", e)
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_2__["default"], {
     id: "standard-basic",
     className: classes.fieldName,
     label: "Email",
-    onChange: props.handleType("email")
+    onChange: e => props.handleType("email", e)
   })));
 }
 
@@ -437,7 +463,7 @@ function FourthForm(props) {
     "aria-label": "work",
     name: "work",
     value: props.radio,
-    onChange: props.handleChangeRadio
+    onChange: e => props.handleChangeRadio(e)
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_FormControlLabel__WEBPACK_IMPORTED_MODULE_3__["default"], {
     value: "yes",
     control: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Radio__WEBPACK_IMPORTED_MODULE_1__["default"], {
@@ -457,7 +483,7 @@ function FourthForm(props) {
   }, "Social Media channels you're active in"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_FormControlLabel__WEBPACK_IMPORTED_MODULE_3__["default"], {
     control: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Checkbox__WEBPACK_IMPORTED_MODULE_6__["default"], {
       checked: props.state.Facebook,
-      onChange: props.handleChangeSocial("Facebook"),
+      onChange: e => props.handleChangeSocial("Facebook", e),
       value: "Facebook",
       color: "primary"
     }),
@@ -465,7 +491,7 @@ function FourthForm(props) {
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_FormControlLabel__WEBPACK_IMPORTED_MODULE_3__["default"], {
     control: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Checkbox__WEBPACK_IMPORTED_MODULE_6__["default"], {
       checked: props.state.LinkedIn,
-      onChange: props.handleChangeSocial("LinkedIn"),
+      onChange: e => props.handleChangeSocial("LinkedIn", e),
       value: "LinkedIn",
       color: "primary"
     }),
@@ -473,7 +499,7 @@ function FourthForm(props) {
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_FormControlLabel__WEBPACK_IMPORTED_MODULE_3__["default"], {
     control: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Checkbox__WEBPACK_IMPORTED_MODULE_6__["default"], {
       checked: props.state.Instagram,
-      onChange: props.handleChangeSocial("Instagram"),
+      onChange: e => props.handleChangeSocial("Instagram", e),
       value: "Instagram",
       color: "primary"
     }),
@@ -481,7 +507,7 @@ function FourthForm(props) {
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_FormControlLabel__WEBPACK_IMPORTED_MODULE_3__["default"], {
     control: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Checkbox__WEBPACK_IMPORTED_MODULE_6__["default"], {
       checked: props.state.Twitter,
-      onChange: props.handleChangeSocial("Twitter"),
+      onChange: e => props.handleChangeSocial("Twitter", e),
       value: "Twitter ",
       color: "primary"
     }),
@@ -535,14 +561,14 @@ function SecondForm(props) {
     multiline: true,
     rows: "6",
     className: classes.text,
-    onChange: props.handleType("yourself")
+    onChange: e => props.handleType("yourself", e)
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_2__["default"], {
     id: "standard-multiline-flexible",
     label: "Why do you want to start a chapter?",
     multiline: true,
     rows: "6",
     className: classes.text,
-    onChange: props.handleType("why")
+    onChange: e => props.handleType("why", e)
   })));
 }
 
@@ -594,19 +620,19 @@ function ThirdForm(props) {
     id: "standard-basic",
     className: classes.fieldName,
     label: "City",
-    onChange: props.handleType("city")
+    onChange: e => props.handleType("city", e)
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_2__["default"], {
     id: "standard-basic",
     className: classes.fieldName,
     label: "Country",
-    onChange: props.handleType("country")
+    onChange: e => props.handleType("country", e)
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "list-group-item list-group-item-action list-chapters active"
   }, "Region"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Select__WEBPACK_IMPORTED_MODULE_4__["default"], {
     className: classes.fieldName,
     labelId: "demo-simple-select-label",
     id: "demo-simple-select",
-    onChange: props.handleChange
+    onChange: e => props.handleChange(e)
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_5__["default"], {
     value: "Asia"
   }, "Asia"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_5__["default"], {

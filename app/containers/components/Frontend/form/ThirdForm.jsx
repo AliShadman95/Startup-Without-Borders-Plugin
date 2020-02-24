@@ -29,13 +29,13 @@ export default function ThirdForm(props) {
           id="standard-basic"
           className={classes.fieldName}
           label="City"
-          onChange={props.handleType("city")}
+          onChange={e => props.handleType("city", e)}
         />
         <TextField
           id="standard-basic"
           className={classes.fieldName}
           label="Country"
-          onChange={props.handleType("country")}
+          onChange={e => props.handleType("country", e)}
         />
         <span className="list-group-item list-group-item-action list-chapters active">
           Region
@@ -44,7 +44,7 @@ export default function ThirdForm(props) {
           className={classes.fieldName}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          onChange={props.handleChange}
+          onChange={e => props.handleChange(e)}
         >
           <MenuItem value="Asia">Asia</MenuItem>
           <MenuItem value="Africa">Africa</MenuItem>

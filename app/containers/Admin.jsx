@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Navbar from "./components/Navbar";
 import VerticalTab from "./components/Backend/VerticalTab";
 var WPAPI = require("wpapi");
 import { registerRoutes } from "./helpers/Crud";

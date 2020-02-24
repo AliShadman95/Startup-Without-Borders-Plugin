@@ -5,12 +5,50 @@ import FormCreateChapter from "./components/Frontend/FormCreateChapter";
 export default class Widget extends Component {
   state = {
     count: 0,
-    isRight: false
+    isRight: false,
+    value: {
+      name: "",
+      surname: "",
+      email: "",
+      yourself: "",
+      why: "",
+      city: "",
+      country: ""
+    },
+    sociale: {
+      Facebook: false,
+      LinkedIn: false,
+      Instagram: false,
+      Twitter: false
+    },
+    regions: "",
+    radio: "yes"
   };
-  handleIncreaseCount = n => {
-    console.log(n);
-
-    if (n === this.state.count) {
+  handleIncreaseCount = () => {
+    let count = this.state.count;
+    let value = { ...this.state.value };
+    console.log(value);
+    let checkEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+      value.email
+    );
+    if (
+      count === 0 &&
+      value.name !== "" &&
+      value.surname !== "" &&
+      value.email !== "" &&
+      checkEmail
+    ) {
+      this.setState({ count: this.state.count + 1 });
+    } else if (count === 1 && value.yourself !== "" && value.why !== "") {
+      this.setState({ count: this.state.count + 1 });
+    } else if (
+      count === 2 &&
+      value.city !== "" &&
+      value.country !== "" &&
+      this.state.regions !== ""
+    ) {
+      this.setState({ count: this.state.count + 1 });
+    } else {
       this.setState({ count: this.state.count + 1 });
     }
   };
@@ -29,7 +67,34 @@ export default class Widget extends Component {
     });
   };
 
+  handleType = (name, e) => {
+    let value = { ...this.state.value };
+    value[name] = e.target.value;
+    this.setState({
+      value
+    });
+  };
+  handleChangeSocial = (name, e) => {
+    let sociale = { ...this.state.sociale };
+    sociale[name] = e.target.value;
+    this.setState({
+      sociale
+    });
+  };
+
+  handleChange = e => {
+    this.setState({
+      regions: e.target.value
+    });
+  };
+
+  handleChangeRadio = e => {
+    this.setState({
+      radio: e.target.value
+    });
+  };
   render() {
+    const { value, sociale, radio, regions } = this.state;
     return (
       <div>
         {this.state.isRight ? (
@@ -40,6 +105,12 @@ export default class Widget extends Component {
               handleDecreaseCount={this.handleDecreaseCount}
               handleIncreaseCount={this.handleIncreaseCount}
               handleHide={this.handleHide}
+              handleType={this.handleType}
+              handleChange={this.handleChange}
+              radio={radio}
+              sociale={sociale}
+              handleChangeSocial={this.handleChangeSocial}
+              handleChangeRadio={this.handleChangeRadio}
             />
           </React.Fragment>
         ) : (
