@@ -27,12 +27,6 @@ export default class SimpleSlider extends React.Component {
 
   render() {
     var settings = {
-      // dots: true,
-      // infinite: false,
-      // speed: 500,
-      // rows: 2,
-      // slidesToShow: 3,
-      // slidesToScroll: 3,
       dots: true,
       infinite: false,
       slidesToShow: 3,
@@ -79,7 +73,7 @@ export default class SimpleSlider extends React.Component {
         <div
           style={{
             padding: "10px",
-            bottom: "-5%"
+            bottom: "-9%"
           }}
         >
           <ul style={{ margin: "0px" }}> {dots} </ul>

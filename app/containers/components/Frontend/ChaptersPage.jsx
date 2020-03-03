@@ -53,17 +53,16 @@ export default class ChaptersPage extends Component {
       <React.Fragment>
         <div className="container-fluid">
           <div className="row">
-            <div className="col-lg-10 col-s-12">
-              <Events
-                idChapters={this.state.idChapters}
-                events={events}
-                chapters={chapters}
-                search={this.state.search}
-                media={media}
-              />
-            </div>
-            <div className="col-lg-2 col-s-12">
-              <div className="mb-2 ">
+            <div className="col-lg-4 col-md-6 col-xs-12">
+              <div className="input-group mb-2 ">
+                <div className="input-group-prepend">
+                  <span
+                    className="input-group-text bg-dark text-light"
+                    id="basic-addon1"
+                  >
+                    <SearchIcon />
+                  </span>
+                </div>
                 <input
                   type="text"
                   className="form-control"
@@ -71,20 +70,22 @@ export default class ChaptersPage extends Component {
                   aria-describedby="basic-addon1"
                   onChange={this.handleChangeSearch}
                 />
-                <div className="input-group-prepend">
-                  <span
-                    className="input-group-text bg-dark text-light"
-                    id="basic-addon1"
-                    onClick={() => this.sendSearch()}
-                  >
-                    <SearchIcon />
-                  </span>
-                </div>
               </div>
+            </div>
+            <div className="col-lg-4 offset-lg-4 pr-3 col-md-6 col-xs-12">
               <Chapters
                 chapters={chapters}
                 handleChapters={this.handleChapters}
                 value={this.state.idChapters}
+              />
+            </div>
+            <div className="col-12">
+              <Events
+                idChapters={this.state.idChapters}
+                events={events}
+                chapters={chapters}
+                search={this.state.search}
+                media={media}
               />
             </div>
           </div>

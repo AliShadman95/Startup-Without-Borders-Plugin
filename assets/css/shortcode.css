@@ -8,26 +8,6 @@ body {
   background-color: #f2f2f2 !important;
   color: #0d0d0d;
 }
-
-.container-shortcode {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-}
-
-.bac-img {
-  position: absolute;
-  width: 100%;
-  z-index: -1;
-  opacity: 0.15;
-  top: 0;
-}
-.bac-img img {
-  width: 100%;
-  height: 100%;
-}
-.image-map {
-  height: 200px;
-}
 h1 {
   text-transform: uppercase;
 }
@@ -41,6 +21,9 @@ h1 {
 .container-img {
   outline: 1px solid #343a4038;
   padding: 1%;
+}
+.MuiSvgIcon-root {
+  font-size: 1rem !important;
 }
 img.card-img-top {
   height: 200px;
@@ -82,61 +65,6 @@ li.slick-active div {
   background-color: #343a40;
   color: #f2f2f2 !important;
 }
-#signup {
-  width: 100%;
-  position: absolute;
-  z-index: 1;
-  transform: translateY(-1000px);
-  animation: flide 4s cubic-bezier(0, 0.46, 0, 1.4) forwards;
-  -webkit-animation: flide 4s cubic-bezier(0, 0.46, 0, 1.4) forwards;
-  -webkit-transform: translateY(-1000px);
-  -moz-transform: translateY(-1000px);
-  -ms-transform: translateY(-1000px);
-  -o-transform: translateY(-1000px);
-}
-
-@keyframes flide {
-  100% {
-    transform: translateY(0px);
-    -webkit-transform: translateY(0px);
-    -moz-transform: translateY(0px);
-    -ms-transform: translateY(0px);
-    -o-transform: translateY(0px);
-  }
-}
-@-o-keyframes flide {
-  100% {
-    transform: translateY(0px);
-    -webkit-transform: translateY(0px);
-    -moz-transform: translateY(0px);
-    -ms-transform: translateY(0px);
-    -o-transform: translateY(0px);
-  }
-}
-@-moz-keyframes flide {
-  100% {
-    transform: translateY(0px);
-    -webkit-transform: translateY(0px);
-    -moz-transform: translateY(0px);
-    -ms-transform: translateY(0px);
-    -o-transform: translateY(0px);
-  }
-}
-@-webkit-keyframes flide {
-  100% {
-    transform: translateY(0px);
-    -webkit-transform: translateY(0px);
-    -moz-transform: translateY(0px);
-    -ms-transform: translateY(0px);
-    -o-transform: translateY(0px);
-  }
-}
-
-#signup .title {
-  background-color: #343a40;
-  color: #ffffff;
-  padding: 2% 0;
-}
 
 .list-chapters.active {
   background-color: #343a40 !important;
@@ -157,10 +85,44 @@ button:focus {
   opacity: 0.75;
   color: #343a40;
 }
+
+.slick-prev,
+.slick-next {
+  z-index: 3;
+  background-color: #b3b6b9 !important;
+  height: 30px !important;
+  width: 30px !important;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  border-radius: 50% !important;
+  -webkit-border-radius: 50% !important;
+  -moz-border-radius: 50% !important;
+  -ms-border-radius: 50% !important;
+  -o-border-radius: 50% !important;
+}
+
+.slick-next {
+  right: -25px !important;
+}
+.slick-prev {
+  left: -25px !important;
+}
 .chapter-list {
   cursor: pointer;
 }
 
 .form-control {
   font-size: 0.65rem !important;
+}
+
+.list-group-item {
+  position: relative;
+  display: block;
+  padding: 0 1.25rem;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+.MuiInputBase-input {
+  padding: 0 !important;
 }
