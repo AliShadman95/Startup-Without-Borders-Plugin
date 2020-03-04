@@ -512,6 +512,36 @@ register_meta( 'post', 'FacebookURL', array(
 register_meta( 'post', 'LinkedinURL', array(
 	'show_in_rest' => true,
 ));
+register_meta( 'post', 'CountryOrganization', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'CompanyAddress', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'PostalCode', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'City', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'RegistrationNumber', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'BusinessEntityType', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'BusinessURLaddress', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'ContactPointName', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'Title', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'Email', array(
+	'show_in_rest' => true,
+));
 
 
 

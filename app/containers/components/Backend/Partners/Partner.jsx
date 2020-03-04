@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     maxWidth: 345
   },
   media: {
-    height: 100
+    height: 180
   }
 });
 

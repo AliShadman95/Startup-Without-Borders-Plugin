@@ -116,6 +116,7 @@ export const createPostType = async (
         const data = await wp.sponsor().create({
           title,
           featured_media: image,
+          meta,
           status
         });
         return data;
