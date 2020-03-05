@@ -13,7 +13,7 @@ import {
 const Partners = () => {
   const [listPartner, setListPartner] = useState([]); // Partner's array
   const [images, setImages] = useState([]); // Partner's Image array
-
+  console.log("partner", listPartner);
   useEffect(() => {
     getPostType("Partner").then(resp => {
       setListPartner(resp);
@@ -28,18 +28,22 @@ const Partners = () => {
     });
   }, []);
 
-  const handleDeletePartner = (id) => {
-    const newlistPartner = listPartner.filter(
-      elemento => elemento.id !== id
-    );
+  const handleDeletePartner = id => {
+    deletePostType("Partner", id).then(e => {
+      console.log(e);
+    });
+    const newlistPartner = listPartner.filter(elemento => elemento.id !== id);
     setListPartner(newlistPartner);
   };
 
   const handleAddNewPartner = (partnerName, featuredMediaIdImage) => {
     createPostType(
       "Partner",
+      2,
       partnerName,
       featuredMediaIdImage,
+      "",
+      {},
       "publish"
     ).then(respObj => {
       setListPartner([respObj, ...listPartner]);
@@ -52,6 +56,7 @@ const Partners = () => {
       partnerId,
       newNameEdit,
       imageId,
+      "",
       {},
       "publish"
     ).then(data => {
@@ -95,9 +100,6 @@ const Partners = () => {
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />
   };
-
-  // listPartner.length > 0 && console.log("Obj listPartner", listPartner);
-  // image.length > 0 && console.log("Obj image", image);
 
   return (
     <div className="container pl-2 pr-2">

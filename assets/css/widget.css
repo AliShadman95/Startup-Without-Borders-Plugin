@@ -1,0 +1,22 @@
+.open-chapter {
+  background: #ffffff;
+}
+
+.open-chapter .MuiInput-underline::before {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.8);
+}
+
+span.cancel-btn {
+  margin-top: 3%;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.fill-send {
+  position: absolute;
+  right: 2%;
+}
+
+.fill-block {
+  background-color: #cccccc !important;
+  border-radius: 12%;
+}

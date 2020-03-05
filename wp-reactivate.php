@@ -199,7 +199,6 @@ function cptui_register_my_cpts() {
 		"public" => true,
 		"publicly_queryable" => true,
 		"show_ui" => true,
-		"delete_with_user" => false,
 		"show_in_rest" => true,
 		"rest_base" => "",
 		"rest_controller_class" => "WP_REST_Posts_Controller",
@@ -265,7 +264,6 @@ function cptui_register_my_cpts() {
 		"public" => true,
 		"publicly_queryable" => true,
 		"show_ui" => true,
-		"delete_with_user" => false,
 		"show_in_rest" => true,
 		"rest_base" => "",
 		"rest_controller_class" => "WP_REST_Posts_Controller",
@@ -330,7 +328,6 @@ function cptui_register_my_cpts() {
 		"public" => true,
 		"publicly_queryable" => true,
 		"show_ui" => true,
-		"delete_with_user" => false,
 		"show_in_rest" => true,
 		"rest_base" => "",
 		"rest_controller_class" => "WP_REST_Posts_Controller",
@@ -395,7 +392,6 @@ function cptui_register_my_cpts() {
 		"public" => true,
 		"publicly_queryable" => true,
 		"show_ui" => true,
-		"delete_with_user" => false,
 		"show_in_rest" => true,
 		"rest_base" => "",
 		"rest_controller_class" => "WP_REST_Posts_Controller",
@@ -413,6 +409,71 @@ function cptui_register_my_cpts() {
 	];
 
 	register_post_type( "partner", $args );
+
+	/**
+	 * Post Type: Teams.
+	 */
+
+	$labels = [
+		"name" => __( "Teams", "twentyseventeen" ),
+		"singular_name" => __( "Team", "twentyseventeen" ),
+		"menu_name" => __( "My Teams", "twentyseventeen" ),
+		"all_items" => __( "All Teams", "twentyseventeen" ),
+		"add_new" => __( "Add new", "twentyseventeen" ),
+		"add_new_item" => __( "Add new Team", "twentyseventeen" ),
+		"edit_item" => __( "Edit Team", "twentyseventeen" ),
+		"new_item" => __( "New Team", "twentyseventeen" ),
+		"view_item" => __( "View Team", "twentyseventeen" ),
+		"view_items" => __( "View Teams", "twentyseventeen" ),
+		"search_items" => __( "Search Teams", "twentyseventeen" ),
+		"not_found" => __( "No Teams found", "twentyseventeen" ),
+		"not_found_in_trash" => __( "No Teams found in trash", "twentyseventeen" ),
+		"parent" => __( "Parent Team:", "twentyseventeen" ),
+		"featured_image" => __( "Featured image for this Team", "twentyseventeen" ),
+		"set_featured_image" => __( "Set featured image for this Team", "twentyseventeen" ),
+		"remove_featured_image" => __( "Remove featured image for this Team", "twentyseventeen" ),
+		"use_featured_image" => __( "Use as featured image for this Team", "twentyseventeen" ),
+		"archives" => __( "Team archives", "twentyseventeen" ),
+		"insert_into_item" => __( "Insert into Team", "twentyseventeen" ),
+		"uploaded_to_this_item" => __( "Upload to this Team", "twentyseventeen" ),
+		"filter_items_list" => __( "Filter Teams list", "twentyseventeen" ),
+		"items_list_navigation" => __( "Teams list navigation", "twentyseventeen" ),
+		"items_list" => __( "Teams list", "twentyseventeen" ),
+		"attributes" => __( "Teams attributes", "twentyseventeen" ),
+		"name_admin_bar" => __( "Team", "twentyseventeen" ),
+		"item_published" => __( "Team published", "twentyseventeen" ),
+		"item_published_privately" => __( "Team published privately.", "twentyseventeen" ),
+		"item_reverted_to_draft" => __( "Team reverted to draft.", "twentyseventeen" ),
+		"item_scheduled" => __( "Team scheduled", "twentyseventeen" ),
+		"item_updated" => __( "Team updated.", "twentyseventeen" ),
+		"parent_item_colon" => __( "Parent Team:", "twentyseventeen" ),
+	];
+
+	$args = [
+		"label" => __( "Teams", "twentyseventeen" ),
+		"labels" => $labels,
+		"description" => "",
+		"public" => true,
+		"publicly_queryable" => true,
+		"show_ui" => true,
+		"show_in_rest" => true,
+		"rest_base" => "",
+		"rest_controller_class" => "WP_REST_Posts_Controller",
+		"has_archive" => false,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"delete_with_user" => false,
+		"exclude_from_search" => false,
+		"capability_type" => "post",
+		"map_meta_cap" => true,
+		"hierarchical" => true,
+		"rewrite" => [ "slug" => "team", "with_front" => true ],
+		"query_var" => true,
+		"supports" => [ "title", "thumbnail", "excerpt", "custom-fields" ],
+		"taxonomies" => [ "chapter" ],
+	];
+
+	register_post_type( "team", $args );
 }
 
 add_action( 'init', 'Pangolin\\WPR\\cptui_register_my_cpts' );
@@ -439,12 +500,49 @@ register_meta( 'post', 'Partners', array(
 register_meta( 'post', 'Date', array(
 	'show_in_rest' => true,
 ));
-register_meta( 'post', 'Place', array(
+register_meta( 'post', 'Address', array(
 	'show_in_rest' => true,
 ));
-register_meta( 'post', 'Description', array(
+register_meta( 'post', 'TwitterURL', array(
 	'show_in_rest' => true,
 ));
+register_meta( 'post', 'FacebookURL', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'LinkedinURL', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'CountryOrganization', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'CompanyAddress', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'PostalCode', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'City', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'RegistrationNumber', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'BusinessEntityType', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'BusinessURLaddress', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'ContactPointName', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'Title', array(
+	'show_in_rest' => true,
+));
+register_meta( 'post', 'Email', array(
+	'show_in_rest' => true,
+));
+
 
 
 

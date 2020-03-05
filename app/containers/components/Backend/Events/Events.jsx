@@ -146,12 +146,9 @@ const Events = ({ wp }) => {
                   imageId={event.featured_media}
                   id={event.id}
                   title={event.title.rendered}
-                  description={event.meta.Description}
+                  description={event.excerpt.rendered}
                   date={event.meta.Date}
-                  place={event.meta.Place}
-                  selectedSponsors={event.meta.Sponsors}
-                  selectedPartners={event.meta.Partners}
-                  selectedSpeakers={event.meta.Speakers}
+                  address={event.meta.Address}
                   addImage={addImage}
                   updateEvent={updateEvent}
                   deleteEvent={deleteEvent}

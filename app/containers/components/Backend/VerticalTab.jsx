@@ -10,6 +10,7 @@ import Events from "./Events/Events";
 import Speakers from "./Speakers/Speakers";
 import Partners from "./Partners/Partners";
 import Sponsors from "./Sponsor/Sponsors";
+import Teams from "./Teams/Teams";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -79,8 +80,9 @@ const VerticalTab = ({ wp }) => {
         <Tab label="Sponsors" {...a11yProps(2)} />
         <Tab label="Partners" {...a11yProps(3)} />
         <Tab label="Speakers" {...a11yProps(4)} />
-        <Tab label="Analytics" {...a11yProps(5)} />
-        <Tab label="Settings" {...a11yProps(6)} />
+        <Tab label="Teams" {...a11yProps(5)} />
+        <Tab label="Analytics" {...a11yProps(6)} />
+        <Tab label="Settings" {...a11yProps(7)} />
       </Tabs>
       <TabPanel value={value} index={0} className={classes.tabPanel}>
         <Events wp={wp} />
@@ -98,9 +100,12 @@ const VerticalTab = ({ wp }) => {
         <Speakers wp={wp} />
       </TabPanel>
       <TabPanel value={value} index={5} className={classes.tabPanel}>
-        Item Six
+        <Teams wp={wp} />
       </TabPanel>
       <TabPanel value={value} index={6} className={classes.tabPanel}>
+        Item Six
+      </TabPanel>
+      <TabPanel value={value} index={7} className={classes.tabPanel}>
         Item Seven
       </TabPanel>
     </div>
