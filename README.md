@@ -4,7 +4,7 @@ A Chapter for the Startups-without-borders plugin
 
 This is a plugin for wordpress that has two main roles :
 
-- Frontend Section : Includes a shortcode [wp-reactivate] and a widget that is ready to be implemented in a Theme.
+- Frontend Section : Includes a shortcode [wp-reactivate] and a widget that are ready to be implemented in a Theme.
 - Backend Section : Includes a Admin page that use Custom Post Types to create various contents.
 
 More specificaly..
