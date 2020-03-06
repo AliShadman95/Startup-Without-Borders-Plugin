@@ -30,13 +30,13 @@ The plugin is divided in 3 main section: Shortcode,Widget,Admin page. All of tho
 <b>What needs to be done ?</b>
 
 Frontend:
-- General: Login with wordpress functionality. Web chat. Payment method.
+- General: Login with wordpress functionality. Web chat. Payment method. Single chapter page.
 - Shortcode: The events are missing the id of the chapters.
 - Widget: The registration form is not sending the effective email to the CEO (Need some Email Sender functionality)
 
 Backend:
 
-- Admin: The analytics,members(system that allow to send multiple emails to all the members) and settings section needs to be completed. Missing the invoice feature.
+- Admin: The analytics,members(system that allow to send multiple emails to all the members) and settings section that let you edit the chapter page needs to be completed. Missing the invoice feature.
  
 
 
