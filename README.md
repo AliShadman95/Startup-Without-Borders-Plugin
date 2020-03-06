@@ -1,4 +1,4 @@
-Startups-Without-Borders
+<b>Startups-Without-Borders</b>
 
 A Chapter for the Startups-without-borders plugin
 
