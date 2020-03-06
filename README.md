@@ -1,6 +1,6 @@
 <b>Startups-Without-Borders</b>
 
-A plugin created for the addition of Chapter section on the site of Startups-without-borders plugin
+A plugin created for the addition of Chapter section on the site of Startups without borders 
 
 This is a plugin for wordpress that has two main roles :
 
