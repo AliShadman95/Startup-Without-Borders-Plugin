@@ -341,7 +341,7 @@ function cptui_register_my_cpts() {
 		"hierarchical" => false,
 		"rewrite" => [ "slug" => "sponsor", "with_front" => true ],
 		"query_var" => true,
-		"supports" => [ "title", "thumbnail" ],
+		"supports" => [ "title", "thumbnail",  "custom-fields" ],
 	];
 
 	register_post_type( "sponsor", $args );
