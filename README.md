@@ -18,7 +18,7 @@ More specificaly..
 
 <b>How it works ?</b>
 
-The plugin is divided in 3 main section: Shortcode,Widget,Admin page. All of those are a single React app. We used a boilerplate called wp-reactivate and we connect to the wp database with the API provided by them. We used some external libreries like Bootstrap,Material UI, Slick.
+The plugin is divided in 3 main section: Shortcode,Widget,Admin page. All of those are a single React app. We used a boilerplate called wp-reactivate (Documentation here : https://github.com/gopangolin/wp-reactivate) and we connect to the wp database with the API provided by them. We used some external libreries like Bootstrap,Material UI, Slick.
 
 <b>What has been done ?</b>
 
