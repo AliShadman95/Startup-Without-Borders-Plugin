@@ -4,17 +4,17 @@ A Chapter for the Startups-without-borders plugin
 
 This is a plugin for wordpress that has two main roles :
 
-Frontend Section : Includes a shortcode [wp-reactivate] and a widget that is ready to be implemented in a Theme.
-Backend Section : Includes a Admin page that use Custom Post Types to create various contents.
+- Frontend Section : Includes a shortcode [wp-reactivate] and a widget that is ready to be implemented in a Theme.
+- Backend Section : Includes a Admin page that use Custom Post Types to create various contents.
 
 More specificaly..
 
 <b>Frontend</b> :
-° The shortcode is connected to the content created in the Admin page and display it with all the details and a relative filter option.
-° The widget allow to compile a registration form for creating a new chapter to be send to the CEO of the startup.
+- The shortcode is connected to the content created in the Admin page and display it with all the details and a relative filter option.
+- The widget allow to compile a registration form for creating a new chapter to be send to the CEO of the startup.
 
 <b>Backend</b>: 
-° The Admin section is dedicated to the admins of the chapters and allows to create content like Events,Teams,Sponsors,Partners,Speakers and analytics stuffs..
+- The Admin section is dedicated to the admins of the chapters and allows to create content like Events,Teams,Sponsors,Partners,Speakers and analytics stuffs..
 
 <b>How it works ?</b>
 
@@ -22,10 +22,10 @@ The plugin is divided in 3 main section: Shortcode,Widget,Admin page. All of tho
 
 <b>What has been done ?</b>
 
-Frontend: The shortcode that displays the events,the filter option and the widget with the form UI.
+- Frontend: The shortcode that displays the events,the filter option and the widget with the form UI.
 
 
-Backend: All the sections besides settings and analytics.
+- Backend: All the sections besides settings and analytics.
 
 <b>What needs to be done ?</b>
 
@@ -39,7 +39,7 @@ Backend:
 - Admin: The analytics and settings section needs to be completed. Missing the invoice feature.
 
 
-Bugs: 
+<b>Bugs</b>: 
 This is the Trello board with all the bugs that need a fix:
 
 https://trello.com/b/ElQHSy13/startup-without-borders-plugin
