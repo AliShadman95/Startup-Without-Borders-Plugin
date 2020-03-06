@@ -1,6 +1,6 @@
 <b>Startups-Without-Borders</b>
 
-A Chapter for the Startups-without-borders plugin
+A plugin created for the addition of Chapter section on the site of Startups-without-borders plugin
 
 This is a plugin for wordpress that has two main roles :
 
@@ -25,7 +25,7 @@ The plugin is divided in 3 main section: Shortcode,Widget,Admin page. All of tho
 - Frontend: The shortcode that displays the events,the filter option and the widget with the form UI.
 
 
-- Backend: All the sections besides settings and analytics.
+- Backend: All the sections besides members,settings,analytics.
 
 <b>What needs to be done ?</b>
 
@@ -36,7 +36,7 @@ Frontend:
 
 Backend:
 
-- Admin: The analytics,members(system that allow to send multiple emails to all the members) and settings section that let you edit the chapter page needs to be completed. Missing the invoice feature.
+- Admin: The analyticsof the chapter, members(system that allow to send multiple emails to all the members like newsletters) and settings section that let you edit the chapter page needs to be completed. Missing the invoice feature.
  
 
 
