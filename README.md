@@ -29,6 +29,18 @@ Backend: All the sections besides settings and analytics.
 
 What needs to be done ?
 
+Frontend:
+- General: Missing the login with wordpress functionality.
+- Shortcode: The events are missing the id of the chapters.
+- Widget: The registration form is not sending the effective email to the CEO (Need some Email Sender functionality)
+
+Backend:
+
+- Admin: The analytics and settings section needs to be completed. Missing the invoice feature.
 
 
+Bugs: 
+This is the Trello board with all the bugs that need a fix:
+
+https://trello.com/b/ElQHSy13/startup-without-borders-plugin
 
