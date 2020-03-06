@@ -36,7 +36,7 @@ Frontend:
 
 Backend:
 
-- Admin: The analyticsof the chapter, members(system that allow to send multiple emails to all the members like newsletters) and settings section that let you edit the chapter page needs to be completed. Missing the invoice feature.
+- Admin: The analytics of the chapter, members(system that allow to send multiple emails to all the members like newsletters) and settings section that let you edit the chapter page needs to be completed. Missing the invoice feature.
  
 
 
