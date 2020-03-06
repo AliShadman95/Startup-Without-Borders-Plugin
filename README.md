@@ -9,25 +9,25 @@ Backend Section : Includes a Admin page that use Custom Post Types to create var
 
 More specificaly..
 
-Frontend :
+<b>Frontend</b> :
 ° The shortcode is connected to the content created in the Admin page and display it with all the details and a relative filter option.
 ° The widget allow to compile a registration form for creating a new chapter to be send to the CEO of the startup.
 
-Backend: 
+<b>Backend</b>: 
 ° The Admin section is dedicated to the admins of the chapters and allows to create content like Events,Teams,Sponsors,Partners,Speakers and analytics stuffs..
 
-How it works ?
+<b>How it works ?</b>
 
 The plugin is divided in 3 main section: Shortcode,Widget,Admin page. All of those are a single React app. We used a boilerplate called wp-reactivate and we connect to the wp database with the API provided by them. We used some external libreries like Bootstrap,Material UI, Slick.
 
-What has been done ?
+<b>What has been done ?</b>
 
 Frontend: The shortcode that displays the events,the filter option and the widget with the form UI.
 
 
 Backend: All the sections besides settings and analytics.
 
-What needs to be done ?
+<b>What needs to be done ?</b>
 
 Frontend:
 - General: Missing the login with wordpress functionality.
